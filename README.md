@@ -1,4 +1,4 @@
-# My personal blog
+# [My personal blog](https://zxul767.dev)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/91c22da8-cb55-4cdf-a07e-be360abe128b/deploy-status)](https://app.netlify.com/sites/zxul767/deploys)
 
