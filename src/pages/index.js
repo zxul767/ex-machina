@@ -5,6 +5,9 @@ import Layout from "../components/layout"
 import Bio from "../components/bio"
 import SEO from "../components/seo"
 import { rhythm } from "../utils/typography"
+import { defineCustomElements as deckDeckGoHighlightElement } from '@deckdeckgo/highlight-code/dist/loader'
+
+deckDeckGoHighlightElement();
 
 class BlogIndex extends React.Component {
   render() {

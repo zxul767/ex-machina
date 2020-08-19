@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Ex Machina`,
-    author: `Willy Gomez`,
+    author: `Willy Gómez`,
     description: `A blog on machine learning, artificial intelligence and other topics.`,
     siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
     social: {
@@ -39,7 +39,14 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
-          `gatsby-remark-prismjs`,
+          {
+              resolve: `gatsby-remark-highlight-code`,
+              options: {
+                  terminal: 'carbon',
+                  theme: 'vscode'
+              }
+          },
+          // `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
           {
