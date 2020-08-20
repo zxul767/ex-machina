@@ -8,38 +8,38 @@ Look at the following function and tell me what's wrong with it:
 
 ```python
 def isIPV4(txt):
-  parts = txt.split('.')
-  count = 0
-  for i in range(0, len(parts)):
+  ints = txt.split('.')
+  cnt = 0
+  for i in range(0, len(ints)):
      try:
-       v = int(parts[i])
+       v = int(ints[i])
        if v < 0 or v > 255:
          return False
      except Exception:
        return False
-     count += 1
-  if count == 4:
+     cnt += 1
+  if cnt == 4:
     return True
   return False
 ```
 
-Nothing, you say? If so, this post is for you, dear reader. Let's spend the next couple of minutes dissecting this, admittedly contrived, example to see what's wrong with it.
+Nothing, you say? If so, this post is for you, dear reader. Let's spend the next couple of minutes dissecting this (admittedly contrived) example to see what's wrong with it.
 
 ## What is Clean Code?
-If you google the term, you'll most likely find references to the famous book ["Clean Code"](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) by Robert C. Martin. It's a pretty good book, but I'll save you some money by telling you the gist of it:
+If you google the term, you'll most likely find references to the famous book ["Clean Code"](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) by Robert C. Martin. It's a pretty good book that goes into a lot detail into the topic, but here's a simple definition to get us started:
 
-> Clean Code is code that is easy to read and maintain.
+> Clean Code is code that is easy to read, maintain, and extend
 
-Of course, I'm oversimplifying what the book has to say about the topic, but after spending a lot of time thinking about it, I can assure you that's the basic idea.
+Of course, I'm oversimplifying what the book has to say about the topic, but after spending a lot of time reading and thinking about this topic, I can assure you that's the essence of it.
 
-The issue with that definition is that it can be somewhat subjective, and depending on the size of the code in question, it can be easy to dismiss some of the points around it as nonimportant. But trust me on this one, writing maintainable code matters for all but the most trivial projects. Check out the references at the end of this post if you're skeptical about this.
+I'll assume that you agree with the fundamental premise that writing maintainable code matters in the real world, but if you're not sold on that idea, I'll include some references at the end of this post for you to explore that further.
 
-In the meantime, let's analyze how we can simplify and make this code more readable. Perhaps by the end of the exercise I'll have convinced you that writing simpler and more readable code is a good habit to develop as a programmer.
+Without further ado, let's see how we can improve this code.
 
 ## Idiomatic Code
-The example uses some code conventions that are not very common in Python (or as Pythonistas would say, they're not very Pythonic). For example, using camel case instead of snake case for naming the function, or looping through the `parts` list by using an explicit index (something that's pretty common in languages like `C` or `Java`).
+The first to catch our attention is that this example uses some code conventions that are not very [Pythonic](https://stackoverflow.com/questions/25011078/what-does-pythonic-mean#:~:text=Pythonic%20means%20code%20that%20doesn,is%20intended%20to%20be%20used.). For example, using camel case instead of snake case for naming the function, or looping through the `ints` list by using an explicit index (something that's pretty common in languages like `C` or `Java`).
 
-Another issue is the use of abbreviations (though this issue is not specific to Python). Let's beging by fixing that and see the resulting code:
+Another issue is the use of non-standard abbreviations, which forces readers to do unnecessary mental gymnastics. Let's begin by fixing that and see the resulting code:
 
 ```python
 def is_ipv4(text):
@@ -60,14 +60,39 @@ def is_ipv4(text):
 
 Perhaps not much of a difference yet, huh? Bear with me, the secret behind improving code substantially in a reliable way (as Martin Fowler has described in his book [Refactoring](https://martinfowler.com/books/refactoring.html)) lies in making lots of small, almost trivial transformations.
 
+## Separation of Concerns
+One of the things that makes code unnecessarily harder to read is the mixing of multiple concerns in a single block of code. This is a common mistake for inexperienced programmers. 
+
+In our example, we can see that happening inside the `for` loop: we're trying to parse each `part` into an integer, but we're also keeping track of how many of these parts passed the validation. If we separate these two concerns, perhaps we can make our code a little easier to read:
+
+```python
+def is_ipv4(text):
+  # split into octets and verify that there are exactly four of them
+  parts = text.split('.')
+  if len(parts) != 4:
+    return False
+
+  # verify that each octet is valid
+  for part in parts:
+     try:
+       v = int(part)
+       if v < 0 or v > 255:
+         return False
+     except Exception:
+       return False
+  return False
+```
+
+We added some comments as an intermediate step to organize our thoughts, but we should be able to get rid of them by writing code that is completely self-explanatory. In most cases, comments should be reserved to explain _why_ we implemented things in a certain way, not _what_ or _how_ we did it.
+
 ## Expressive Code
-Is it easy to tell at a glance what our function does? Not really. After spending some time carefully examining it, you might say: _"oh yeah, it splits the incoming text, checks if every resulting piece is an integer in a given range, and reports the result at the end"_.
+Is it easy to tell at a glance what our function does? Sort of, but we can probably do better. After spending some time examining it, we can see that, conceptually speaking, _"we're splitting the incoming text into pieces, checking if there are four pieces, and checking if every piece is a valid octet."_
 
 And this leads us straight into a key insight that can help us write cleaner code:
 
-> Write code that explains at a high-level what your core logic is
+> Write code that describes the core logic and suppress unnecessary detail
 
-So how do we do this? Well, sometimes it helps to put aside the original code for a bit and imagine what it would look like if we were to focus just on the high-level logic, suppressing all other detail for a moment. How about the following?
+If we try to restructure our code to follow this principle, we may get the following:
 
 ```python
 def is_ipv4(text):
@@ -77,11 +102,9 @@ def is_ipv4(text):
   return all(is_valid_octet(part) for part in parts)
 ```
 
-This code tells a shorter story and minimizes the details so we can focus on the big picture. It's starting to look and read better already, right?
+This code tells a shorter story and minimizes the details so we can focus on the big picture. This definitely is easier to grasp at a glance.
 
-Notice we did a couple of interesting things as well: we simplified the code by handling negative cases first (the early return when the number of parts is different than four), and we suppressed detail by moving it into a separate function (`is_valid_octet`).
-
-At this point, the implementation of `is_valid_octet` should not really be that important, but let's add it for the sake of completeness:
+At this point, the implementation of `is_valid_octet` should not really be that important (if we assume the implementer will honor the function's signature), but let's add it for the sake of completeness:
 
 ```python
 def is_valid_octet(text):
@@ -97,23 +120,33 @@ def is_ipv4(text):
 Notice how we avoided using a `try/except` block and used a more idiomatic way to test whether a value lies in a range, thus simplifying the definition of `is_valid_octet` substantially.
 
 ## Summary
-
-The resulting code is simpler and easier to read, but is that it? We made it prettier? No, not quite. Let me state a couple of (perhaps) non-obvious points that justify our efforts.
+The resulting code is simpler and easier to read, but did we just make the code "prettier"? Is that all we gained by doing these refactorings? On the surface, it may seem so, but let me state a couple of (perhaps) non-obvious points that can shed more light on why this effort goes beyond making things "prettier".
 
 #### Readability improves programmer efficiency
-We read code way more than we write code. That's a fact for the vast majority of programmers. It makes sense to optimize our reading time by structuring our code in ways that make it easy to understand and modify it in the future.
+In professional settings, we almost always read code way more than we write code. This is easy to see if you think about the times you've had to add a new feature to an existing codebase, and before you could do so you had to understand how it worked. 
+
+The additional cost we incur upfront to make things simpler is easily payed back many times over by the time we save ourselves and other maintainers when maintaining the code in the future.
 
 #### Bugs are easier to spot in clean code
-Whenever a piece of code is easy to grasp, it's easier to spot mistakes in logic. It's also easier to see a mismatch between implementation and intention (e.g., when the function name says something but the implementation contradicts that). In complex code, this is much harder to do.
+Whenever a piece of code is easy to grasp, it's easier to spot mistakes in its logic. It's also easier to see a mismatch between implementation and intention (e.g., when the function name says something but the implementation contradicts that). In code that doesn't adhere to "clean code" principles, this is much harder to do.
 
 #### Programmer frustration decreases with clean code
-This may at first seem odd, but our motivation and our ability to remain productive in a project is definitely correlated with the amount of frustration we face on a daily basis with code (which, sadly, turns out to be inherently simple once it's been untangled). Clean code can reduce this daily frustration, thus increasing our productivity.
+Our motivation and our ability to remain productive in a project is correlated with the amount of frustration we face on a daily basis with the codebase (which is often not intrinsically difficult, it just happens to have been poorly structured). Clean code can reduce this daily frustration, thus increasing our productivity and our happiness in the job.
 
-Besides, who doesn't want to be happy in their job?
+#### Did we miss something?
+Yes, there is one thing we didn't mention throughout this exercise: as is explained in any good book on refactoring, having tests is a very important pre-condition to do refactorings with confidence.
+
+In the example we considered, the transformations were more or less straightforward, but can we be sure that we didn't alter the (presumably correct) workings of the original code?
 
 ## Further Reading
-If you found this post interesting or useful, I'm sure you'll find the following materials interesting as well.
+At the beginning of this post, I assumed that you agreed with the premise that writing clear and maintainable code matters. If you're skeptical about this idea, the "Clean Code" book expands on it and provides references to studies done in the industry in this regard.
 
-+ [Clean Code Slides](https://www.google.com). I put together this slide deck a couple of years ago while working at [Wizeline](https://www.wizeline.com/)
+If you've been in this industry for a while, you may not need further convincing, having experienced first hand the pain that dealing with legacy codebases implies (typically code that doesn't adhere to "clean code" practices.)
+
+If you found this post interesting or useful, I'm sure you'll find the following materials interesting as well. 
+
++ [Clean Code Slides](https://docs.google.com/presentation/d/1sZe0yQkoeR1S8IvyQst94hoFKk_Kcu2Gxzf8rHL4ZWM/edit?usp=sharing). I put together this slide deck a couple of years ago while working at [Wizeline](https://www.wizeline.com/)
+
 + [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) by Robert C. Martin. The must-read reference on "Clean Code"
+
 + [The Art of Readable Code](https://www.amazon.com/dp/B0064CZ1XE/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1) by Dustin Boswell. Similar in spirit to "Clean Code", but worth reading for the additional insights and angles it presents
