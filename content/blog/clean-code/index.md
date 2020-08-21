@@ -119,7 +119,7 @@ def is_ipv4(text):
 
 Notice how we avoided using a `try/except` block and used a more idiomatic way to test whether a value lies in a range, thus simplifying the definition of `is_valid_octet` substantially.
 
-## Summary
+## Conclusions
 The resulting code is simpler and easier to read, but did we just make the code "prettier"? Is that all we gained by doing these refactorings? On the surface, it may seem so, but let me state a couple of (perhaps) non-obvious points that can shed more light on why this effort goes beyond making things "prettier".
 
 #### Readability improves programmer efficiency
