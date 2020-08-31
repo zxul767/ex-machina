@@ -4,7 +4,7 @@ date: "2020-08-29T22:10:44.085537"
 description: "Dynamic Programming distilled"
 ---
 
-Dynamic Programming is one of those topics that tend to be considered complicated by a lot of people, but which turn out to be mucher simpler once it is properly deconstructed.
+Dynamic Programming is one of those topics that tend to be considered complicated by a lot of people, but which turn out to be quite simple once it is properly deconstructed.
 
 This [post](https://blog.usejournal.com/top-50-dynamic-programming-practice-problems-4208fed71aa3) gives a very nice definition:
 
@@ -96,9 +96,9 @@ While the solution presented so far is indeed very different, I would argue that
 
 For some problems, the bottom-up, iterative solution is the best option (both in terms of comprehensibility and performance.) But for some other problems the recursive solution provides a more straightforward implementation while remaining sufficiently performant (as long as the maximum recursion depth is not too large.)
 
-For those problems where maximum efficiency is required, it is always possible to rewrite the recursive implementation into a bottom-up, iterative style. For our present problem, we may need to restructure our current solution a bit before we can see how to transform it into an iterative one.
+For those problems where maximum efficiency is required, it is always possible to rewrite the recursive implementation into a bottom-up, iterative style. For our problem, we may need to restructure our current solution a bit before we can see how to transform it into an iterative one.
 
-First, we can avoid passing a string to the `_can_segment` function simply by passing an offset (which implicitly defines the suffix we used to pass) instead:
+First, we can avoid passing a string to the `_can_segment` function simply by passing an offset instead (which implicitly defines the suffix we used to pass):
 
 ```python
 from functools import lru_cache
@@ -121,7 +121,7 @@ def can_segment(string, words):
     return _can_segment(0)
 ```
 
-Now that the function takes a single integer parameter, it's easier to see a transformation to an iterative solution that indexes a table of intermediate results. This transformation will require an array of booleans that tells us, for each possible `offset`, whether there is a way to segment the corresponding suffix into words:
+Now that the function takes a single integer as input, it's easier to see a transformation to an iterative solution that indexes a table of intermediate results. This transformation will require an array of booleans that tells us, for each possible `offset`, whether there is a way to segment the corresponding suffix into words:
 
 ```python
 def can_segment_iterative(string, words):
@@ -142,7 +142,7 @@ Notice how the fundamental computations are the same, but we had to restructure 
 
 Another important thing to notice is that depending on the input, it is possible that many elements `_can_segment[i]` in the array will never be mutated (e.g., if we always pass through the `continue` statement), or that some elements will never be used (because `offset + len(word)` may not touch all possible integers `i=0,...,n`.)
 
-Finally, notice how both solutions implement base or initial conditions (`if offset == len(string) - 1` in the recursive case, and `_can_segment[n] = True` in the iterative case). In all dynamic programming problems (and all recursive solutions, for that matter), it is crucial to define these to avoid stack overflows or incorrect results.
+Finally, notice how both solutions implement base or initial conditions (`if offset == len(string) - 1` in the recursive case, and `_can_segment[n] = True` in the iterative case.) In all dynamic programming problems (and all recursive solutions, for that matter), it is crucial to define these base conditions to avoid stack overflows or incorrect results.
 
 ## Why is it called Dynamic Programming?
 Though its name invokes some of air of sophistication, as it is explained in its Wikipedia [page](https://en.wikipedia.org/wiki/Dynamic_programming#:~:text=The%20word%20dynamic%20was%20chosen,schedule%20for%20training%20or%20logistics.), "dynamic programming" was actually a bit of a marketing gimmick in a time where mathematical research was suffering from lack of government support:
@@ -152,11 +152,11 @@ Though its name invokes some of air of sophistication, as it is explained in its
 ## Conclusions
 Despite its reputation for being a difficult technique, dynamic programming can be easily understood if you have a good grasp on recursion.
 
-The recursive implementation of a dynamic programming solution tends to be easier to visualize and implement, but sometimes it can be inefficient, so an iterative solution is preferred.
+The recursive implementation of a dynamic programming solution tends to be easier to visualize and implement, but sometimes it can be inefficient, so an iterative solution can be preferred.
 
 One advantage of iterative solutions is that their time and space complexity are pretty obvious. With a recursive solution, that information may be harder to glean.
 
-For problems where the number of subproblems that are actually required to compute the final solution is much smaller than the total number of potential subproblems, the recursive solution may be more efficient both in space and time.
+For problems where the number of subproblems that are required to compute the solution is much smaller than the total number of potential subproblems, the recursive solution may be more efficient both in space and time since it only does computations that are strictly necessary.
 
 ## Further Reading
 If you found this post useful to understand dynamic programming better, you may now want to practice with some of the classical problems associated with this technique.
