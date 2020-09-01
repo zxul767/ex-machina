@@ -43,7 +43,7 @@ module.exports = {
               resolve: `gatsby-remark-highlight-code`,
               options: {
                   terminal: 'carbon',
-                  theme: 'vscode'
+                  theme: 'solarized-light'
               }
           },
           // `gatsby-remark-prismjs`,
