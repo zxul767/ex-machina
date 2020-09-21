@@ -1,11 +1,11 @@
 {
-  "name": "gatsby-starter-blog",
+  "name": "ex-machina",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "My personal blog",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Willebaldo Gómez <willebaldo.gomez@gmail.com>",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/zxul767/ex-machina"
   },
   "dependencies": {
     "@deckdeckgo/highlight-code": "^1.1.4",
@@ -22,11 +22,11 @@
     "gatsby-remark-highlight-code": "^1.4.7",
     "gatsby-remark-images": "^3.3.28",
     "gatsby-remark-katex": "^3.3.11",
-    "gatsby-remark-prismjs": "^3.5.11",
+    "gatsby-remark-prismjs": "^3.5.13",
     "gatsby-remark-responsive-iframe": "^2.2.4",
     "gatsby-remark-smartypants": "^2.1.2",
     "gatsby-source-filesystem": "^2.3.27",
-    "gatsby-transformer-remark": "^2.8.32",
+    "gatsby-transformer-remark": "^2.8.35",
     "gatsby-transformer-sharp": "^2.5.14",
     "katex": "^0.11.0",
     "prismjs": "^1.21.0",
@@ -45,15 +45,15 @@
     "nodemon": "^2.0.4",
     "prettier": "^1.19.1"
   },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "homepage": "https://zxul767.dev",
   "keywords": [
-    "gatsby"
+    "ex-machina"
   ],
   "license": "MIT",
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+    "url": "git+https://github.com/zxul767/ex-machina.git"
   },
   "scripts": {
     "build": "gatsby build",

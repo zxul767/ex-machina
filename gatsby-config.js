@@ -3,7 +3,7 @@ module.exports = {
     title: `Ex Machina`,
     author: `Willy Gómez`,
     description: `A blog on machine learning, artificial intelligence and other topics.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
+    siteUrl: `https://zxul767.dev`,
     social: {
       twitter: `zxul767`,
     },
@@ -43,10 +43,10 @@ module.exports = {
               resolve: `gatsby-remark-highlight-code`,
               options: {
                   terminal: 'carbon',
-                  theme: 'solarized-light'
+                  theme: 'solarized-light',
+                  lineNumbers: true
               }
           },
-          // `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
           {
