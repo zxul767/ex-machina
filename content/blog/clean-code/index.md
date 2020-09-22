@@ -67,7 +67,7 @@ In our example, we can see that happening inside the `for` loop: we're trying to
 
 ```python
 def is_ipv4(text):
-  # split into octets and verify that there are exactly four of them
+  # split into octets and verify that there are exactly four
   parts = text.split('.')
   if len(parts) != 4:
     return False
