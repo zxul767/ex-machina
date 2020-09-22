@@ -99,50 +99,50 @@ class Expression:
    ...
     
 class Variable(Expression):
-    def __init__(self, symbol):
-        self.symbol = symbol
+   def __init__(self, symbol):
+      self.symbol = symbol
 
-    @property
-    def is_variable(self):
-        return True
-    ...
+   @property
+   def is_variable(self):
+      return True
+   ...
 
 class Number(Expression):
-    def __init__(self, value):
-        self.value = value
+   def __init__(self, value):
+      self.value = value
 
-    def is_number(self):
-        return True
+   def is_number(self):
+      return True
 
-    def __eq__(self, rhs):
-        rhs = implicit_cast(rhs)
-        if not rhs.is_number:
-            return False
-        return self.value == rhs.value
+   def __eq__(self, rhs):
+      rhs = implicit_cast(rhs)
+      if not rhs.is_number:
+         return False
+      return self.value == rhs.value
 
-    def __add__(self, rhs):
-        if self.value == 0:
-            return rhs
-        rhs = implicit_cast(rhs)
-        if rhs.is_number:
-            return Number(self.value + rhs.value)
-        return Sum(self, rhs)
+   def __add__(self, rhs):
+      if self.value == 0:
+         return rhs
+      rhs = implicit_cast(rhs)
+      if rhs.is_number:
+         return Number(self.value + rhs.value)
+      return Sum(self, rhs)
 
-    def __radd__(self, lhs):
-        return self + lhs
+   def __radd__(self, lhs):
+      return self + lhs
 
-    def __mul__(self, rhs):
-        if self.value == 0:
-            return self
-        if self.value == 1:
-            return rhs
-        rhs = implicit_cast(rhs)
-        if rhs.is_number:
-            return Number(self.value * rhs.value)
-        return Product(self, rhs)
+   def __mul__(self, rhs):
+      if self.value == 0:
+         return self
+      if self.value == 1:
+         return rhs
+      rhs = implicit_cast(rhs)
+      if rhs.is_number:
+         return Number(self.value * rhs.value)
+      return Product(self, rhs)
 
-    def __rmul__(self, lhs):
-        return self * lhs
+   def __rmul__(self, lhs):
+      return self * lhs
 ```
 
 If you're interested in seeing this in action and studying the whole code in detail, you can clone [this repository](https://github.com/zxul767/pyexpr/) and play with the implementation (e.g., check out the tests in `tests`). 
@@ -155,7 +155,7 @@ from src.expression import Variable
 
 @pytest.fixture
 def x():
-    return Variable("x")
+   return Variable("x")
 
 def test__can_differentiate_sums_and_products_recursively(x):
    result = differentiate((2 * x * x) + x * (x + 1), x)
