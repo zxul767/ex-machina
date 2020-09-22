@@ -1,0 +1,6 @@
+@media screen and (max-width: 500px) {
+    :root {
+        --deckgo-highlight-code-container-width: 480px;
+        --deckgo-highlight-code-font-size: 11px;
+    }
+}
