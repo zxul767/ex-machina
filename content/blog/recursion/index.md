@@ -37,7 +37,7 @@ def fibonacci(n):
 While I understand that this is done for pedagogical reasons (i.e., to avoid cognitive overload), I believe that students often leave such courses feeling like recursion is just another one of those confusing and complicated techniques that they'll never use in the real world, which is a sad thing because recursion can be a very powerful programming technique when it's properly explained and contextualized.
 
 ## A more realistic example
-A few weeks ago, I started reading a book I wish I had read when I was at college, as it is a superb introduction to many core topics in computer science and software engineering: [Structure and Interpretation of Computer Programs](https://www.google.com). In one of the sections dealing with data abstraction, I found an example of a real use of recursion that I think might be more interesting for students to see and implement when learning recursion for the first time: _symbolic differentiation._
+A few weeks ago, I started reading a book I wish I had read when I was at college, as it is a superb introduction to many core topics in computer science and software engineering: [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html). In one of the sections dealing with data abstraction, I found an example of a real use of recursion that I think might be more interesting for students to see and implement when learning recursion for the first time: _symbolic differentiation._
 
 If you remember differential calculus from high-school or college, you may know that there are various rules to differentiate expressions of various types. For example:
 
