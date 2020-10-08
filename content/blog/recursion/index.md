@@ -82,7 +82,7 @@ def differentiate(expression, variable):
     raise ValueError(f"{e} is not a supported expression!")
 ```
 
-As long as the input expression `expr` is built out of simpler expressions (eventually reaching constants or single variables), the above function will behave correctly since the base cases are handled properly in lines 2-7, and the recursive cases in lines 8-17 always solve a smaller instance of the original problem.
+As long as the input expression `expr` is built out of simpler expressions (eventually reaching constants or single variables), the above function will behave correctly since the base cases are handled properly in lines 2-9, and the recursive cases in lines 11-21 always solve a smaller instance of the original problem.
 
 Think about how you might implement this function without recursion and you'll see that, even if there's a solution (and there is one, because [every recursive program can be turned into an iterative one](https://stackoverflow.com/questions/11708903/can-every-recursion-be-changed-to-iteration)!), it will not be as elegant or readable as the recursive version.
 
