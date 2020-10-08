@@ -23,31 +23,31 @@ To see these concepts more concretely, let's work through an example problem and
 
 Translating the above to code, this is what we're being asked to write:
 
-```python
+```python {numberLines}
 def can_segment(text: str, words: Set[str]) -> bool:
-   ...
+    ...
 ```
 
 Is there a recursive solution to this problem? Think what happens if we take one word from the set and are able to match it against a prefix of the `text` string. Then the problem reduces to finding whether we can segment the rest of the string, which is just a smaller instance of the original problem. That is clearly a case for a recursive solution!
 
-```python
+```python {numberLines}
 def can_segment(string, words):
-   def _find_prefix_word_matches(text):
-      ...
-   def _can_segment(suffix):
-      if len(suffix) == 0:
-         return True
-      for match in _find_prefix_word_matches(suffix):
-         if _can_segment(suffix[len(match):]):
+    def _find_prefix_word_matches(text):
+        ...
+    def _can_segment(suffix):
+        if len(suffix) == 0:
             return True
-      return False
+        for match in _find_prefix_word_matches(suffix):
+            if _can_segment(suffix[len(match):]):
+                return True
+        return False
 ```
 
 One problem with this solution is that it can end up calling `_can_segment` multiple times for the same argument. Let's see a concrete example to visualize how this could happen:
 
-```python
-words = { 
-   "the", "ban", "banana", "ana", "gave", "us", "is", "right"
+```python {numberLines}
+words = {
+    "the", "ban", "banana", "ana", "gave", "us", "is", "right"
 }
 can_segment("thebananagaveusisfair", words)
 # one possible sequence of calls could be:
@@ -70,21 +70,21 @@ As you can see, the call to `_can_segment("gaveusisfair")` happens twice, with t
 
 One way to fix this problem is to [memoize](https://en.wikipedia.org/wiki/Memoization#:~:text=In%20computing%2C%20memoization%20or%20memoisation,the%20same%20inputs%20occur%20again.) the problematic function in order to avoid recomputation. In Python, we can easily achieve this using the `lru_cache` function from the `functools` module. 
 
-```python
+```python {numberLines}
 from functools import lru_cache
 
 def can_segment(string, words):
-   def _find_prefix_word_matches(text):
-      ...
-   @lru_cache(maxsize=len(string))
-   def _can_segment(suffix):
-      if len(suffix) == 0:
-         return True
-      for match in _find_prefix_word_matches(suffix):
-         if _can_segment(suffix[len(match):]):
+    def _find_prefix_word_matches(text):
+        ...
+    @lru_cache(maxsize=len(string))
+    def _can_segment(suffix):
+        if len(suffix) == 0:
             return True
-      return False
-   return _can_segment(string)
+        for match in _find_prefix_word_matches(suffix):
+            if _can_segment(suffix[len(match):]):
+                return True
+        return False
+    return _can_segment(string)
 ````
 
 Memoization works very well for [pure functions](https://en.wikipedia.org/wiki/Pure_function), but in our case the function is not completely pure because it depends on the dictionary of words. Despite that, we are able to make it work because --for the purposes of an individual call to the outer function `can_segment`-- `words` is immutable, so `_can_segment` can still be memoized properly, as long as the function is nested.
@@ -100,9 +100,7 @@ For those problems where maximum efficiency is required, it is always possible t
 
 First, we can avoid passing a string to the `_can_segment` function simply by passing an offset instead (which implicitly defines the suffix we used to pass):
 
-```python
-from functools import lru_cache
-
+```python {numberLines}
 def can_segment(string, words):
     def _find_prefix_word_matches(offset):
         for word in words:
@@ -117,13 +115,12 @@ def can_segment(string, words):
             if _can_segment(offset + len(match)):
                 return True
         return False
-
     return _can_segment(0)
 ```
 
 Now that the function takes a single integer as input, it's easier to see a transformation to an iterative solution that indexes a table of intermediate results. This transformation will require an array of booleans that tells us, for each possible `offset`, whether there is a way to segment the corresponding suffix into words:
 
-```python
+```python {numberLines}
 def can_segment_iterative(string, words):
     n = len(string)
     _can_segment = [False for _ in range(n + 1)]

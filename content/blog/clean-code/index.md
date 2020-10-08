@@ -6,21 +6,21 @@ description: "What is Clean Code?"
 
 Look at the following function and tell me what's wrong with it:
 
-```python
+```python {numberLines}
 def isIPV4(txt):
-  ints = txt.split('.')
-  cnt = 0
-  for i in range(0, len(ints)):
-     try:
-       v = int(ints[i])
-       if v < 0 or v > 255:
-         return False
-     except Exception:
-       return False
-     cnt += 1
-  if cnt == 4:
-    return True
-  return False
+    ints = txt.split('.')
+    cnt = 0
+    for i in range(0, len(ints)):
+        try:
+            v = int(ints[i])
+            if v < 0 or v > 255:
+                return False
+        except Exception:
+            return False
+        cnt += 1
+    if cnt == 4:
+        return True
+    return False
 ```
 
 I'm sure you can see at least a couple of things that can be improved, but how far can you take those improvements? Are they worth the additional effort? If you're curious about this, this post is for you.
@@ -41,21 +41,21 @@ The first thing to catch our attention is that this function uses some code conv
 
 Another issue is the use of non-standard abbreviations (e.g., `cnt`, `txt`), which forces readers to do unnecessary mental gymnastics. Let's begin by fixing those details and see the resulting code:
 
-```python
+```python {numberLines}
 def is_ipv4(text):
-  parts = text.split('.')
-  count = 0
-  for part in parts:
-     try:
-       v = int(part)
-       if v < 0 or v > 255:
-         return False
-     except Exception:
-       return False
-     count += 1
-  if count == 4:
-    return True
-  return False
+    parts = text.split('.')
+    count = 0
+    for part in parts:
+        try:
+            v = int(part)
+            if v < 0 or v > 255:
+                return False
+        except Exception:
+            return False
+        count += 1
+    if count == 4:
+        return True
+    return False
 ```
 
 Perhaps not much of a difference yet, but bear with me, the secret behind improving code substantially in a reliable way (as Martin Fowler has described in his book [Refactoring](https://martinfowler.com/books/refactoring.html)) lies in making lots of small, almost trivial transformations.
@@ -65,22 +65,22 @@ One of the things that makes code unnecessarily harder to read is mixing multipl
 
 In our example, we can see that happening inside the `for` loop: we're trying to parse each `part` into an integer, but we're also keeping track of how many of these parts passed the validation. If we separate these two concerns, perhaps we can make our code a little easier to read:
 
-```python
+```python {numberLines}
 def is_ipv4(text):
-  # split into octets and verify that there are exactly four
-  parts = text.split('.')
-  if len(parts) != 4:
-    return False
+    # split into octets and verify that there are exactly four
+    parts = text.split('.')
+    if len(parts) != 4:
+        return False
 
-  # verify that each octet is valid
-  for part in parts:
-     try:
-       v = int(part)
-       if v < 0 or v > 255:
-         return False
-     except Exception:
-       return False
-  return False
+    # verify that each octet is valid
+    for part in parts:
+        try:
+            v = int(part)
+            if v < 0 or v > 255:
+                return False
+        except Exception:
+            return False
+    return False
 ```
 
 We added some comments as an intermediate step to organize our thoughts, but we should be able to get rid of them by writing code that is completely self-explanatory. In most cases, comments should be reserved to explain _why_ we implemented things in a certain way, not _what_ or _how_ we did it.
@@ -94,35 +94,35 @@ And this leads us straight into a key insight that can help us write cleaner cod
 
 If we try to restructure our code to follow this principle, we get the following:
 
-```python
+```python {numberLines}
 def is_ipv4(text):
-  parts = text.split('.')
-  if len(parts) != 4:
-     return False
-  return all(is_octet(part) for part in parts)
+    parts = text.split('.')
+    if len(parts) != 4:
+        return False
+    return all(is_octet(part) for part in parts)
 ```
 
 This code tells a shorter story and minimizes the details so we can focus on the big picture. This definitely is easier to grasp at a glance.
 
 We can even go one step further and simplify the code as follows:
 
-```python
+```python {numberLines}
 def is_ipv4(text):
-  parts = text.split('.')
-  return len(parts) == 4 and all(is_octet(part) for part in parts)
+    parts = text.split('.')
+    return len(parts) == 4 and all(is_octet(part) for part in parts)
 ```
 
 This version reads almost like English prose and is quite easy to eyeball for logical errors.
 
 At this point, the implementation of `is_octet` should not really be that important (if we assume the implementation to be correct), but let's add it for the sake of completeness:
 
-```python
+```python {numberLines}
 def is_octet(text):
-   return text.isdigit() and 0 <= int(text) <= 255
-   
+    return text.isdigit() and 0 <= int(text) <= 255
+
 def is_ipv4(text):
-  parts = text.split('.')
-  return len(parts) == 4 and all(is_octet(part) for part in parts)
+    parts = text.split('.')
+    return len(parts) == 4 and all(is_octet(part) for part in parts)
 ```
 
 Notice how we avoided using a `try/except` block and used a more idiomatic way to test whether a value lies in a range, thus simplifying the definition of `is_octet` substantially.

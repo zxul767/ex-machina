@@ -1,6 +1,8 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`
-})
+});
+
+const path = require('path');
 
 module.exports = {
   siteMetadata: {
@@ -44,11 +46,9 @@ module.exports = {
             },
           },
           {
-              resolve: `gatsby-remark-highlight-code`,
+              resolve: `gatsby-remark-vscode`,
               options: {
-                  terminal: 'carbon',
-                  theme: 'solarized-light',
-                  lineNumbers: true
+                  theme: 'Quiet Light'
               }
           },
           `gatsby-remark-copy-linked-files`,
