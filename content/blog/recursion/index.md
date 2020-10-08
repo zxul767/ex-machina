@@ -79,7 +79,7 @@ def differentiate(expression, variable):
             differentiate(e.multiplicand, var) * e.multiplier
             + differentiate(e.multiplier, var) * e.multiplicand
         )
-    raise ValueError(f"{expr} is not a supported expression!")
+    raise ValueError(f"{e} is not a supported expression!")
 ```
 
 As long as the input expression `expr` is built out of simpler expressions (eventually reaching constants or single variables), the above function will behave correctly since the base cases are handled properly in lines 2-7, and the recursive cases in lines 8-17 always solve a smaller instance of the original problem.
