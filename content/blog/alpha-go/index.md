@@ -1,12 +1,12 @@
 ---
 title: "A peek inside Google's AlphaGo"
-date: "2019-08-10T22:10:44.085537"
+date: "2019-08-10T00:00:00.000000"
 description: "How did Google's AlphaGo beat one of the best Go players in the world?"
 ---
 
 After Lee Sedol — currently the second best-ranked Go player in the world — was defeated by Google’s AlphaGo AI in March 2016, there was a roar in the AI community as it was commonly believed that it would take at least another decade for an AI program to achieve such a feat.
 
-![A Go board.](./go-board.jpg)
+![A Go board.](./images/go-board.jpg)
 
 To get an idea of why this was a common belief among AI researchers, it is useful to understand how traditional chess programs work (a game where AIs have vastly surpassed humans), and then see why the same approach couldn’t be used for the game of Go.
 
@@ -14,7 +14,7 @@ In chess, an algorithm known as [*minimax*](https://www.youtube.com/watch?v=l-hh
 
 Minimax, which performs what is known as a “*game tree search*,” can be explained in simple terms as a simulation of the game that takes into account all possible moves of one player and all counter moves of the opponent, until either the end of the game is reached or a certain predefined number of moves has been simulated (more on this later). In essence, it’s a way of simulating all possible futures of a game from a current position, and then figuring out which of the best futures can be forced by the player in turn (assuming perfect play by both sides) to get the best possible outcome.
 
-![A partial game tree from a chess ending. Each path from the top level node to the bottom represents a possible game.](./game-tree.png)*A partial game tree from a chess ending. Each path from the top level node to the bottom represents a possible game.*
+![A partial game tree from a chess ending. Each path from the top level node to the bottom represents a possible game.](./images/game-tree.png)*A partial game tree from a chess ending. Each path from the top level node to the bottom represents a possible game.*
 
 Determining who has an advantage at any given moment --and is therefore more likely to win the game-- is another crucial component of this approach and, in fact, of basically any approach to building a chess engine. The piece of the chess engine that does this is called a *static evaluation function*. It isn’t necessary to evaluate every possible position in a game tree, only those that appear at the "bottom" (those which represent game situations far enough into the future.)
 
@@ -22,7 +22,7 @@ In practice, this simulation approach cannot be carried out for all possibles mo
 
 So how does a chess engine manage to play the game without considering such a huge number of positions? Well, for starters, rather than evaluating all terminal nodes of a theoretical game tree, most chess engines establish a limit on the maximum number of moves they will simulate for each possible future of the game. This prunes the simulation space significantly, but requires an evaluation function that can estimate with high accuracy which player would be more likely to win the game if they were to continue playing until the end, assuming perfect play on each side. Some other clever tricks are often used to reduce the number of positions to be evaluated in the simulation. The most common and famous one is called [alpha-beta pruning](https://www.youtube.com/watch?v=STjW3eH0Cik). In the end, however, they all align with the same basic idea of minimax, they just happen to be very clever ways of avoiding the simulation of parts of the game tree that don’t contribute any new information.
 
-![AlphaGo won 4–1 against Lee Sedol in the challenge match where Google offered a 1 million prize](./deep-mind-match.png)*AlphaGo won 4–1 against Lee Sedol in the challenge match where Google offered a 1 million USD prize*
+![AlphaGo won 4–1 against Lee Sedol in the challenge match where Google offered a 1 million prize](./images/deep-mind-match.png)*AlphaGo won 4–1 against Lee Sedol in the challenge match where Google offered a 1 million USD prize*
 
 Back to the reason why AI researchers thought it would take much longer for a Go engine to beat a world champion, it basically has to do with the average number of moves that can be played in a given Go position. In chess, this number — known as the *ramification factor* of the game tree — is $30$, but in Go it is around $300$, making it completely infeasible to use the same approach that chess engines use to play a good game, even with all the tricks known to reduce the simulation space.
 
