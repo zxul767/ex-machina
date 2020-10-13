@@ -1,6 +1,6 @@
 ---
 title: "And she said: let there be light!"
-date: "2019-08-10T21:11:54.214808"
+date: "2019-08-09T00:00:00.000000"
 description: "The beginning of it all"
 ---
 

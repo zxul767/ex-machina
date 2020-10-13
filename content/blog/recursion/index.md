@@ -1,6 +1,6 @@
 ---
 title: "Recursion in the Wild"
-date: "2020-09-21"
+date: "2020-09-21T00:00:00.000000"
 description: "Is recursion actually used in real programming?"
 ---
 

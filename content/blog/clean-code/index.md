@@ -1,6 +1,6 @@
 ---
 title: "Clean Code"
-date: "2020-08-18T22:10:44.085537"
+date: "2020-08-18T00:00:00.000"
 description: "What is Clean Code?"
 ---
 
