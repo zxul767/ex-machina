@@ -48,7 +48,10 @@ module.exports = {
           {
               resolve: `gatsby-remark-vscode`,
               options: {
-                  theme: 'Quiet Light'
+                  theme: 'Quiet Light',
+                  inlineCode: {
+                      marker: '•'
+                  }
               }
           },
           `gatsby-remark-copy-linked-files`,
