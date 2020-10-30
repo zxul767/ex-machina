@@ -394,30 +394,31 @@ class PrimeGenerator:
     def _find_next_prime(self, previous_prime):
         prime_candidate = previous_prime
         while True:
-            prime_candidate += 2
+            prime_candidate += 2 # skip even numbers
             self._add_new_prime_multiple_if_needed(prime_candidate)
             if not self._has_any_prime_divisor(prime_candidate):
                 return prime_candidate
 
     def _add_new_prime_multiple_if_needed(self, prime_candidate):
-        # This is merely bookkeeping to implement the two optimizations
-        # mentioned in the docstring of this class. See the algorithm's
-        # documentation linked atop for full details.
-        if prime_candidate == self.next_prime_square:
+        # If we're testing primality of N, we only need to use primes up to
+        # sqrt(N) (see documentation for details.)
+        # This is the bookkeeping needed to implement that optimization.
+        m = len(self.prime_multiples)
+        prime = self.primes[m] if m < len(self.primes) else 0
+        if prime_candidate == prime * prime:
             self.prime_multiples.append(prime_candidate)
-            prime = self.primes[len(self.prime_multiples)]
-            self.next_prime_square = prime * prime
 
     def _has_any_prime_divisor(self, odd_number):
         return any(
             self._is_divisible_by_nth_prime(odd_number, n)
+            # self.prime_multiples[0] == 2, so we can safely skip it
             for n in range(1, len(self.prime_multiples))
         )
 
     def _is_divisible_by_nth_prime(self, odd_number, n):
         # In the simplest version of the algorithm we would check:
         #   `number % prime[n] == 0`
-        # but division can be costly, so we instead use sums of `prime[n]` 
+        # but division can be expensive, so we instead use sums of `prime[n]`
         # to implicitly perform the division and figure out if the remainder 
         # is zero. That is the role of `self.prime_multiples[n]`
         #
@@ -426,6 +427,7 @@ class PrimeGenerator:
         # smaller multiples is redundant) because we only test increasingly
         # larger numbers. See the algorithm's documentation linked atop for 
         # full details.
+        #
         while self.prime_multiples[n] < odd_number:
             # `self.prime_multiples[n] + self.prime[n]` is even, so we skip it
             self.prime_multiples[n] += self.primes[n] + self.primes[n]
@@ -434,7 +436,6 @@ class PrimeGenerator:
     def _initialize(self):
         self.primes = [2]
         self.prime_multiples = [2*2]
-        self.next_prime_square = 3*3
 
 def compute_primes(n):
     return PrimeGenerator().generate(n)
