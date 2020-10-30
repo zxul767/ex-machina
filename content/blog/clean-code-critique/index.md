@@ -24,7 +24,7 @@ Over my career, I've learned that reading and listening to a diversity of develo
 
 Speaking of rules, one that stuck with me when I first read _Clean Code_ was the idea of writing short functions that do one thing. I remember distinctly how the idea really resonated with me. And I took it quite literally in the beginning, always struggling to simplify my functions to be just a few lines of code even if, in retrospective, that sometimes hurt readability by creating too many levels of indirection. As I'll try to show in the next section, it is easy to take this idea too far, usually with negative consequences.
 
-## Examples of Clean Code
+## Bad Examples of Clean Code
 As an example of how taking software development rules quite literally can be disastrous sometimes, I'd like to reproduce an example from the book here, and then comment on the refactoring that is proposed there.
 
 The code in question is a program to generate a list of prime numbers (by the way, perhaps I'm biased but this example seems a little contrived to me; I have never seen Java code that is so unidiomatic):
