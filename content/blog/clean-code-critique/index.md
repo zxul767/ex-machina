@@ -378,10 +378,10 @@ class PrimeGenerator:
        in `self.prime_multiples`; hence `self.prime_multiples[i] == k * self.prime[i]` 
        always holds for some `k`
 
-    2. We start testing divisibility by `prime` at `prime * prime` because
+    2. We start testing divisilibility by `prime` at `prime * prime` because
        smaller multiples will have already been considered by tests with smaller
-       primes; hence the reason to keep `self.next_prime_square` as an instance
-       variable.
+       primes; hence the phrase "relevant multiple" in the method
+       `add_next_relevant_prime_multiple_if_needed`
     """
     def generate(self, n):
         self._initialize()
