@@ -54,11 +54,9 @@ const Bio = () => {
         }}
       />
       <p>
-        Written by <strong>{author}</strong> from Guadalajara, Mexico — the land where <a href="https://en.wikipedia.org/wiki/Tequila"> tequila</a> comes from.
+        Brought to you by <strong>{author}</strong> from Guadalajara, Mexico—the land where <a href="https://en.wikipedia.org/wiki/Tequila"> tequila</a> comes from.
         {` `}
-        <a href={`https://twitter.com/${social.twitter}`}>
-          You should follow him on Twitter
-        </a>
+        You can also find me on <a href={`https://twitter.com/${social.twitter}`}>Twitter</a>
       </p>
     </div>
   )
