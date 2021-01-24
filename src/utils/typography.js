@@ -1,7 +1,7 @@
 import Typography from "typography"
 import lincoln from 'typography-theme-lincoln'
 
-lincoln.baseFontSize = '15px'
+lincoln.baseFontSize = '16px'
 const typography = new Typography(lincoln)
 
 // Hot reload typography in development.
