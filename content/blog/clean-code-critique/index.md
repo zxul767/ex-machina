@@ -16,7 +16,7 @@ Though I won't do a full review of the book in this post, I do want to point out
 ## Dogmatism
 One the things you will find when you read any book by Robert C. Martin is that he tends to be very prescriptive, sometimes almost dogmatic in the topics he exposes to his audience. You can see this in his books ([The Clean Coder](https://www.goodreads.com/search?q=the+clean+coder&qid=), [Clean Architecture](https://www.goodreads.com/book/show/18043011-clean-architecture?ac=1&from_search=true&qid=r8wktTZU6q&rank=1), etc.), but also in [his talks](https://www.youtube.com/watch?v=7EmboKQH8lM&t=5006s) and other expositions in social media (e.g., [_"Those who don't practice TDD cannot be considered professional programmers"_](https://www.youtube.com/watch?v=KtHQGs3zFAM&t=884s))
 
-I think he's entitled to have strong opinions and to argue passionately for what he believes in. But as engineers with a growth mindset, we should be mindful to avoid becoming part of "engineering cults" after reading a book or two by someone who's regarded as an authority by some people. As [Alan J. Perlis](https://en.wikipedia.org/wiki/Alan_Perlis) once wrote: 
+I think he's entitled to have strong opinions and to argue passionately for what he believes in. But as engineers with a growth mindset, we should be mindful to avoid becoming part of "engineering cults" after reading a book or two by someone who's regarded as an authority by some people. As [Alan J. Perlis](https://en.wikipedia.org/wiki/Alan_Perlis) once wrote:
 
 > Above all, I hope we don’t become missionaries. Don’t feel as if you’re Bible salesmen. The world has too many of those already. What you know about computing other people will learn. Don’t feel as if the key to successful computing is only in your hands. What’s in your hands, I think and hope, is intelligence: the ability to see the machine as more than when you were first led up to it, that you can make it more.
 
@@ -29,25 +29,19 @@ As an example of how taking software development rules quite literally can be di
 
 The code in question is a program to generate a list of prime numbers (by the way, perhaps I'm biased but this example seems a little contrived to me; I have never seen Java code that is so unidiomatic):
 
-```java {numberLines}
+```java
 public class PrintPrimes {
     public static void main(String[] args) {
-        final int M = 1000; 
+        final int M = 1000;
         final int RR = 50;
         final int CC = 4;
         final int WW = 10;
-        final int ORDMAX = 30; 
-        int P[] = new int[M + 1]; 
-        int PAGENUMBER;
-        int PAGEOFFSET; 
-        int ROWOFFSET; 
-        int C;
-        int J;
-        int K;
+        final int ORDMAX = 30;
+        int P[] = new int[M + 1];
+        int PAGENUMBER, PAGEOFFSET, ROWOFFSET;
+        int C, J, K;
         boolean JPRIME;
-        int ORD;
-        int SQUARE;
-        int N;
+        int ORD, SQUARE, N;
         int MULT[] = new int[ORDMAX + 1];
         J = 1;
         K = 1; P[1] = 2; ORD = 2; SQUARE = 9;
@@ -56,18 +50,19 @@ public class PrintPrimes {
                 J = J + 2;
                 if (J == SQUARE) {
                     ORD = ORD + 1;
-                    SQUARE = P[ORD] * P[ORD]; MULT[ORD - 1] = J;
+                    SQUARE = P[ORD] * P[ORD];
+                    MULT[ORD - 1] = J;
                 }
                 N = 2;
                 JPRIME = true;
                 while (N < ORD && JPRIME) {
-                    while (MULT[N] < J) 
+                    while (MULT[N] < J)
                         MULT[N] = MULT[N] + P[N] + P[N];
-                    if (MULT[N] == J) 
+                    if (MULT[N] == J)
                         JPRIME = false;
                     N = N + 1;
                 }
-            } while (!JPRIME); 
+            } while (!JPRIME);
             K = K + 1;
             P[K] = J;
         }
@@ -79,10 +74,11 @@ public class PrintPrimes {
             for (ROWOFFSET = PAGEOFFSET; ROWOFFSET < PAGEOFFSET + RR; ROWOFFSET++){
                 for (C = 0; C < CC;C++)
                     if (ROWOFFSET + C * RR <= M)
-                        System.out.format("%10d", P[ROWOFFSET + C * RR]); System.out.println("");
+                        System.out.format("%10d", P[ROWOFFSET + C * RR]);
+                        System.out.println("");
             }
-            System.out.println("\f"); 
-            PAGENUMBER = PAGENUMBER + 1; 
+            System.out.println("\f");
+            PAGENUMBER = PAGENUMBER + 1;
             PAGEOFFSET = PAGEOFFSET + RR * CC;
         }
     }
@@ -93,27 +89,28 @@ I think we can easily agree that this program is far from being easy to understa
 
 Here's the proposed refactoring in the book:
 
-```java {numberLines}
+```java
 public class PrimePrinter {
     public static void main(String[] args) {
         final int NUMBER_OF_PRIMES = 1000;
         int[] primes = PrimeGenerator.generate(NUMBER_OF_PRIMES);
 
-        final int ROWS_PER_PAGE = 50; 
+        final int ROWS_PER_PAGE = 50;
         final int COLUMNS_PER_PAGE = 4;
         RowColumnPagePrinter tablePrinter =
-            new RowColumnPagePrinter(ROWS_PER_PAGE, COLUMNS_PER_PAGE,
-                                     "The First " + NUMBER_OF_PRIMES + " Prime Numbers");
-        tablePrinter.print(primes); 
+            new RowColumnPagePrinter(
+                ROWS_PER_PAGE, COLUMNS_PER_PAGE,
+                "The First " + NUMBER_OF_PRIMES + " Prime Numbers");
+        tablePrinter.print(primes);
     }
 }
 ```
 
-So far so good: the responsibility of generating the list of primes (`js•PrimeGenerator`) has been clearly separated from that of displaying them on the screen (`js•RowColumnPagePrinter`.) 
+So far so good: the responsibility of generating the list of primes (`js•PrimeGenerator`) has been clearly separated from that of displaying them on the screen (`js•RowColumnPagePrinter`.)
 
 Let's have a look at the second class:
 
-```java {numberLines}
+```java
 public class RowColumnPagePrinter {
     private int rowsPerPage;
     private int columnsPerPage;
@@ -166,11 +163,11 @@ Overall, this class reads reasonably well to me. One objection I might have is w
 
 The book itself offers advice in this regard by stating that the length of a variable name should be proportional to its scope: in larger scopes we need more context, so longer names are useful; in shorter scopes, the surrounding context provides more information, so shorter names are enough (and using longer names in that case usually just adds unnecessary noise, which hurts readability.)
 
-However, I will not fuss much about this particular issue here because I'd like to focus on what I think is truly more problematic in the following class. 
+However, I will not fuss much about this particular issue here because I'd like to focus on what I think is truly more problematic in the following class.
 
 Go ahead and spend some minutes trying to understand the following class before reading on.
 
-```java {numberLines}
+```java
 public class PrimeGenerator {
     private static int[] primes;
     private static ArrayList<Integer> multiplesOfPrimeFactors;
@@ -207,7 +204,7 @@ public class PrimeGenerator {
     }
     private static boolean isNotMultipleOfAnyPreviousPrimeFactor(int candidate) {
         for (int n = 1; n < multiplesOfPrimeFactors.size(); n++) {
-            if (isMultipleOfNthPrimeFactor(candidate, n)) 
+            if (isMultipleOfNthPrimeFactor(candidate, n))
                 return false;
         }
         return true;
@@ -227,11 +224,11 @@ public class PrimeGenerator {
 
 Did you understand clearly what it does and how it works? If you did without having prior context, you must be extremely good at untangling complex code, congratulations! For the rest of us, however, this class probably made us scratch our heads more than it should.
 
-If we take the idea of "writing short functions that do one thing" quite literally, one could argue that _all_ of this code is good. But as we dig into it to truly grok what's going on, very soon we notice quite a few problems. 
+If we take the idea of "writing short functions that do one thing" quite literally, one could argue that _all_ of this code is good. But as we dig into it to truly grok what's going on, very soon we notice quite a few problems.
 
 Let's dissect it method by method to see this:
 
-```java {numberLines}
+```java
 public class PrimeGenerator {
     private static int[] primes;
     private static ArrayList<Integer> multiplesOfPrimeFactors;
@@ -247,11 +244,11 @@ public class PrimeGenerator {
  }
 ```
 
-The `js•generate` method describes well what it's doing, but the issue here is that there is no clue as to why it's doing this: it's missing important documentation to ease the reader into the complexities to come. 
+The `js•generate` method describes well what it's doing, but the issue here is that there is no clue as to why it's doing this: it's missing important documentation to ease the reader into the complexities to come.
 
 At this point, some might argue that there is no need for this, as the code will be self-explanatory and reveal the underlying algorithm itself. Alas, this hope will be short-lived, as you will see in a moment. Let's continue:
 
-```java {numberLines}
+```java
 public class PrimeGenerator {
     // ...
     private static void set2AsFirstPrime() {
@@ -271,7 +268,7 @@ public class PrimeGenerator {
 
 Nothing much to object here (except maybe for the natural question: what's the role of `js•multiplesOfPrimeFactors`?), so let's see the next method:
 
-```java {numberLines}
+```java
 public class PrimeGenerator {
     // ...
     private static boolean isPrime(int candidate) {
@@ -285,16 +282,16 @@ public class PrimeGenerator {
 }
 ```
 
-And this is where the head-scratching begins. While the second part of the condition is easy to understand (`js•isNotMultipleOfAnyPreviousPrimeFactor`), the highlighted lines make us feel like we've just taken a leap of logic: 
+And this is where the head-scratching begins. While the second part of the condition is easy to understand (`js•isNotMultipleOfAnyPreviousPrimeFactor`), the highlighted lines make us feel like we've just taken a leap of logic:
 
 + What does "relevant multiple" mean and how does it relate to the "next larger prime factor"?
-+ Why does this function have a side effect on `js•multiplesOfPrimeFactors` if its name suggests that it should be a pure function? 
++ Why does this function have a side effect on `js•multiplesOfPrimeFactors` if its name suggests that it should be a pure function?
 
-To me, the lack of a high-level description of the underlying algorithm (which is nontrivial) is the root of this confusion. The author is hoping that the code will explain itself, but sometimes that's just not the case and you need some additional help in the form of documentation. 
+To me, the lack of a high-level description of the underlying algorithm (which is nontrivial) is the root of this confusion. The author is hoping that the code will explain itself, but sometimes that's just not the case and you need some additional help in the form of documentation.
 
 If we had any hope that the definition of "relevant" would get some clarification in the next method, we'll be disappointed:
 
-```java {numberLines}
+```java
 public class PrimeGenerator {
     // ...
     private static boolean isLeastRelevantMultipleOfNextLargerPrimeFactor(int candidate) {
@@ -310,12 +307,12 @@ The implementation gives us some clues (e.g., a relevant multiple apparently has
 
 The next method is straightforward and follows the [principle of least astonishment](https://wiki.c2.com/?PrincipleOfLeastAstonishment) well (though it might be better if the author had avoided a negation in the method's name):
 
-```java {numberLines}
+```java
 public class PrimeGenerator {
     // ...
     private static boolean isNotMultipleOfAnyPreviousPrimeFactor(int candidate) {
         for (int n = 1; n < multiplesOfPrimeFactors.size(); n++) {
-            if (isMultipleOfNthPrimeFactor(candidate, n)) 
+            if (isMultipleOfNthPrimeFactor(candidate, n))
                 return false;
         }
         return true;
@@ -326,7 +323,7 @@ public class PrimeGenerator {
 
 Unfortunately, the last two methods seem like they could have been just one, and the last one is just doing some very odd things that are not explained at all by the name `js•smallestOddNthMultipleNotLessThanCandidate`:
 
-```java {numberLines}
+```java
 public class PrimeGenerator {
     // ...
     private static boolean isMultipleOfNthPrimeFactor(int candidate, int n) {
@@ -366,17 +363,18 @@ On the other hand, we can partition the code into extremely small functions that
 ## A Proposed Refactoring
 After studying the code and realizing the underlying algorithm and its optimizations, I decided to take a stab at a refactoring to address the concerns I mentioned above. I wrote this version in Python but I don't think the choice of language is really a major factor in its improved clarity, as I'll comment below:
 
-```python {numberLines}
+```python
 # TODO: review whether the optimizations are truly worth the additional complexity
 class PrimeGenerator:
     """
-    Generates a list of the first `n` primes using the "sieve of Eratosthenes" algorithm
-    (https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) with some optimizations:
+    Generates a list of the first `n` primes using the "sieve of Eratosthenes"
+    algorithm (https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) with some
+    optimizations:
 
     1. Instead of doing actual divisions to test integer divisibility, we use
-       repeated sums, by keeping track of the last multiple of a prime that we tested
-       in `self.prime_multiples`; hence `self.prime_multiples[i] == k * self.prime[i]` 
-       always holds for some `k`
+       repeated sums, by keeping track of the last prime multiple that we tested;
+       hence `self.prime_multiples[i] == k * self.prime[i]` always holds for some
+       integer `k`
 
     2. We start testing divisilibility by `prime` at `prime * prime` because
        smaller multiples will have already been considered by tests with smaller
@@ -386,7 +384,7 @@ class PrimeGenerator:
     def generate(self, n):
         self._initialize()
         prime = 1 # not a prime, but needed to search odd numbers only
-        for _ in range(n): 
+        for _ in range(n):
             prime = self._find_next_prime(prime)
             self.primes.append(prime)
         return self.primes
@@ -395,14 +393,13 @@ class PrimeGenerator:
         prime_candidate = previous_prime
         while True:
             prime_candidate += 2 # skip even numbers
-            self._add_new_prime_multiple_if_needed(prime_candidate)
+            self._add_next_relevant_prime_multiple_if_needed(prime_candidate)
             if not self._has_any_prime_divisor(prime_candidate):
                 return prime_candidate
 
-    def _add_new_prime_multiple_if_needed(self, prime_candidate):
+    def _add_next_relevant_prime_multiple_if_needed(self, prime_candidate):
         # If we're testing primality of N, we only need to use primes up to
-        # sqrt(N) (see documentation for details.)
-        # This is the bookkeeping needed to implement that optimization.
+        # sqrt(N). This is the bookkeeping needed to implement that optimization.
         m = len(self.prime_multiples)
         prime = self.primes[m] if m < len(self.primes) else 0
         if prime_candidate == prime * prime:
@@ -411,7 +408,7 @@ class PrimeGenerator:
     def _has_any_prime_divisor(self, odd_number):
         return any(
             self._is_divisible_by_nth_prime(odd_number, n)
-            # self.prime_multiples[0] == 2, so we can safely skip it
+            # self.prime_multiples[0] is even, so we can safely skip it
             for n in range(1, len(self.prime_multiples))
         )
 
@@ -419,14 +416,13 @@ class PrimeGenerator:
         # In the simplest version of the algorithm we would check:
         #   `number % prime[n] == 0`
         # but division can be expensive, so we instead use sums of `prime[n]`
-        # to implicitly perform the division and figure out if the remainder 
+        # to implicitly perform the division and figure out if the remainder
         # is zero. That is the role of `self.prime_multiples[n]`
         #
         # Notice also that we don't need to reset `self.prime_multiples[n]`
         # to `prime[n]` (or rather to `prime[n]*prime[n]`, since testing for
         # smaller multiples is redundant) because we only test increasingly
-        # larger numbers. See the algorithm's documentation linked atop for 
-        # full details.
+        # larger numbers.
         #
         while self.prime_multiples[n] < odd_number:
             # `self.prime_multiples[n] + self.prime[n]` is even, so we skip it
