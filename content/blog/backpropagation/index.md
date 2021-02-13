@@ -120,8 +120,6 @@ However, if we focus on the underlying ideas, it turns out to be a rather simple
 
 Once these fundamental ideas are clear, reading articles like [this](https://brilliant.org/wiki/backpropagation) (where the full mathematical derivation is explained in detail) should hopefully be a much easier experience, and no longer something confusing or difficult to grasp.
 
-While writing this post, I was reminded of the parable of [the blind men and an elephant](https://en.wikipedia.org/wiki/Blind_men_and_an_elephant). It is a fact that deep comprehension of any nontrivial topic requires seeing more than one perspective, but in the interest of disseminating knowledge, it is important to provide unified and simplified explanations that appeal to our intuition.
-
 ## Further Reading
 
 + [Neural Networks](https://www.youtube.com/watch?v=uXt8qF2Zzfo) by [Patrick Winston](https://en.wikipedia.org/wiki/Patrick_Winston). His lecture was a great inspiration for this post, and was also the first material that truly shed light on backprogation for me.
