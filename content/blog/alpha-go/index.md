@@ -1,5 +1,5 @@
 ---
-title: "A peek inside Google's AlphaGo"
+title: "AIs with Intuition?"
 date: "2019-08-10T00:00:00.000000"
 description: "How did Google's AlphaGo beat one of the best Go players in the world?"
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Backpropagation"
 date: "2020-10-08T00:00:00.000000"
-description: "How do neural networks learn?"
+description: "How do neural networks learn from data?"
 ---
 
 It is often frustrating when I'm trying to learn a new topic and I find a lot of resources but none seem to give me the gist of it. After spending a lot of time researching in various sources, I invariably end up with an "aha" moment when I finally realize that the topic is not really that complex. It is just the way it is presented--with too many details and noise--that make it so hard to digest.

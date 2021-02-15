@@ -1,7 +1,7 @@
 ---
 title: "Dynamic Programming"
 date: "2020-08-29T00:00:00.000000"
-description: "Dynamic Programming distilled"
+description: "Is it just smart \"brute force\"?"
 ---
 
 Dynamic Programming is a topic that tends to be considered complex by most people, but I think it can be quite simple once it is properly deconstructed.

@@ -1,7 +1,7 @@
 ---
-title: "Clean Code Critique"
+title: "Clean Code Revisited"
 date: "2020-10-23T00:00:00.000"
-description: "Is this really clean code?"
+description: "On the importance of keeping a critical mind"
 ---
 
 In a [previous post](https://zxul767.dev/clean-code), I recommended the popular book [_Clean Code_](https://www.goodreads.com/book/show/3735293-clean-code). Since then I've noticed that the book has been criticized quite often in recent years (e.g., [here](https://qntm.org/clean) is a rather long post bashing against it.) So I took the time to review it again--it's been many years since I last read it--and I found that I actually agree with several of the criticisms against it.

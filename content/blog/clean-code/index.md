@@ -1,7 +1,7 @@
 ---
 title: "Clean Code"
 date: "2020-08-18T00:00:00.000"
-description: "What is Clean Code?"
+description: "Does writing maintainable code matter?"
 ---
 
 Look at the following function and tell me what's wrong with it:
