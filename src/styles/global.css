@@ -6,4 +6,6 @@ code.grvsc-code {
     line-height: 1.1rem;
 }
 
-.katex { font-size: 1.5em; }
+.katex {
+    font-size: 1.35em;
+}
