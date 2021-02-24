@@ -56,7 +56,7 @@ const Bio = () => {
       <p>
         Brought to you by <strong>{author}</strong> from Guadalajara, Mexico—the land where <a href="https://en.wikipedia.org/wiki/Tequila"> tequila</a> comes from.
         {` `}
-        You can also find me on <a href={`https://twitter.com/${social.twitter}`}>Twitter</a>
+        You can also find him on <a href={`https://twitter.com/${social.twitter}`}>Twitter</a>
       </p>
     </div>
   )
