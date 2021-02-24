@@ -6,7 +6,7 @@ description: "Does writing maintainable code matter?"
 
 Look at the following function and tell me what's wrong with it:
 
-```python {numberLines}
+```python
 def isIPV4(txt):
     ints = txt.split('.')
     cnt = 0
@@ -41,7 +41,7 @@ The first thing to catch our attention is that this function uses some code conv
 
 Another issue is the use of non-standard abbreviations (e.g., `cnt`, `txt`), which forces readers to do unnecessary mental gymnastics. Let's begin by fixing those details and see the resulting code:
 
-```python {numberLines}
+```python
 def is_ipv4(text):
     parts = text.split('.')
     count = 0
@@ -61,11 +61,11 @@ def is_ipv4(text):
 Perhaps not much of a difference yet, but bear with me, the secret behind improving code substantially in a reliable way (as Martin Fowler has described in his book [Refactoring](https://martinfowler.com/books/refactoring.html)) lies in making lots of small, almost trivial transformations.
 
 ## Separation of Concerns
-One of the things that makes code unnecessarily harder to read is mixing multiple concerns in a single block of code. This is a common mistake for inexperienced programmers. 
+One of the things that makes code unnecessarily harder to read is mixing multiple concerns in a single block of code. This is a common mistake for inexperienced programmers.
 
 In our example, we can see that happening inside the `for` loop: we're trying to parse each `part` into an integer, but we're also keeping track of how many of these parts passed the validation. If we separate these two concerns, perhaps we can make our code a little easier to read:
 
-```python {numberLines}
+```python
 def is_ipv4(text):
     # split into octets and verify that there are exactly four
     parts = text.split('.')
@@ -94,7 +94,7 @@ And this leads us straight into a key insight that can help us write cleaner cod
 
 If we try to restructure our code to follow this principle, we get the following:
 
-```python {numberLines}
+```python
 def is_ipv4(text):
     parts = text.split('.')
     if len(parts) != 4:
@@ -106,7 +106,7 @@ This code tells a shorter story and minimizes the details so we can focus on the
 
 We can even go one step further and simplify the code as follows:
 
-```python {numberLines}
+```python
 def is_ipv4(text):
     parts = text.split('.')
     return len(parts) == 4 and all(is_octet(part) for part in parts)
@@ -116,7 +116,7 @@ This version reads almost like English prose and is quite easy to eyeball for lo
 
 At this point, the implementation of `is_octet` should not really be that important (if we assume the implementation to be correct), but let's add it for the sake of completeness:
 
-```python {numberLines}
+```python
 def is_octet(text):
     return text.isdigit() and 0 <= int(text) <= 255
 
