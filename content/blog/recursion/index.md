@@ -6,7 +6,7 @@ description: "How is recursion used in the real world?"
 
 Courses introducing the topic of "recursion" for the first time have fallen into the habit of using rather silly examples, most typically involving the calculation of the factorial or the Fibonacci functions:
 
-```python {numberLines}
+```python
 def factorial(n):
     if n == 0:
         return 1
@@ -20,7 +20,7 @@ def fibonacci(n):
 
 The reason why these are silly examples is that they are totally impractical to be used in the real world, as both of them are unnecessarily inefficient (exponentially inefficient in the case of `fibonacci`!), while their iterative versions are easier to grasp and much more efficient:
 
-```python {numberLines}
+```python
 def factorial(n):
     product = 1
     for i in range(1, n+1):
@@ -34,7 +34,7 @@ def fibonacci(n):
     return a
 ```
 
-While I understand that this is done for pedagogical reasons (i.e., to avoid cognitive overload), I believe that students often leave such courses feeling like recursion is just another one of those confusing and complicated techniques that they'll never use in the real world, which is a sad thing because recursion can be a very powerful programming technique when it's properly explained and contextualized.
+Though I know this is done for pedagogical reasons (i.e., to avoid cognitive overload), I believe that students often leave such courses feeling like recursion is just another one of those confusing and complicated techniques that they'll never use in the real world, which is a sad thing because recursion can be a very powerful programming technique when it's properly explained and contextualized.
 
 ## A more realistic example
 A few weeks ago, I started reading a book I wish I had read when I was at college, as it is a superb introduction to many core topics in computer science and software engineering: [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html). In one of the sections dealing with data abstraction, I found an example of a real use of recursion that I think might be more interesting for students to see and implement when learning recursion for the first time: _symbolic differentiation._
@@ -57,16 +57,16 @@ $$ \frac{\partial f(x)g(x)}{\partial x} = f(x)\frac{\partial g(x)}{\partial x} +
 
 And so, if we assume some representation for simple algebraic expressions, we can write a very elegant function that performs symbolic differentiation for the cases mentioned above:
 
-```python {numberLines}
+```python
 def differentiate(expression, variable):
-    e = expression
-    if e.is_number:
-        return Number(0)
+    e = expression # highlight-line
+    if e.is_number: # highlight-line
+        return Number(0) # highlight-line
 
-    if e.is_variable:
-        if e == variable:
-            return Number(1)
-        return Number(0)
+    if e.is_variable: # highlight-line
+        if e == variable: # highlight-line
+            return Number(1) # highlight-line
+        return Number(0) # highlight-line
 
     if e.is_sum:
         return (
@@ -82,16 +82,16 @@ def differentiate(expression, variable):
     raise ValueError(f"{e} is not a supported expression!")
 ```
 
-As long as the input expression `expr` is built out of simpler expressions (eventually reaching constants or single variables), the above function will behave correctly since the base cases are handled properly in lines 2-9, and the recursive cases in lines 11-21 always solve a smaller instance of the original problem.
+As long as the input expression `js•expression` is built out of simpler expressions (eventually reaching constants or single variables), the above function will behave correctly since the base cases are handled properly in the highlighted lines, and the recursive cases always solve a smaller instance of the original problem.
 
 Think about how you might implement this function without recursion and you'll see that, even if there's a solution (and there is one, because [every recursive program can be turned into an iterative one](https://stackoverflow.com/questions/11708903/can-every-recursion-be-changed-to-iteration)!), it will not be as elegant or readable as the recursive version.
 
 ## A toy implementation
-The fact that `differentiate` looks as though it were operating on primitive types is only possible because Python supports overloading of operators for custom types. 
+The fact that `js•differentiate` looks as though it were operating on primitive types is only possible because Python supports overloading of operators for custom types.
 
 For the above code to work, it is necessary to define some classes that implement a hierarchy of expressions (i.e., constants, variables, sums, products), and the corresponding ["dunder"](https://dbader.org/blog/python-dunder-methods) methods to overload mathematical operators:
 
-```python {numberLines}
+```python
 class Expression:
     @property
     def is_number(self):
@@ -100,15 +100,6 @@ class Expression:
     @property
     def is_variable(self):
         return False
-    ...
-
-class Variable(Expression):
-    def __init__(self, symbol):
-        self.symbol = symbol
-
-    @property
-    def is_variable(self):
-        return True
     ...
 
 class Number(Expression):
@@ -132,29 +123,14 @@ class Number(Expression):
         if rhs.is_number:
             return Number(self.value + rhs.value)
         return Sum(self, rhs)
-
-    def __radd__(self, lhs):
-        return self + lhs
-
-    def __mul__(self, rhs):
-        if self.value == 0:
-            return self
-        if self.value == 1:
-            return rhs
-        rhs = implicit_cast(rhs)
-        if rhs.is_number:
-            return Number(self.value * rhs.value)
-        return Product(self, rhs)
-
-    def __rmul__(self, lhs):
-        return self * lhs
+    ...
 ```
 
-If you're interested in seeing this in action and studying the whole code in detail, you can clone [this repository](https://github.com/zxul767/pyexpr/) and play with the implementation (e.g., check out the tests in `tests`). 
+If you're interested in seeing this in action and studying the whole code in detail, you can clone [this repository](https://github.com/zxul767/pyexpr/) and play with the implementation (e.g., check out the tests in `tests`).
 
 As the following test demonstrates, the implementation doesn't handle full simplification of the resulting expressions, but you can verify that it otherwise works as expected:
 
-```python {numberLines}
+```python
 import pytest
 from src.expression import Variable
 
@@ -170,10 +146,9 @@ def test__can_differentiate_sums_and_products_recursively(x):
 ```
 
 ## Conclusion
-
 Recursion is a powerful technique that should be in the arsenal of any programmer. It is a shame that most introductory courses tend to present only unrealistic examples of where it might be used, because there are several places where its use is completely natural, and could motivate the topic a lot more for students.
 
-We saw one such example in this post, but there are several others, such as the processing of naturally recursive data structures (e.g., syntactic trees of programs, JSON documents, etc.), in computational geometry algorithms, in sorting algorithms (e.g., `quicksort` and `mergesort`), etc. 
+We saw one such example in this post, but there are several others, such as the processing of naturally recursive data structures (e.g., syntactic trees of programs, JSON documents, etc.), in computational geometry algorithms, in sorting algorithms (e.g., `quicksort` and `mergesort`), the traversal of hierarchical structures (e.g., routines to "walk" the file system), etc.
 
 ## Further Reading
 For more examples of natural uses of recursion, check out:
