@@ -4,30 +4,30 @@ date: "2020-10-23T00:00:00.000"
 description: "On the importance of keeping a critical mind"
 ---
 
-In a [previous post](https://zxul767.dev/clean-code), I recommended the popular book [_Clean Code_](https://www.goodreads.com/book/show/3735293-clean-code). Since then I've noticed that the book has been criticized quite often in recent years (e.g., [here](https://qntm.org/clean) is a rather long post bashing against it.) So I took the time to review it again--it's been many years since I last read it--and I found that I actually agree with several of the criticisms.
+In a [previous post](https://zxul767.dev/clean-code), I recommended the popular book [_Clean Code_](https://www.goodreads.com/book/show/3735293-clean-code). Since then I've noticed that the book has been criticized quite often in recent years (e.g., see [this post](https://qntm.org/clean)), so I took the time to review it again--it's been many years since I first read it--and I found that I do agree with some of the criticisms raised against it.
 
 ![Clean Code book cover.](./images/clean-code-cover.jpg)
 
-Though I won't do a full review of the book here, I do want to point out a couple of things as a warning for less experienced developers:
+Though I won't do a full review of the book here, I do want to point out a couple of issues with the book as a warning for less experienced developers:
 
 + Dogmatism
 + Bad Examples of _Clean Code_
 
 ## Dogmatism
-Something you find when you read any book by Robert C. Martin is that he tends to be very entrenched in his opinions, sometimes almost dogmatic. You can notice this in his books ([The Clean Coder](https://www.goodreads.com/search?q=the+clean+coder&qid=), [Clean Architecture](https://www.goodreads.com/book/show/18043011-clean-architecture?ac=1&from_search=true&qid=r8wktTZU6q&rank=1), etc.), but also in [his talks](https://www.youtube.com/watch?v=7EmboKQH8lM&t=5006s) and other expositions in [social media](https://www.youtube.com/watch?v=KtHQGs3zFAM&t=884s) (e.g., _"Those who don't practice TDD cannot be considered professionals"_)
+Something you find when you read any book by Robert C. Martin is that he tends to be very entrenched in his opinions, sometimes almost dogmatic. You can notice this in his books ([The Clean Coder](https://www.goodreads.com/search?q=the+clean+coder&qid=), [Clean Architecture](https://www.goodreads.com/book/show/18043011-clean-architecture?ac=1&from_search=true&qid=r8wktTZU6q&rank=1), etc.), but also in [his talks](https://www.youtube.com/watch?v=7EmboKQH8lM&t=5006s) and other expositions in [social media](https://www.youtube.com/watch?v=KtHQGs3zFAM&t=884s) (e.g., _"Those who don't practice TDD cannot be considered professionals!"_)
 
-He's entitled to have strong opinions and to argue passionately for what he believes in, of course. But as engineers with a growth mindset, we should be careful to avoid becoming part of "engineering cults" and take his opinions with a grain of salt. As [Alan J. Perlis](https://en.wikipedia.org/wiki/Alan_Perlis) once wrote:
+He is, of course, entitled to have strong opinions and to argue passionately for what he believes in. But as engineers with a growth mindset, we should try to avoid becoming part of "engineering cults" and take his opinions with a grain of salt. As [Alan J. Perlis](https://en.wikipedia.org/wiki/Alan_Perlis) once wrote:
 
 > Above all, I hope we don’t become missionaries. Don’t feel as if you’re Bible salesmen. The world has too many of those already. What you know about computing other people will learn. Don’t feel as if the key to successful computing is only in your hands. What’s in your hands, I think and hope, is intelligence: the ability to see the machine as more than when you were first led up to it, that you can make it more.
 
-Over time, I've learned that listening to a diversity of developers can give you a much stronger foundation as an engineer. [Kent Beck](https://twitter.com/KentBeck)--known for popularizing the technique of [Test-Driven Development](https://zxul767.dev/tdd)--taught me that software development is almost always about trade-offs, not absolute rules. This means that we must learn to see things in context and realize that "rules" are really just "rules of thumb", and remember that _those who follow rules blindly are bound to eventually crash and burn in some situation._
+Over time I've learned that listening to diverse opinions can give you a much stronger engineering foundation. From [Kent Beck](https://twitter.com/KentBeck)--known for popularizing the technique of [Test-Driven Development](https://zxul767.dev/tdd)--I learned that software development is almost always about trade-offs, not absolute rules. This means we must learn to see things in context and realize that "rules" are usually just "rules of thumb". 
 
-Speaking of rules, one that stuck with me when I first read _Clean Code_ was that of writing short functions that do one thing. In the beginning, I took it quite literally, and I strove to always reduce my functions to be just a few lines of code even if, in retrospective, that sometimes hurt readability by creating too many levels of indirection or incoherent partitioning. As I'll try to show in the next section, it is easy to take this idea too far, usually with negative consequences.
+Speaking of rules, one that stuck with me when I first read _Clean Code_ was that of "writing short functions that do one thing". In the beginning, I took it quite literally, and I strove to always reduce my functions to just a few lines of code even if, in retrospective, that sometimes hurt readability by creating too many levels of indirection or incoherent partitioning. As I'll try to show in the next section, it is easy to take the idea in that rule too far, usually with negative consequences.
 
 ## Bad Examples of Clean Code
-To illustrate how taking rules quite literally can be disastrous sometimes, I'd like to reproduce an example from the book here, and then comment on the refactoring that is proposed there.
+To illustrate how taking rules quite literally can be disastrous sometimes, I'd like to reproduce an example from the book, and then comment on the refactoring that the author proposes.
 
-The code in question is a program to generate a list of prime numbers (the code is in really unidiomatic Java style, but it's supposed to have been auto-generated by a tool):
+The code in question is a program to generate a list of prime numbers (it is written in really unidiomatic Java style, but it's supposed to have been auto-generated by a tool):
 
 ```java
 public class PrintPrimes {
@@ -104,9 +104,9 @@ public class PrimePrinter {
 }
 ```
 
-So far so good: the responsibility of generating the list of primes (`js•PrimeGenerator`) has been clearly separated from that of displaying them on the screen (`js•RowColumnPagePrinter`.) 
+So far so good. The responsibility of generating the list of primes (`js•PrimeGenerator`) has been clearly separated from that of displaying them on the screen (`js•RowColumnPagePrinter`.) 
 
-Let's have a look at the latter class:
+Let's have a look at the `js•RowColumnPagePrinter` class:
 
 ```java
 public class RowColumnPagePrinter {
@@ -157,11 +157,11 @@ public class RowColumnPagePrinter {
 }
 ```
 
-Overall, this class reads reasonably well to me. One objection I have is whether we really need such long names (e.g., `js•firstIndexInRow` in the `js•printPage` function). One issue with overly verbose names is that they become harder to read, and also create unnatural line wrappings sometimes (e.g., here the `js•for` statement is unnecessarily broken into three lines, increasing visual clutter.)
+Overall, this class reads reasonably well to me. One objection I have is whether we really need such long names (e.g., `js•firstIndexInRow` in the `js•printPage` function). One issue I find with overly verbose names is that they are harder to read, and can create unnatural line wrappings sometimes (here the `js•for` statement is broken into three lines as a consequence of trying to keep lines to 80 characters and using overly verbose names at the same time.)
 
-The book itself offers this advice: _"the length of a variable name should be proportional to its scope"_. In larger scopes we need more context, so longer names are useful; in shorter scopes, the surrounding context provides more information, so shorter names are enough (and using longer names in that case usually just adds unnecessary noise, which hurts readability.)
+The book itself offers some advice in this regard: _"the length of a variable name should be proportional to the size of its scope"_. In larger scopes we need more context, so longer names are useful; in shorter scopes, the surrounding context provides more information, so shorter names are enough (and longer names in that case usually just add unnecessary noise, which hurts readability.)
 
-However, I will not fuss much about this particular issue here because I'd like to focus on what I think is truly more problematic in the following class.
+However, I will not fuss much about this particular issue because I'd like to focus on what I think is truly more problematic in the `js•PrimeGenerator` class.
 
 Go ahead and spend some minutes trying to understand it before reading on.
 
@@ -220,11 +220,9 @@ public class PrimeGenerator {
 }
 ```
 
-Did you understand clearly what it does and how it works? If you did without having prior context, my respects to you! For the rest of us, however, this class probably made us scratch our heads more than it should.
+Did you understand clearly how and why it works? If you did without having prior context, I can only assume you're much smarter than me! For the rest of us, however, this class probably made us scratch our heads more than it should.
 
-If we take the idea of "writing short functions that do one thing" quite literally, one could argue that _all_ of this code is good. But as we dig into it to truly grok what's going on, very soon we notice quite a few problems.
-
-Let's dissect it method by method to see this:
+If we take the idea of "writing short functions that do one thing" quite literally, one could argue that _all_ of this code is good. But as we dig into it to truly understand its inner workings, very soon we notice quite a few problems. Let's dissect it method by method to see this:
 
 ```java
 public class PrimeGenerator {
@@ -238,15 +236,6 @@ public class PrimeGenerator {
         checkOddNumbersForSubsequentPrimes();
         return primes;
     }
-    // ...
- }
-```
-
-The `js•generate` method describes well what it's doing, but it's not obvious _why_ it's doing this: it's missing an explanation to ease the reader into the complexity of the underlying algorithm. Let's continue:
-
-```java
-public class PrimeGenerator {
-    // ...
     private static void set2AsFirstPrime() {
         primes[0] = 2;
         multiplesOfPrimeFactors.add(2);
@@ -259,10 +248,9 @@ public class PrimeGenerator {
         }
     }
     // ...
-}
+ }
 ```
-    
-Pretty much everything here seems clear, with the exception of what's the role of `js•multiplesOfPrimeFactors`. Moving on to the next method:
+These first few methods contain simple logic, but it's not obvious _why_ they're doing certain things. An explanation of the underlying algorithm is missing (e.g., what is the role of `js•multiplesOfPrimeFactors`?) Let's continue:
 
 ```java
 public class PrimeGenerator {
@@ -278,12 +266,12 @@ public class PrimeGenerator {
 }
 ```
 
-And this is where the head-scratching began for me. The highlighted lines makes me feel like we've just taken a leap of logic:
+For me, this is where the head-scratching begins. The highlighted lines makes me feel like we've just taken a leap of logic:
 
 + What does "relevant multiple" mean and how does it relate to the "next larger prime factor"?
 + Why does this function have a side effect on `js•multiplesOfPrimeFactors` if its name suggests that it should be a [pure function](https://en.wikipedia.org/wiki/Pure_function)?
 
-To me, the lack of a high-level description of the underlying algorithm is the root cause of this confusion. The author is hoping that the code will explain itself, but in this case it falls short of that goal. If we had any hope that the definition of "relevant" would get some clarification in the next method, we'll be disappointed:
+It seems like the author is hoping that the code will explain itself, but in this case it falls short of that goal. Any hope that the definition of "relevant" would be clarified in the next method is then lost:
 
 ```java
 public class PrimeGenerator {
@@ -297,7 +285,9 @@ public class PrimeGenerator {
 }
 ```
 
-The implementation gives us some clues (e.g., a relevant multiple apparently has something to do with squares of primes), but the mere fact that we have to conjecture is already a strong "smell" in this code. The next method is straightforward and follows the [principle of least astonishment](https://wiki.c2.com/?PrincipleOfLeastAstonishment) well (though it might be better if the author had avoided a negation in the method's name):
+The implementation gives us some clues (e.g., a relevant multiple apparently has something to do with squares of primes), but the mere fact that we have to make conjectures is already a strong ["smell"](https://martinfowler.com/bliki/CodeSmell.html) in this code. 
+
+The next method is straightforward and follows the [principle of least astonishment](https://wiki.c2.com/?PrincipleOfLeastAstonishment) well:
 
 ```java
 public class PrimeGenerator {
@@ -313,7 +303,7 @@ public class PrimeGenerator {
 }
 ```
 
-Unfortunately, the last two methods seem like they could have been just one, and the last one is just doing some odd things that are not explained at all by the name `js•smallestOddNthMultipleNotLessThanCandidate`:
+Unfortunately, the last two methods seem like they could have been just one, and the last one is doing some strange operations that are not explained at all by the name `js•smallestOddNthMultipleNotLessThanCandidate`:
 
 ```java
 public class PrimeGenerator {
@@ -332,29 +322,29 @@ public class PrimeGenerator {
 }
 ```
 
-When I first read the criticism of this example in [this post](https://qntm.org/clean), I was curious to see if the author was perhaps over exaggerating. He was not: I spent more than 15 minutes trying to grok the code, confused between the overly verbose names and the non-obvious implementation details, until I gave up and decided to read the original source to see if I could derive a more understandable refactoring.
+When I first read the criticism of this example in [this post](https://qntm.org/clean), I was curious to see if the author was perhaps over exaggerating. He was not: I spent more than 15 minutes trying to grok the code, confused between the overly verbose names and the non-obvious implementation details, until I gave up and decided to read the original code to see if I could derive a more understandable refactoring.
 
-Surprisingly, even though reading the original source was no walk in the park, it was eventually more helpful in making me realize that the code was an optimized version of the ["Sieve of Eratosthenes" algorithm](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes), and that the most confusing bits in the original code had to do with the optimizations implemented.
+Surprisingly, even though reading the original source was no walk in the park, it was more helpful in helping me realize that the code is an optimized version of the ["Sieve of Eratosthenes" algorithm](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes), and that the most confusing bits are just due to the optimizations implemented.
 
-Despite following "the rules", this code has fallen victim to a common problem when writing short functions: _forcing a "narrative" that is unnatural and hard to follow (partly due to the excessive indirection) simply in the name of creating very short functions._
+Despite seemingly following "the rules" of "clean code", this code has fallen victim to a common problem when writing short functions: _forcing a "narrative" that is unnatural and hard to follow (partly due to the excessive indirection) simply in the name of creating very short functions._ This is, of course, not an issue with the principle itself, but rather with the programmer's ability to modularize the code appropriately, striking a balance between simplicity of part and coherence of the whole.
 
 ## Recapping the Issues
 To recap, here are the problems I see with this example:
 
-+ **Lack of Documentation**. It fails to ease the reader into a nontrivial algorithm with some form of documentation or comments that explain why some odd things are happening (i.e., the side effects in some methods).
++ **Lack of Documentation**. The code fails to ease the reader into a nontrivial algorithm with documentation or comments that explain why some odd things are happening (i.e., the side effects in some methods).
 
-+ **Verbosity**. It uses overly verbose method names in an attempt to compensate for the lack of documentation.
++ **Verbosity**. The code uses overly verbose method names in an attempt to compensate for the lack of documentation (perhaps we can infer that overly verbose names is a "code smell"?)
 
-+ **Forced Small Functions**. It seems to assume that more small-sized functions always means better readability, but this is not true when the partitioning causes excessive logical indirection, or when it is not cohesive (sometimes manifested as convoluted function names.)
++ **Forced Small Functions**. It seems to assume that many tiny functions always means better readability, but this is not true when the resulting partitioning causes excessive logical indirection, or when it is not cohesive (again, sometimes manifested as convoluted function names.)
 
 The advice to write "short functions that do one thing" needs to be explained with more nuance. When followed literally, it is easy to arrive at code that is more difficult to understand than its everything-in-a-single-function counterpart.
 
-There are two ends of a spectrum when we talk about length of functions, both of which can be equally terrible. On the one hand, we can write everything in a single humongous function, mixing high-level and low-level details, and making it really difficult to separate core logic from details. On the other hand, we can partition the code into extremely small functions that are quick to read at the individual level, but which make it harder to piece together the program as a whole. 
+There are two ends of a spectrum in this regard, both of which can be equally terrible. On the one hand, we can write everything in a single humongous function, mixing high and low-level details, and making it really difficult to separate core logic from implementation details. On the other hand, we can partition the code into extremely small functions that are quick to read at the individual level, but which make it harder to piece together the program as a whole.
 
-When coupled with the intrinsic difficulty of partitioning code with straightforward, intuitive boundaries that have clear inputs, outputs and side effects, the result can easily become incomprehensible, defeating the purpose of the refactoring.
+There is an intrinsic difficulty in partitioning code with straightforward, intuitive boundaries that have clear inputs, outputs and side effects, which explains why, despite all good intentions, a refactoring attempt can sometimes still leave a lot of room for improvemement.
 
 ## A Proposed Refactoring
-After studying the code and its underlying algorithm and optimizations, I decided to take a stab at a refactoring to address the concerns I mentioned above. I wrote this version in Python but I don't think the choice of language is really a major factor in its improved clarity, as I'll comment below:
+After studying the code and its underlying algorithm and optimizations in detail, I decided to take a stab at a refactoring to address the concerns I mentioned above. I wrote this version in Python but I don't think the choice of language is really a major factor in its improved clarity, as I'll comment below:
 
 ```python
 # TODO: review whether the optimizations are truly worth the additional complexity
@@ -364,9 +354,9 @@ class PrimeGenerator:
     algorithm (https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) with some
     optimizations:
 
-    1. Instead of directly testing m % prime == 0, we use repeated sums:
-       prime + ... + prime + remainder == m (where remainder is zero if
-       m % prime == 0 is true); hence `prime_multiples[i] == k*prime[i]`
+    1. Instead of directly testing candidate % prime == 0, we use repeated sums:
+       prime + ... + prime + remainder == candidate (where remainder is zero if
+       candidate % prime == 0 is true); hence `prime_multiples[i] == k*prime[i]`
        always holds for some integer `k`
 
     2. We start testing divisibility by `prime` at `prime^2` because
@@ -375,10 +365,10 @@ class PrimeGenerator:
        `add_next_relevant_prime_multiple_if_needed`
     """
     def generate(self, n):
-        self.primes = [2]
-        self.prime_multiples = [2*2]
+        self.primes = [2, 3]
+        self.prime_multiples = [2, 3]
 
-        prime = 1 # not a prime, but needed to bootstrap the search
+        prime = 3
         for _ in range(n):
             prime = self._find_next_prime(prime)
             self.primes.append(prime)
@@ -431,25 +421,27 @@ def compute_primes(n):
     return PrimeGenerator().generate(n)
 ```
 
-While I don't claim this version is "perfect"--the `js•_is_divisible_by_nth_prime` method still has a side-effect, and the explanation of the optimizations is not detailed enough--I do hope that you can agree that this version is likely to take a future reader significantly less time to understand.
+While I don't claim this version is "perfect"--the `js•_is_divisible_by_nth_prime` method still has a side-effect, and the explanation of the optimizations is not detailed enough--I do hope you can agree that this version is likely to be significantly easier to understand for a future reader.
 
-Using Python helps in making the code less verbose than its Java counterpart, but upon close examination, you'll realize that what actually makes this code better has more to do with the introductory documentation, the more adequate partitioning that contains neither too little nor too much detail in each function, and the comments that explain what the code cannot explain alone (because of the intrinsic complexity in the underlying algorithm and the optimizations.)
+Using Python helps in making the code less verbose than its Java counterpart, but upon close examination, you'll realize that the true improvements are in the introductory documentation, the more adequate partitioning, and the comments that explain what the code cannot explain on its own.
 
 If this was part of an actual codebase, I would definitely write a detailed post to explain how the optimizations work. With that, we could probably remove all the explanation comments, replacing them with just links to the corresponding sections in the documentation.
 
 ## Conclusion
-While I still think that _Clean Code_ can be a useful book for many novice programmers (when read with a critical mind), I believe there are now several books and resources that can be just as useful (if not more) to get a stronger foundation in techniques to write more maintainable code.
+While I still think that _Clean Code_ can be a useful book for many novice programmers (when read with a critical mind), I believe there are now several books and resources that can be just as useful to get a stronger foundation in techniques to write more maintainable code, and students or beginner programmers would do well to read them to get a well-rounded perspective.
 
-Regardless of the books we read, though, the most important thing to keep in mind is that it's dangerous to follow "rules" blindly if we haven't fully internalized what is behind them, and the pitfalls we can fall into if we stop thinking critically.
+Regardless of the books we read, however, the most important thing to keep in mind is that it's dangerous to follow "rules" blindly if we haven't fully understood its implications and limitations.
+
+> Those who follow rules blindly are bound to eventually crash and burn
 
 ## Further Reading
-The following are very useful alternatives and complements to _Clean Code_:
+The following resources are good alternatives and complements to _Clean Code_ if you're interested in learning more about this topic:
 
-+ [99 Bottles of OOP](https://www.goodreads.com/book/show/31183020-99-bottles-of-oop) by [Sandi Metz](https://twitter.com/sandimetz?lang=en). This book explains the process of writing good code, and teaches you to achieve beautifully programmed ends by way of extremely practical means.
++ [99 Bottles of OOP](https://www.goodreads.com/book/show/31183020-99-bottles-of-oop) by [Sandi Metz](https://twitter.com/sandimetz?lang=en). This book explains the process of writing good code, covering pros and cons of various approaches while walking you through detailed code examples.
 
 + [Code Simplicity](https://www.goodreads.com/book/show/13234063-code-simplicity) by [Max Kanat-Alexander](https://twitter.com/mkanat?lang=en). This book is a compilation of many blog posts by the same author, where he exposes his theory of how complexity in software is the bane of all programmers, and encourages people to struggle to keep things simple.
 
 + [The Art of Readable Code](https://www.goodreads.com/book/show/8677004-the-art-of-readable-code) by [Dustin Boswell](https://twitter.com/dustinboswell?lang=en). Very similar in spirit to the _Clean Code_ book, worth reading for the additional insights and examples it presents.
 
-+ [The Clean Code Talks](https://www.youtube.com/playlist?list=PLR5laMT-DcloGDcMKo07sEPZ7HvvD2Job). This is a series of talks by [Miško Hevery](https://twitter.com/mhevery), [Joshua Bloch](https://twitter.com/joshbloch) and present and former Googlers on clean code practices. While it doesn't cover many topics found in the books recommended above, it explores some other topics that are equally important when writing maintainable code.
++ [The Clean Code Talks](https://www.youtube.com/playlist?list=PLR5laMT-DcloGDcMKo07sEPZ7HvvD2Job). This is a series of talks by [Miško Hevery](https://twitter.com/mhevery), [Joshua Bloch](https://twitter.com/joshbloch) and present and former Googlers on "clean code" practices. While it doesn't cover many topics found in the books recommended above, it explores some other topics that are equally important when writing maintainable code.
   
