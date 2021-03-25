@@ -1,8 +1,7 @@
 import Typography from "typography"
-import lincoln from 'typography-theme-lincoln'
+import theme from 'typography-theme-moraga'
 
-lincoln.baseFontSize = '16px'
-const typography = new Typography(lincoln)
+const typography = new Typography(theme)
 
 // Hot reload typography in development.
 if (process.env.NODE_ENV !== `production`) {

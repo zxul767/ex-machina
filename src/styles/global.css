@@ -2,12 +2,26 @@
     font-size: 0.75rem;
 }
 
+p code, li code {
+    background-color: #CFD8DC;
+    font-size: 0.75rem;
+}
 code.grvsc-code {
     line-height: 1.1rem;
 }
 
-.katex {
-    font-size: 1.35em;
+div.post-body > p {
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+div.post-body ul, div.post-body ol {
+    padding-left: 3%;
+}
+
+blockquote {
+    font-style: italic;
+    font-size: 1rem;
 }
 
 figcaption {

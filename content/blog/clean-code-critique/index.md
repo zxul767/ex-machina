@@ -20,7 +20,7 @@ He is, of course, entitled to have strong opinions and to argue passionately for
 
 > Above all, I hope we don’t become missionaries. Don’t feel as if you’re Bible salesmen. The world has too many of those already. What you know about computing other people will learn. Don’t feel as if the key to successful computing is only in your hands. What’s in your hands, I think and hope, is intelligence: the ability to see the machine as more than when you were first led up to it, that you can make it more.
 
-Over time I've learned that listening to diverse opinions can give you a much stronger engineering foundation. From [Kent Beck](https://twitter.com/KentBeck)--known for popularizing the technique of [Test-Driven Development](https://zxul767.dev/tdd)--I learned that software development is almost always about trade-offs, not absolute rules. This means we must learn to see things in context and realize that "rules" are usually just "rules of thumb". 
+Over time I've learned that listening to diverse opinions can give you a much stronger engineering foundation. From [Kent Beck](https://twitter.com/KentBeck)--known for popularizing the technique of [Test-Driven Development](https://zxul767.dev/tdd)--I learned that software development is almost always about trade-offs, not absolute rules. This means we must learn to see things in context and realize that "rules" are usually just "rules of thumb".
 
 Speaking of rules, one that stuck with me when I first read _Clean Code_ was that of "writing short functions that do one thing". In the beginning, I took it quite literally, and I strove to always reduce my functions to just a few lines of code even if, in retrospective, that sometimes hurt readability by creating too many levels of indirection or incoherent partitioning. As I'll try to show in the next section, it is easy to take the idea in that rule too far, usually with negative consequences.
 
@@ -104,9 +104,9 @@ public class PrimePrinter {
 }
 ```
 
-So far so good. The responsibility of generating the list of primes (`js•PrimeGenerator`) has been clearly separated from that of displaying them on the screen (`js•RowColumnPagePrinter`.) 
+So far so good. The responsibility of generating the list of primes (`PrimeGenerator`) has been clearly separated from that of displaying them on the screen (`RowColumnPagePrinter`.)
 
-Let's have a look at the `js•RowColumnPagePrinter` class:
+Let's have a look at the `RowColumnPagePrinter` class:
 
 ```java
 public class RowColumnPagePrinter {
@@ -157,11 +157,11 @@ public class RowColumnPagePrinter {
 }
 ```
 
-Overall, this class reads reasonably well to me. One objection I have is whether we really need such long names (e.g., `js•firstIndexInRow` in the `js•printPage` function). One issue I find with overly verbose names is that they are harder to read, and can create unnatural line wrappings sometimes (here the `js•for` statement is broken into three lines as a consequence of trying to keep lines to 80 characters and using overly verbose names at the same time.)
+Overall, this class reads reasonably well to me. One objection I have is whether we really need such long names (e.g., `firstIndexInRow` in the `printPage` function). One issue I find with overly verbose names is that they are harder to read, and can create unnatural line wrappings sometimes (here the `for` statement is broken into three lines as a consequence of trying to keep lines to 80 characters and using overly verbose names at the same time.)
 
 The book itself offers some advice in this regard: _"the length of a variable name should be proportional to the size of its scope"_. In larger scopes we need more context, so longer names are useful; in shorter scopes, the surrounding context provides more information, so shorter names are enough (and longer names in that case usually just add unnecessary noise, which hurts readability.)
 
-However, I will not fuss much about this particular issue because I'd like to focus on what I think is truly more problematic in the `js•PrimeGenerator` class.
+However, I will not fuss much about this particular issue because I'd like to focus on what I think is truly more problematic in the `PrimeGenerator` class.
 
 Go ahead and spend some minutes trying to understand it before reading on.
 
@@ -250,7 +250,7 @@ public class PrimeGenerator {
     // ...
  }
 ```
-These first few methods contain simple logic, but it's not obvious _why_ they're doing certain things. An explanation of the underlying algorithm is missing (e.g., what is the role of `js•multiplesOfPrimeFactors`?) Let's continue:
+These first few methods contain simple logic, but it's not obvious _why_ they're doing certain things. An explanation of the underlying algorithm is missing (e.g., what is the role of `multiplesOfPrimeFactors`?) Let's continue:
 
 ```java
 public class PrimeGenerator {
@@ -269,7 +269,7 @@ public class PrimeGenerator {
 For me, this is where the head-scratching begins. The highlighted lines makes me feel like we've just taken a leap of logic:
 
 + What does "relevant multiple" mean and how does it relate to the "next larger prime factor"?
-+ Why does this function have a side effect on `js•multiplesOfPrimeFactors` if its name suggests that it should be a [pure function](https://en.wikipedia.org/wiki/Pure_function)?
++ Why does this function have a side effect on `multiplesOfPrimeFactors` if its name suggests that it should be a [pure function](https://en.wikipedia.org/wiki/Pure_function)?
 
 It seems like the author is hoping that the code will explain itself, but in this case it falls short of that goal. Any hope that the definition of "relevant" would be clarified in the next method is then lost:
 
@@ -285,7 +285,7 @@ public class PrimeGenerator {
 }
 ```
 
-The implementation gives us some clues (e.g., a relevant multiple apparently has something to do with squares of primes), but the mere fact that we have to make conjectures is already a strong ["smell"](https://martinfowler.com/bliki/CodeSmell.html) in this code. 
+The implementation gives us some clues (e.g., a relevant multiple apparently has something to do with squares of primes), but the mere fact that we have to make conjectures is already a strong ["smell"](https://martinfowler.com/bliki/CodeSmell.html) in this code.
 
 The next method is straightforward and follows the [principle of least astonishment](https://wiki.c2.com/?PrincipleOfLeastAstonishment) well:
 
@@ -303,7 +303,7 @@ public class PrimeGenerator {
 }
 ```
 
-Unfortunately, the last two methods seem like they could have been just one, and the last one is doing some strange operations that are not explained at all by the name `js•smallestOddNthMultipleNotLessThanCandidate`:
+Unfortunately, the last two methods seem like they could have been just one, and the last one is doing some strange operations that are not explained at all by the name `smallestOddNthMultipleNotLessThanCandidate`:
 
 ```java
 public class PrimeGenerator {
@@ -421,7 +421,7 @@ def compute_primes(n):
     return PrimeGenerator().generate(n)
 ```
 
-While I don't claim this version is "perfect"--the `js•_is_divisible_by_nth_prime` method still has a side-effect, and the explanation of the optimizations is not detailed enough--I do hope you can agree that this version is likely to be significantly easier to understand for a future reader.
+While I don't claim this version is "perfect"--the `_is_divisible_by_nth_prime` method still has a side-effect, and the explanation of the optimizations is not detailed enough--I do hope you can agree that this version is likely to be significantly easier to understand for a future reader.
 
 Using Python helps in making the code less verbose than its Java counterpart, but upon close examination, you'll realize that the true improvements are in the introductory documentation, the more adequate partitioning, and the comments that explain what the code cannot explain on its own.
 
@@ -444,4 +444,3 @@ The following resources are good alternatives and complements to _Clean Code_ if
 + [The Art of Readable Code](https://www.goodreads.com/book/show/8677004-the-art-of-readable-code) by [Dustin Boswell](https://twitter.com/dustinboswell?lang=en). Very similar in spirit to the _Clean Code_ book, worth reading for the additional insights and examples it presents.
 
 + [The Clean Code Talks](https://www.youtube.com/playlist?list=PLR5laMT-DcloGDcMKo07sEPZ7HvvD2Job). This is a series of talks by [Miško Hevery](https://twitter.com/mhevery), [Joshua Bloch](https://twitter.com/joshbloch) and present and former Googlers on "clean code" practices. While it doesn't cover many topics found in the books recommended above, it explores some other topics that are equally important when writing maintainable code.
-  

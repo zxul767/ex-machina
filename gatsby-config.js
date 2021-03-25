@@ -49,7 +49,8 @@ module.exports = {
           {
               resolve: `gatsby-remark-vscode`,
               options: {
-                theme: 'Solarized Light',
+                theme: 'Nord',
+                extensions: ['nord-visual-studio-code'],
                 inlineCode: {
                   marker: '•'
                 }

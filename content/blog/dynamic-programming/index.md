@@ -34,7 +34,7 @@ assert can_segment("howareyou", {"are", "you", "how"}) == True
 assert can_segment("helloworld!", {"hello", "world"}) == False
 ```
 
-To solve this problem, think what happens if we take any word from the set and match it against a prefix of the `python•text` string. Whenever the match is successful, the problem then reduces to finding whether we can segment the rest of the string, which is just a smaller instance of the original problem. That is clearly a case for a recursive solution!
+To solve this problem, think what happens if we take any word from the set and match it against a prefix of the `text` string. Whenever the match is successful, the problem then reduces to finding whether we can segment the rest of the string, which is just a smaller instance of the original problem. That is clearly a case for a recursive solution!
 
 ```python
 def can_segment(string, words):
@@ -50,7 +50,7 @@ def can_segment(string, words):
     return _can_segment(string)
 ```
 
-One problem with this solution is that it can end up calling `python•_can_segment` multiple times for the same argument. Let's see a concrete example to visualize how this could happen:
+One problem with this solution is that it can end up calling `_can_segment` multiple times for the same argument. Let's see a concrete example to visualize how this could happen:
 
 ```python
 words = {
@@ -73,9 +73,9 @@ can_segment("thebananagaveusisfair", words)
 # ...
 ```
 
-As you can see, the call to `python•_can_segment("gaveusisfair")` happens twice, with the cost associated to all its recursive calls. For bigger strings the amount of duplicated computation can lead to exponential runtime. This is akin to what happens in a [naive implementation](https://benalexkeen.com/fibonacci-implementation-in-python/) of the recursive definition of the [Fibonacci numbers](https://en.wikipedia.org/wiki/Fibonacci_number).
+As you can see, the call to `_can_segment("gaveusisfair")` happens twice, with the cost associated to all its recursive calls. For bigger strings the amount of duplicated computation can lead to exponential runtime. This is akin to what happens in a [naive implementation](https://benalexkeen.com/fibonacci-implementation-in-python/) of the recursive definition of the [Fibonacci numbers](https://en.wikipedia.org/wiki/Fibonacci_number).
 
-One way to fix this problem is to [memoize](https://en.wikipedia.org/wiki/Memoization#:~:text=In%20computing%2C%20memoization%20or%20memoisation,the%20same%20inputs%20occur%20again.) the problematic function in order to avoid recomputation. In Python, we can easily achieve this using the `python•lru_cache` function from the `python•functools` module. 
+One way to fix this problem is to [memoize](https://en.wikipedia.org/wiki/Memoization#:~:text=In%20computing%2C%20memoization%20or%20memoisation,the%20same%20inputs%20occur%20again.) the problematic function in order to avoid recomputation. In Python, we can easily achieve this using the `lru_cache` function from the `functools` module. 
 
 ```python
 from functools import lru_cache
@@ -94,7 +94,7 @@ def can_segment(string, words):
     return _can_segment(string)
 ```
 
-Memoization works very well for [pure functions](https://en.wikipedia.org/wiki/Pure_function), but in our case the function is not completely pure because it depends on the dictionary of words. Despite that, we are able to make it work because --for the purposes of an individual call to the outer function `python•can_segment`-- `python•words` is immutable, so `python•_can_segment` can still be memoized properly.
+Memoization works very well for [pure functions](https://en.wikipedia.org/wiki/Pure_function), but in our case the function is not completely pure because it depends on the dictionary of words. Despite that, we are able to make it work because --for the purposes of an individual call to the outer function `can_segment`-- `words` is immutable, so `_can_segment` can still be memoized properly.
 
 ## Is this really Dynamic Programming?
 If you've seen solutions to dynamic programming problems before, you may be wondering why this implementation doesn't resemble the code in those solutions (e.g., there is no table to store intermediate results, and no loops that compute solutions incrementally from previously computed solutions.)
@@ -105,7 +105,7 @@ For some problems, the bottom-up, iterative solution is the best option (both in
 
 For those problems where maximum efficiency is required, it is always possible to rewrite the recursive implementation into a bottom-up, iterative style. For our problem, we may need to restructure the current solution a bit before we can see how to transform it into an iterative one.
 
-First, we can avoid passing a string to the `python•_can_segment` function simply by passing an offset instead (which implicitly defines the suffix we passed in the previous version):
+First, we can avoid passing a string to the `_can_segment` function simply by passing an offset instead (which implicitly defines the suffix we passed in the previous version):
 
 ```python
 def can_segment(string, words):
@@ -124,7 +124,7 @@ def can_segment(string, words):
     return _can_segment(0)
 ```
 
-Now that the function takes a single integer as input, it's easier to see a transformation to an iterative solution that indexes a table of intermediate results. This transformation will require an array of booleans that tells us, for each possible `python•offset`, whether there is a way to segment the corresponding suffix into words:
+Now that the function takes a single integer as input, it's easier to see a transformation to an iterative solution that indexes a table of intermediate results. This transformation will require an array of booleans that tells us, for each possible `offset`, whether there is a way to segment the corresponding suffix into words:
 
 ```python
 def can_segment_iterative(string, words):
@@ -141,11 +141,11 @@ def can_segment_iterative(string, words):
     return _can_segment[0]
 ```
 
-Notice how the fundamental computations are the same, but we had to restructure a few things to fit into the iterative style. One interesting thing to notice--which was harder to see in the recursive implementation--is that this procedure has time complexity `python•O(nw)` where `python•n` is the size of the string and `python•w` is the number of words in the dictionary (assuming, of course, that most words are much smaller than the string we're trying to segment.)
+Notice how the fundamental computations are the same, but we had to restructure a few things to fit into the iterative style. One interesting thing to notice--which was harder to see in the recursive implementation--is that this procedure has time complexity $O(nw)$ where $n$ is the size of the string and $w$ is the number of words in the dictionary (assuming, of course, that most words are much smaller than the string we're trying to segment.)
 
-Another important thing to notice is that depending on the input, it is possible that many elements `python•_can_segment[i]` in the array will never change their initial value (e.g., we may always pass through the `sh•continue` statement; or `python•offset + len(word)` may not touch all possible integers `sh•i=0,...,n`)
+Another important thing to notice is that depending on the input, it is possible that many elements `_can_segment[i]` in the array will never change their initial value (e.g., we may always pass through the `continue` statement; or `offset + len(word)` may not touch all possible integers `i=0,...,n`)
 
-Finally, notice how both solutions implement base or initial conditions (`python•if offset == len(string) - 1` in the recursive case, and `python•_can_segment[n] = True` in the iterative case.) In all dynamic programming problems, it is crucial to define these base conditions to avoid stack overflows or incorrect results.
+Finally, notice how both solutions implement base or initial conditions (`if offset == len(string) - 1` in the recursive case, and `_can_segment[n] = True` in the iterative case.) In all dynamic programming problems, it is crucial to define these base conditions to avoid stack overflows or incorrect results.
 
 ## Why is it called Dynamic Programming?
 Though its name invokes some of air of sophistication, as it is explained in its Wikipedia [page](https://en.wikipedia.org/wiki/Dynamic_programming#:~:text=The%20word%20dynamic%20was%20chosen,schedule%20for%20training%20or%20logistics.), "dynamic programming" was actually a bit of a marketing gimmick in a time when mathematical research was frowned upon by government agencies sponsoring academic projects:

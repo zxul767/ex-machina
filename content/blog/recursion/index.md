@@ -41,19 +41,32 @@ A few weeks ago, I started reading a book I wish I had read when I was at colleg
 
 If you remember differential calculus from high-school or college, you may know that there are various rules to differentiate expressions of various types. For example:
 
-The derivative of a constant is zero: $$ \frac{\partial c}{\partial x} = 0 $$
+The derivative of a constant is zero:
+$$
+\frac{\partial c}{\partial x} = 0
+$$
 
-The derivative of $y$ with respect to $x$ is zero: $$ \frac{\partial y}{\partial x} = 0 $$
+The derivative of $y$ with respect to $x$ is zero:
+$$
+\frac{\partial y}{\partial x} = 0
+$$
 
-The derivative of $x$ with respect to $x$ is one: $$ \frac{\partial x}{\partial x} = 1 $$
+The derivative of $x$ with respect to $x$ is one:
+$$
+\frac{\partial x}{\partial x} = 1
+$$
 
 What's interesting, however, is that for more complex expressions, the rules for differentiation make natural use of recursion! For example, the rule to differentiate a sum of two expressions can be expressed recursively as:
 
-$$ \frac{\partial f(x) + g(x)}{\partial x} = \frac{\partial f(x)}{\partial x} + \frac{\partial g(x)}{\partial x} $$
+$$
+\frac{\partial f(x) + g(x)}{\partial x} = \frac{\partial f(x)}{\partial x} + \frac{\partial g(x)}{\partial x}
+$$
 
 Similarly, the rule to differentiate a product of two expressions can be expressed as:
 
-$$ \frac{\partial f(x)g(x)}{\partial x} = f(x)\frac{\partial g(x)}{\partial x} + g(x)\frac{\partial f(x)}{\partial x} $$
+$$
+\frac{\partial f(x)g(x)}{\partial x} = f(x)\frac{\partial g(x)}{\partial x} + g(x)\frac{\partial f(x)}{\partial x}
+$$
 
 And so, if we assume some representation for simple algebraic expressions, we can write a very elegant function that performs symbolic differentiation for the cases mentioned above:
 
@@ -82,12 +95,12 @@ def differentiate(expression, variable):
     raise ValueError(f"{e} is not a supported expression!")
 ```
 
-As long as the input expression `js•expression` is built out of simpler expressions (eventually reaching constants or single variables), the above function will behave correctly since the base cases are handled properly in the highlighted lines, and the recursive cases always solve a smaller instance of the original problem.
+As long as the input expression `expression` is built out of simpler expressions (eventually reaching constants or single variables), the above function will behave correctly since the base cases are handled properly in the highlighted lines, and the recursive cases always solve a smaller instance of the original problem.
 
 Think about how you might implement this function without recursion and you'll see that, even if there's a solution (and there is one, because [every recursive program can be turned into an iterative one](https://stackoverflow.com/questions/11708903/can-every-recursion-be-changed-to-iteration)!), it will not be as elegant or readable as the recursive version.
 
 ## A toy implementation
-The fact that `js•differentiate` looks as though it were operating on primitive types is only possible because Python supports overloading of operators for custom types.
+The fact that `differentiate` looks as though it were operating on primitive types is only possible because Python supports overloading of operators for custom types.
 
 For the above code to work, it is necessary to define some classes that implement a hierarchy of expressions (i.e., constants, variables, sums, products), and the corresponding ["dunder"](https://dbader.org/blog/python-dunder-methods) methods to overload mathematical operators:
 
@@ -126,7 +139,7 @@ class Number(Expression):
     ...
 ```
 
-If you're interested in seeing this in action and studying the whole code in detail, you can clone [this repository](https://github.com/zxul767/pyexpr/) and play with the implementation (e.g., check out the tests in `tests`).
+If you're interested in seeing this in action and studying the whole code in detail, you can clone [this repository](https://github.com/zxul767/pyexpr/) and play with the implementation (e.g., check out and run the code in `tests`).
 
 As the following test demonstrates, the implementation doesn't handle full simplification of the resulting expressions, but you can verify that it otherwise works as expected:
 
