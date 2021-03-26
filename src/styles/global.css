@@ -1,11 +1,12 @@
 .grvsc-line {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
 }
 
 p code, li code {
-    background-color: #CFD8DC;
-    font-size: 0.75rem;
+    background-color: #dee4e7;
+    font-size: 0.8rem;
 }
+
 code.grvsc-code {
     line-height: 1.1rem;
 }

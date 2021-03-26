@@ -170,47 +170,47 @@ public class PrimeGenerator {
     private static int[] primes;
     private static ArrayList<Integer> multiplesOfPrimeFactors;
 
-    protected static int[] generate(int n) {
+    public static int[] generate(int n) {
         primes = new int[n];
         multiplesOfPrimeFactors = new ArrayList<Integer>();
         set2AsFirstPrime();
         checkOddNumbersForSubsequentPrimes();
         return primes;
     }
-    private static void set2AsFirstPrime() {
+    static void set2AsFirstPrime() {
         primes[0] = 2;
         multiplesOfPrimeFactors.add(2);
     }
-    private static void checkOddNumbersForSubsequentPrimes() {
+    static void checkOddNumbersForSubsequentPrimes() {
         int primeIndex = 1;
         for (int candidate = 3; primeIndex < primes.length; candidate += 2) {
             if (isPrime(candidate))
                 primes[primeIndex++] = candidate;
         }
     }
-    private static boolean isPrime(int candidate) {
+    static boolean isPrime(int candidate) {
         if (isLeastRelevantMultipleOfNextLargerPrimeFactor(candidate)) {
             multiplesOfPrimeFactors.add(candidate);
             return false;
         }
         return isNotMultipleOfAnyPreviousPrimeFactor(candidate);
     }
-    private static boolean isLeastRelevantMultipleOfNextLargerPrimeFactor(int candidate) {
+    static boolean isLeastRelevantMultipleOfNextLargerPrimeFactor(int candidate) {
         int nextLargerPrimeFactor = primes[multiplesOfPrimeFactors.size()];
         int leastRelevantMultiple = nextLargerPrimeFactor * nextLargerPrimeFactor;
         return candidate == leastRelevantMultiple;
     }
-    private static boolean isNotMultipleOfAnyPreviousPrimeFactor(int candidate) {
+    static boolean isNotMultipleOfAnyPreviousPrimeFactor(int candidate) {
         for (int n = 1; n < multiplesOfPrimeFactors.size(); n++) {
             if (isMultipleOfNthPrimeFactor(candidate, n))
                 return false;
         }
         return true;
     }
-    private static boolean isMultipleOfNthPrimeFactor(int candidate, int n) {
+    static boolean isMultipleOfNthPrimeFactor(int candidate, int n) {
         return candidate == smallestOddNthMultipleNotLessThanCandidate(candidate, n);
     }
-    private static int smallestOddNthMultipleNotLessThanCandidate(int candidate, int n) {
+    static int smallestOddNthMultipleNotLessThanCandidate(int candidate, int n) {
         int multiple = multiplesOfPrimeFactors.get(n);
         while (multiple < candidate)
             multiple += 2 * primes[n];
@@ -229,18 +229,18 @@ public class PrimeGenerator {
     private static int[] primes;
     private static ArrayList<Integer> multiplesOfPrimeFactors;
 
-    protected static int[] generate(int n) {
+    static int[] generate(int n) {
         primes = new int[n];
         multiplesOfPrimeFactors = new ArrayList<Integer>();
         set2AsFirstPrime();
         checkOddNumbersForSubsequentPrimes();
         return primes;
     }
-    private static void set2AsFirstPrime() {
+    static void set2AsFirstPrime() {
         primes[0] = 2;
         multiplesOfPrimeFactors.add(2);
     }
-    private static void checkOddNumbersForSubsequentPrimes() {
+    static void checkOddNumbersForSubsequentPrimes() {
         int primeIndex = 1;
         for (int candidate = 3; primeIndex < primes.length; candidate += 2) {
             if (isPrime(candidate))
@@ -255,7 +255,7 @@ These first few methods contain simple logic, but it's not obvious _why_ they're
 ```java
 public class PrimeGenerator {
     // ...
-    private static boolean isPrime(int candidate) {
+    static boolean isPrime(int candidate) {
         if (isLeastRelevantMultipleOfNextLargerPrimeFactor(candidate)) { // highlight-line
             multiplesOfPrimeFactors.add(candidate); // highlight-line
             return false; // highlight-line
@@ -276,7 +276,7 @@ It seems like the author is hoping that the code will explain itself, but in thi
 ```java
 public class PrimeGenerator {
     // ...
-    private static boolean isLeastRelevantMultipleOfNextLargerPrimeFactor(int candidate) {
+    static boolean isLeastRelevantMultipleOfNextLargerPrimeFactor(int candidate) {
         int nextLargerPrimeFactor = primes[multiplesOfPrimeFactors.size()];
         int leastRelevantMultiple = nextLargerPrimeFactor * nextLargerPrimeFactor;
         return candidate == leastRelevantMultiple;
@@ -292,7 +292,7 @@ The next method is straightforward and follows the [principle of least astonishm
 ```java
 public class PrimeGenerator {
     // ...
-    private static boolean isNotMultipleOfAnyPreviousPrimeFactor(int candidate) {
+    static boolean isNotMultipleOfAnyPreviousPrimeFactor(int candidate) {
         for (int n = 1; n < multiplesOfPrimeFactors.size(); n++) {
             if (isMultipleOfNthPrimeFactor(candidate, n))
                 return false;
@@ -308,10 +308,10 @@ Unfortunately, the last two methods seem like they could have been just one, and
 ```java
 public class PrimeGenerator {
     // ...
-    private static boolean isMultipleOfNthPrimeFactor(int candidate, int n) {
+    static boolean isMultipleOfNthPrimeFactor(int candidate, int n) {
         return candidate == smallestOddNthMultipleNotLessThanCandidate(candidate, n);
     }
-    private static int smallestOddNthMultipleNotLessThanCandidate(int candidate, int n) {
+    static int smallestOddNthMultipleNotLessThanCandidate(int candidate, int n) {
         int multiple = multiplesOfPrimeFactors.get(n);
         while (multiple < candidate)
             multiple += 2 * primes[n];
