@@ -8,7 +8,7 @@ It is often frustrating when I'm trying to learn a new topic and I find a lot of
 
 ## Neural Networks
 
-![Learning Frustration](./images/bio-neural-networks.jpg)
+![Learning Frustration](./images/bio-neural-network.jpg)
 
 When I first learned about neural networks I had this exact problem. Not with the basics of how they work, which I think has been well explained by many people in various places, but rather with the somewhat more complex idea of how they actually learn: _the backpropagation algorithm._
 
