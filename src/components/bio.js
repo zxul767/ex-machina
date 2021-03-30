@@ -37,7 +37,7 @@ const Bio = () => {
     <div
       style={{
         display: `flex`,
-        marginBottom: rhythm(2.5),
+        marginBottom: rhythm(1 / 2),
       }}
     >
       <Image
@@ -53,7 +53,7 @@ const Bio = () => {
           borderRadius: `50%`,
         }}
       />
-      <p>
+      <p style={{ fontSize: `0.90rem` }}>
         Written by <strong>{author}</strong>, programmer and machine learning enthusiast.
         You can usually find him on <a href={`https://twitter.com/${social.twitter}`}>Twitter</a>.
       </p>
