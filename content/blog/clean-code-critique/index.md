@@ -366,7 +366,7 @@ class PrimeGenerator:
     """
     def generate(self, n):
         self.primes = [2, 3]
-        self.prime_multiples = [2, 3]
+        self.prime_multiples = [2**2, 3**2]
 
         prime = 3
         for _ in range(n):
@@ -388,8 +388,8 @@ class PrimeGenerator:
         # This is the bookkeeping to implement that optimization.
         m = len(self.prime_multiples)
         prime = self.primes[m] if m < len(self.primes) else 0
-        if prime_candidate == prime * prime:
-            self.prime_multiples.append(prime_candidate)
+        if prime_candidate == prime**2:
+            self.prime_multiples.append(prime**2)
 
     def _has_any_prime_divisor(self, odd_number):
         return any(
