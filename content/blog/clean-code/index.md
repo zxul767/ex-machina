@@ -1,7 +1,7 @@
 ---
 title: "Clean Code"
 date: "2020-08-18T00:00:00.000"
-description: "Clean Code is code that is easy to understand, maintain and extend..."
+description: "Clean Code is code that is easy to understand, maintain and extend"
 ---
 
 Sooner or later, every programmer encounters the term "clean code" in their career. And although most initially imagine it's just "code aesthetics" that can be achieved with a formatter, in reality there is much more to it than that.
