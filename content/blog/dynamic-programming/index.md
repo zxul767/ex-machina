@@ -38,12 +38,14 @@ To solve this problem, think what happens if we take any word from the set and m
 
 ```python
 def can_segment(string, words):
-    def _find_prefix_word_matches(text):
-        ...
+    def _find_word_prefixes(suffix):
+        for word in words:
+            if suffix.startswith(word):
+                yield word
     def _can_segment(suffix):
         if len(suffix) == 0:
             return True
-        for match in _find_prefix_word_matches(suffix):
+        for match in _find_word_prefixes(suffix):
             if _can_segment(suffix[len(match):]):
                 return True
         return False
@@ -81,17 +83,11 @@ One way to fix this problem is to [memoize](https://en.wikipedia.org/wiki/Memoiz
 from functools import lru_cache
 
 def can_segment(string, words):
-    def _find_prefix_word_matches(text):
+    def _find_word_prefixes(text):
         ...
     @lru_cache(maxsize=len(string))
     def _can_segment(suffix):
-        if len(suffix) == 0:
-            return True
-        for match in _find_prefix_word_matches(suffix):
-            if _can_segment(suffix[len(match):]):
-                return True
-        return False
-    return _can_segment(string)
+        ...
 ```
 
 Memoization works very well for [pure functions](https://en.wikipedia.org/wiki/Pure_function), but in our case the function is not completely pure because it depends on the dictionary of words. Despite that, we are able to make it work because --for the purposes of an individual call to the outer function `can_segment`-- `words` is immutable, so `_can_segment` can still be memoized properly.
@@ -109,7 +105,7 @@ First, we can avoid passing a string to the `_can_segment` function simply by pa
 
 ```python
 def can_segment(string, words):
-    def _find_prefix_word_matches(offset):
+    def _find_word_prefixes(offset):
         for word in words:
             if string.startswith(word, offset):
                 yield word
@@ -117,7 +113,7 @@ def can_segment(string, words):
     def _can_segment(offset):
         if offset == len(string) - 1:
             return True
-        for match in _find_prefix_word_matches(offset):
+        for match in _find_word_prefixes(offset):
             if _can_segment(offset + len(match)):
                 return True
         return False
