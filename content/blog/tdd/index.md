@@ -1,7 +1,7 @@
 ---
 title: "Test-Driven Development"
 date: "2021-02-27T00:00:00.000000"
-description: "What are the consequences of the \"red, green, refactor\" loop?"
+description: "What are the consequences of the red-green-refactor loop?"
 ---
 
 > I'm not a great programmer; I'm just a good programmer with great habits. _Kent Beck_
@@ -10,7 +10,7 @@ When I first encountered [Test-Driven Development (TDD)](https://en.wikipedia.or
 
 I remember reading the first few chapters of ["Test Driven Development by Example"](https://www.goodreads.com/book/show/387190.Test_Driven_Development) by Kent Beck[^kent-beck], and finding the short chapters very useful to see TDD in action (i.e., "red, green, refactor" in short cycles of just a few minutes), but at the time I wasn’t able to appreciate the ramifications of such a seemingly simple routine.
 
-I recently read his book again, and it finally dawned on me that behind the simple “red, green, refactor” recipe, there are several very important ideas that combined together create a fundamentally different way to produce code. These ideas include _problem articulation_, _separation of concerns_, and _incremental development_, all of which combine to produce a less stressful experience during development, leading to happier and more productive coding sessions. 
+I recently read his book again, and it finally dawned on me that behind the simple red-green-refactor recipe, there are several very important ideas that combined together create a fundamentally different way to produce code. These ideas include _problem articulation_, _separation of concerns_, and _incremental development_, all of which combine to produce a less stressful experience during development, leading to happier and more productive coding sessions. 
 
 In the rest of this post, I will explore to some extent these ideas.
 
@@ -24,7 +24,7 @@ There are several concerns that we try to address when we program, whether we th
 
 However, it is usually very mentally taxing to try and address these concerns all at once. Experienced writers know this, and so they separate their task into stages: first write down all the main ideas; then flesh them out with details; then review and edit from a reader’s perspective; then have someone else review it and make suggestions; etc.
 
-As programmers, we are likely to become more productive by following a similar routine, as it reduces the stress associated with trying to accomplish too many things at the same time. TDD encourages this with its “red, green, refactor” recipe, by splitting apart the various concerns and focusing on one thing at a time in short feedback loops. 
+As programmers, we are likely to become more productive by following a similar routine, as it reduces the stress associated with trying to accomplish too many things at the same time. TDD encourages this with its red-green-refactor recipe, by splitting apart the various concerns and focusing on one thing at a time in short feedback loops. 
 
 During the “red” phase--when we're not supposed to write any production code until we have a failing test--our focus is on trying to clearly describe what is the problem we're tackling at the moment and how we can model it. During the “green” phase, our focus is on implementing the code that will make our failing test pass as soon as possible, and we're not worried about efficiency, clean internal structure, or anything else. During the “refactor” phase, our focus shifts to thinking about internal structure and API design: removing duplication, making sure the design is clean and elegant, ensuring the API is clear, etc.
 
