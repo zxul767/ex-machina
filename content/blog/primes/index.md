@@ -304,7 +304,7 @@ def generate_primes_upto_incremental(limit):
 
 We can then verify that it produces the same result as the original sieve:
 
-```shell
+```bash
 $ generate_primes_upto_incremental(31)
 >> [2, 3, 5, 7, 11, 13, 17, 19, 23, 25, 29, 31]
 ```
