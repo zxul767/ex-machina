@@ -6,8 +6,6 @@ description: "On the importance of keeping a critical mind"
 
 In a [previous post](https://zxul767.dev/clean-code), I recommended the popular book [_Clean Code_](https://www.goodreads.com/book/show/3735293-clean-code). Since then I've noticed that the book has been criticized quite often in recent years (e.g., see [this post](https://qntm.org/clean)), so I took the time to review it again--it's been many years since I first read it--and I found that I do agree with some of the criticisms raised against it.
 
-![Clean Code Book.](./images/clean-code-book.jpg)
-
 Though I won't do a full review of the book here, I do want to point out a couple of issues with the book as a warning for less experienced developers:
 
 + Dogmatism

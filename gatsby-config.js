@@ -102,7 +102,7 @@ module.exports = {
       options: {
         includePaths: [],
         excludePaths: ["/"],
-        height: 5,
+        height: 4,
         color: `#81bfe6`,
       }
     }
