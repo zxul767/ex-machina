@@ -31,7 +31,7 @@
     "katex": "^0.13.18",
     "nord-visual-studio-code": "github:arcticicestudio/nord-visual-studio-code",
     "prop-types": "^15.7.2",
-    "rainglow": "github:rainglow/vscode",
+    "rainglow": "github:webrgp/vscode",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
