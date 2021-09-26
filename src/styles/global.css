@@ -48,8 +48,8 @@ blockquote:before {
 
 blockquote p {
     display: inline;
-    font-size: 1rem;
-    font-style: slanted;
+    font-size: 1.1rem;
+    font-style: italic;
 }
 
 figcaption {
