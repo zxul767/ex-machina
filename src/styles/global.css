@@ -1,5 +1,5 @@
 .grvsc-line {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
 }
 
 p code, li code {
@@ -9,7 +9,13 @@ p code, li code {
     padding-left: 2px;
     padding-right: 2px;
     padding-bottom: 1px;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
+}
+
+pre.grvsc-container {
+    background-color: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+                rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
 code.grvsc-code {
