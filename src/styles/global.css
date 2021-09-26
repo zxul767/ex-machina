@@ -22,12 +22,12 @@ code.grvsc-code {
     line-height: 1.1rem;
 }
 
-div.post-body > p {
+.post-body > p {
     padding-left: 3%;
     padding-right: 3%;
 }
 
-div.post-body ul, div.post-body ol {
+.post-body ul, .post-body ol {
     padding-left: 3%;
 }
 
@@ -62,4 +62,8 @@ figcaption {
 .bio-avatar {
     margin-right: 5px;
     min-width: 64px;
+}
+
+.footnotes {
+    font-size: 0.9rem;
 }
