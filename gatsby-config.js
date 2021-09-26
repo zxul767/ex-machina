@@ -76,7 +76,6 @@ module.exports = {
         trackingId: process.env.GA_TRACKING_ID,
       },
     },
-    `gatsby-plugin-feed`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
