@@ -150,7 +150,7 @@ Though its name invokes some of air of sophistication, as it is explained in its
 
 [Richard Bellman](https://en.wikipedia.org/wiki/Richard_E._Bellman) (its creator), also explained this once:
 
-> The 1950s were not good years for mathematical research. We had a very interesting gentleman in Washington named Wilson. He was Secretary of Defense, and he actually had a pathological fear and hatred of the word "research"... His face would suffuse, he would turn red, and he would get violent if people used the term "research" in his presence. You can imagine how he felt, then, about the term "mathematical"... I thought "dynamic programming" was a good name. It was something not even a Congressman could object to.
+> The 1950s were not good years for mathematical research. We had a very interesting gentleman in Washington named Wilson. He was Secretary of Defense, and he actually had a pathological fear and hatred of the word "research". You can imagine how he felt then about the term "mathematical". I thought "dynamic programming" was a good name. It was something not even a Congressman could object to.
 
 ## Conclusion
 Despite its reputation for being a difficult technique, dynamic programming can be easily understood if you have a good grasp on recursion.
