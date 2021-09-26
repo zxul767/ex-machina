@@ -7,20 +7,12 @@
 
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import Image from "gatsby-image"
-
+import { StaticImage } from "gatsby-plugin-image"
 import { rhythm } from "../utils/typography"
 
 const Bio = () => {
   const data = useStaticQuery(graphql`
     query BioQuery {
-      avatar: file(absolutePath: { regex: "/ex-machina.png/" }) {
-        childImageSharp {
-          fixed(width: 50, height: 50) {
-            ...GatsbyImageSharpFixed
-          }
-        }
-      }
       site {
         siteMetadata {
           author
@@ -40,22 +32,16 @@ const Bio = () => {
         marginBottom: rhythm(1 / 2),
       }}
     >
-      <Image
-        fixed={data.avatar.childImageSharp.fixed}
-        alt={author}
-        style={{
-          marginRight: rhythm(1 / 2),
-          marginBottom: 0,
-          minWidth: 50,
-          borderRadius: `100%`,
-        }}
-        imgStyle={{
-          borderRadius: `50%`,
-        }}
+      <StaticImage
+        className="bio-avatar"
+        src="../images/ex-machina.png"
+        alt="ex-machina"
+        layout="fixed"
       />
+
       <p style={{ fontSize: `0.90rem` }}>
         Written by <strong>{author}</strong>, programmer and machine learning enthusiast.
-        You can usually find him on <a href={`https://twitter.com/${social.twitter}`}>Twitter</a>.
+        You can reach him on <a href={`https://twitter.com/${social.twitter}`}>Twitter</a>.
       </p>
     </div>
   )
