@@ -37,6 +37,8 @@ const Bio = () => {
         src="../images/ex-machina.png"
         alt="ex-machina"
         layout="fixed"
+        width={64}
+        height={64}
       />
 
       <p style={{ fontSize: `0.90rem` }}>
