@@ -3,8 +3,13 @@
 }
 
 p code, li code {
-    background-color: #dee4e7;
-    font-size: 0.8rem;
+    background-color: #ebeef0;
+    border-radius: 3px;
+    padding-top: 1px;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-bottom: 1px;
+    font-size: 0.7rem;
 }
 
 code.grvsc-code {
@@ -21,8 +26,24 @@ div.post-body ul, div.post-body ol {
 }
 
 blockquote {
-    font-style: italic;
-    font-size: 1.1rem;
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+}
+
+blockquote:before {
+    color: #ccc;
+    content: "\201C";
+    font-size: 3rem;
+    line-height: 0.1em;
+    vertical-align: -0.4em;
+}
+
+blockquote p {
+    display: inline;
+    font-size: 1rem;
+    font-style: slanted;
 }
 
 figcaption {
@@ -30,4 +51,9 @@ figcaption {
     font-size: 0.9rem;
     text-align: center;
     padding: 0 2rem;
+}
+
+.bio-avatar {
+    margin-right: 5px;
+    min-width: 64px;
 }
