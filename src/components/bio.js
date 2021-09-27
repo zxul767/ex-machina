@@ -37,6 +37,7 @@ const Bio = () => {
         src="../images/ex-machina.png"
         alt="ex-machina"
         layout="fixed"
+        placeholder="blurred"
         width={64}
         height={64}
       />
