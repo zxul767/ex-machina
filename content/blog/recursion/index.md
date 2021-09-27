@@ -1,7 +1,7 @@
 ---
 title: "Recursion in the Wild"
 date: "2020-09-21T00:00:00.000000"
-description: "How is recursion used in the real world?"
+description: "Is recursion actually used in the real world?"
 ---
 
 Courses introducing the topic of "recursion" for the first time have fallen into the habit of using rather silly examples, most typically involving the calculation of the factorial or the Fibonacci functions:

@@ -1,7 +1,7 @@
 ---
 title: "An AI with Intuition?"
 date: "2019-08-10T00:00:00.000000"
-description: "How did Google's AlphaGo defeat one of the best Go players in the world?"
+description: "How did AlphaGo defeat a world Go champion?"
 ---
 
 After Lee Sedol--currently the second best-ranked Go player in the world--was defeated by Google’s AlphaGo AI in March 2016, there was a roar in the AI community as it was commonly believed that it would take at least another decade for an AI program to achieve such a feat.

@@ -1,7 +1,7 @@
 ---
 title: "Clean Code Revisited"
 date: "2020-10-23T00:00:00.000"
-description: "On the importance of keeping a critical mind"
+description: "The perils of following rules blindly"
 ---
 
 In a [previous post](https://zxul767.dev/clean-code), I recommended the popular book [_Clean Code_](https://www.goodreads.com/book/show/3735293-clean-code). Since then I've noticed that the book has been criticized quite often in recent years (e.g., see [this post](https://qntm.org/clean)), so I took the time to review it again--it's been many years since I first read it--and I found that I do agree with some of the criticisms raised against it.

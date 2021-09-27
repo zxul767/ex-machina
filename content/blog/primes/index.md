@@ -1,7 +1,7 @@
 ---
 title: "Generating Primes"
 date: "2021-04-19T00:00:00.000"
-description: "Generating prime numbers incrementally"
+description: "A lazy algorithm for primes generation"
 ---
 
 In a [previous post](https://zxul767.dev/clean-code-critique), we saw a program that generates prime numbers[^primes] in what seemed to be a rather convoluted manner. In that post, I asserted that the program was hard to understand partly due to lack of documentation on the underlying algorithm. In this post, we will explore in detail that algorithm and how we can better model the underlying core concepts to yield a program that's easier to grasp with minimal documentation. 

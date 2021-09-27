@@ -1,5 +1,5 @@
 ---
-title: "Backpropagation"
+title: "Backpropagation Explained"
 date: "2020-10-08T00:00:00.000000"
 description: "How do neural networks learn from data?"
 ---

@@ -1,7 +1,7 @@
 ---
 title: "A Fundamental Developer Skill"
 date: "2021-05-01T00:00:00.000000"
-description: "The most important survival skills for developers"
+description: "Learn how to Google!"
 ---
 
 Recently I’ve observed a recurrent theme in Facebook programming groups: aspiring developers asking questions that can be answered by running a simple online search. This seems to suggest that they lack a fundamental skill for any software developer: looking up information and learning new things efficiently. 

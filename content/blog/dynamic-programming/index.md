@@ -1,7 +1,7 @@
 ---
 title: "Dynamic Programming"
 date: "2020-08-29T00:00:00.000000"
-description: "Is it just smart \"brute force\"?"
+description: "Optimization via Recursion + Memoization"
 ---
 
 Dynamic Programming is a topic that tends to be considered complex by most people, but I think it can be quite simple once it is properly deconstructed.
@@ -12,7 +12,7 @@ This [post](https://blog.usejournal.com/top-50-dynamic-programming-practice-prob
 
 If you're familiar with recursion, that definition will surely ring a bell. There is no surprise in that, since recursion is also all about solving a problem by solving smaller instances of the same problem. That allows us to formulate an alternative and concise "definition":
 
-> Dynamic Programming = Recursion + Memoization
+> Dynamic Programming = Optimization via Recursion + Memoization
 
 One nuance to this "definition", however, is that when we use dynamic programming we are often looking for an optimal solution, so the tricky part is proving that the optimal solution to a problem can be constructed by using optimal solutions to smaller subproblems of the same kind. Once we've figured that out, the implementation is usually pretty straightforward.
 
