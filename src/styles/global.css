@@ -1,15 +1,28 @@
+:root {
+    --code-font-size: 0.75rem;
+    --code-font-family: "Fira Code", sans-serif;
+
+    --inline-code-horizontal-padding: 3px;
+    --inline-code-vertical-padding: 2px;
+}
+
 .grvsc-line {
-    font-size: 0.8rem;
+    font-size: var(--code-font-size);
+}
+
+code, kbd, pre, samp {
+    font-family: var(--code-font-family);
+    font-size: var(--code-font-size);
 }
 
 p code, li code {
-    background-color: #ebeef0;
+    background-color: #f3f4f6;
     border-radius: 3px;
-    padding-top: 1px;
-    padding-left: 2px;
-    padding-right: 2px;
-    padding-bottom: 1px;
-    font-size: 0.8rem;
+    padding-top: var(--inline-code-vertical-padding);
+    padding-left: var(--inline-code-horizontal-padding);
+    padding-right: var(--inline-code-horizontal-padding);
+    padding-bottom: var(--inline-code-vertical-padding);
+    font-size: var(--code-font-size);
 }
 
 pre.grvsc-container {
