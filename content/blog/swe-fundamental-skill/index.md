@@ -11,6 +11,7 @@ The reason why this is so important is simple: _technology moves really fast_. A
 In this post, I will relate several things that I’ve found useful in my own career when it comes to acquiring new knowledge, in the hope that it can be helpful to new or aspiring developers.
 
 ## Learning Through Challenge
+
 > Being a student is easy. Learning requires actual work
 > — William Crawford
 
@@ -134,10 +135,11 @@ done
 A cursory inspection of this output might make me believe that the scheduling is deterministic (see the `2 2 2 1 1` pattern in the first half), but then in the third iteration (highlighted above), I can see this is not always the case.
 
 ### Explain It To Others
+
 > You teach best what you most need to learn
 > — Richard Bach
 
-The act of active recall is one of the most effective ways to solidify my learning in any topic. To that effect, explaining a topic to others is an excellent way to practice active recall. 
+The act of active recall is one of the most effective ways to solidify my learning in any topic. To that effect, explaining a topic to others is an excellent way to practice active recall.
 
 Oftentimes this will reveal gaps in my knowledge, forcing me to review the topic. That’s perfectly normal, and there’s even a name for it: the [Feynman Technique](https://fs.blog/2021/02/feynman-learning-technique/), after the [famous physicist](https://en.wikipedia.org/wiki/Richard_Feynman) who used to use a very similar technique to learn concepts deeply.
 
@@ -152,7 +154,6 @@ Happy Hacking!
 <!-- Foot Notes -->
 
 [^research-skills]: Notice that this is quite different from academic research, which has higher standards and protocols than is necessary for the kind of informal research that software developers usually need in their daily jobs.
-
 [^smart-questions]: Some people have seen this as a form of gatekeeping, but in my own experience I always found that, by asking questions the smart way, I would often get an answer more quickly (sometimes even by myself simply by forcing me to put more effort in my own research.)
 [^eli5]: For an example, check out the results of Googling “bitcon eli5”. At the time of writing, [this](https://www.reddit.com/r/explainlikeimfive/comments/12knie/eli5_bitcoins/) is the top result. Of course, just because someone attempted to explain something simply, it doesn’t mean they succeeded at doing so, so we still have to apply the same techniques mentioned in this post to discriminate between various levels of content quality.
 [^youtube]: I do watch YouTube videos to get familiar with some concepts or to reinforce or compare what I’ve learned in other ways, but they definitely tend to be slower to consume. I usually watch them at 2x the speed, unless the speaker already speaks very fast, or there are too many new ideas for me to process that fast (in which case I may slow down to 1.5x or 1.25x.)

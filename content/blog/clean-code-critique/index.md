@@ -160,6 +160,7 @@ public class RowColumnPagePrinter {
 Overall, this class reads reasonably well to me. One objection I have is whether we really need such long names (e.g., `firstIndexInRow` in the `printPage` function), which are harder to read, and sometimes can create unnatural line wrappings (such as in the `for` statement above.)
 
 Ironically, the author himself offers some advice in his book:
+
 > The length of a variable name should be proportional to the size of its scope"
 
 However, I will not fuss much about this particular issue because I'd like to focus on what I think is more problematic in the `PrimeGenerator` class.
@@ -324,7 +325,7 @@ public class PrimeGenerator {
 }
 ```
 
-Despite seemingly following "the rules" of "clean code", this code has fallen victim to a common problem when writing short functions: _forcing a "narrative" that is unnatural and hard to follow (partly due to the excessive indirection) simply in the name of creating very short functions._ 
+Despite seemingly following "the rules" of "clean code", this code has fallen victim to a common problem when writing short functions: _forcing a "narrative" that is unnatural and hard to follow (partly due to the excessive indirection) simply in the name of creating very short functions._
 
 This is, of course, not an issue with the principle itself, but rather with the programmer's ability to modularize the code appropriately, striking a balance between simplicity of part and coherence of the whole.
 
