@@ -37,21 +37,25 @@ def fibonacci(n):
 Though I know this is done for pedagogical reasons (i.e., to avoid cognitive overload), I believe that students often leave such courses feeling like recursion is just another one of those confusing and complicated techniques that they'll never use in the real world, which is a sad thing because recursion can be a very powerful programming technique when it's properly explained and contextualized.
 
 ## A more realistic example
+
 A few weeks ago, I started reading a book I wish I had read when I was at college, as it is a superb introduction to many core topics in computer science and software engineering: [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html). In one of the sections dealing with data abstraction, I found an example of a real use of recursion that I think might be more interesting for students to see and implement when learning recursion for the first time: _symbolic differentiation._
 
 If you remember differential calculus from high-school or college, you may know that there are various rules to differentiate expressions of various types. For example:
 
 The derivative of a constant is zero:
+
 $$
 \frac{\partial c}{\partial x} = 0
 $$
 
 The derivative of $y$ with respect to $x$ is zero:
+
 $$
 \frac{\partial y}{\partial x} = 0
 $$
 
 The derivative of $x$ with respect to $x$ is one:
+
 $$
 \frac{\partial x}{\partial x} = 1
 $$
@@ -100,6 +104,7 @@ As long as the input expression `expression` is built out of simpler expressions
 Think about how you might implement this function without recursion and you'll see that, even if there's a solution (and there is one, because [every recursive program can be turned into an iterative one](https://stackoverflow.com/questions/11708903/can-every-recursion-be-changed-to-iteration)!), it will not be as elegant or readable as the recursive version.
 
 ## A toy implementation
+
 The fact that `differentiate` looks as though it were operating on primitive types is only possible because Python supports overloading of operators for custom types.
 
 For the above code to work, it is necessary to define some classes that implement a hierarchy of expressions (i.e., constants, variables, sums, products), and the corresponding ["dunder"](https://dbader.org/blog/python-dunder-methods) methods to overload mathematical operators:
@@ -159,11 +164,14 @@ def test__can_differentiate_sums_and_products_recursively(x):
 ```
 
 ## Conclusion
+
 Recursion is a powerful technique that should be in the arsenal of any programmer. It is a shame that most introductory courses tend to present only unrealistic examples of where it might be used, because there are several places where its use is completely natural, and could motivate the topic a lot more for students.
 
 We saw one such example in this post, but there are several others, such as the processing of naturally recursive data structures (e.g., syntactic trees of programs, JSON documents, etc.), in computational geometry algorithms, in sorting algorithms (e.g., `quicksort` and `mergesort`), the traversal of hierarchical structures (e.g., routines to "walk" the file system), etc.
 
 ## Further Reading
+
 For more examples of natural uses of recursion, check out:
-+ [Real-world examples of recursion](https://stackoverflow.com/questions/105838/real-world-examples-of-recursion)
-+ [Good examples that actually motivate the study of recursion](https://cseducators.stackexchange.com/questions/4143/what-are-good-examples-that-actually-motivate-the-study-of-recursion)
+
+- [Real-world examples of recursion](https://stackoverflow.com/questions/105838/real-world-examples-of-recursion)
+- [Good examples that actually motivate the study of recursion](https://cseducators.stackexchange.com/questions/4143/what-are-good-examples-that-actually-motivate-the-study-of-recursion)

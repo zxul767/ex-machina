@@ -11,9 +11,10 @@ After Lee Sedol--currently the second best-ranked Go player in the world--was de
 To get an idea of why this was a common belief among AI researchers, it is useful to understand how traditional chess programs work (a game where AIs have vastly surpassed humans), and then see why the same approach couldn’t be used for the game of Go.
 
 ## Chess Engine: A Simulation Approach
-In chess, an algorithm known as [*minimax*](https://www.youtube.com/watch?v=l-hh51ncgDI) is commonly used to write chess programs (also known as chess engines) that play the game at grandmaster levels. The most sophisticated of these programs use this approach at their core, including popular open source programs such as [Stockfish](https://stockfishchess.org/).
 
-Minimax, which performs what is known as a “*game tree search*,” can be explained in simple terms as a simulation of the game that takes into account all possible moves of one player and all counter moves of the opponent, until either the end of the game is reached or a certain predefined number of moves has been simulated (more on this later). In essence, it’s a way of simulating all possible futures of a game from a current position, and then figuring out which of the best futures can be forced by the player in turn (assuming perfect play by both sides) to get the best possible outcome.
+In chess, an algorithm known as [_minimax_](https://www.youtube.com/watch?v=l-hh51ncgDI) is commonly used to write chess programs (also known as chess engines) that play the game at grandmaster levels. The most sophisticated of these programs use this approach at their core, including popular open source programs such as [Stockfish](https://stockfishchess.org/).
+
+Minimax, which performs what is known as a “_game tree search_,” can be explained in simple terms as a simulation of the game that takes into account all possible moves of one player and all counter moves of the opponent, until either the end of the game is reached or a certain predefined number of moves has been simulated (more on this later). In essence, it’s a way of simulating all possible futures of a game from a current position, and then figuring out which of the best futures can be forced by the player in turn (assuming perfect play by both sides) to get the best possible outcome.
 
 <figure>
     <img src="./images/game-tree.png" alt="A partial game tree from a chess ending. Each path from the top level node to the bottom represents a possible game">
@@ -21,7 +22,7 @@ Minimax, which performs what is known as a “*game tree search*,” can be expl
     </img>
 </figure>
 
-Determining who has an advantage at any given moment--and is therefore more likely to win the game--is another crucial component of this approach and, in fact, of basically any approach to building a chess engine. The piece of the chess engine that does this is called a *static evaluation function*. It isn’t necessary to evaluate every possible position in a game tree, only those that appear at the "bottom" (those which represent game situations far enough into the future.)
+Determining who has an advantage at any given moment--and is therefore more likely to win the game--is another crucial component of this approach and, in fact, of basically any approach to building a chess engine. The piece of the chess engine that does this is called a _static evaluation function_. It isn’t necessary to evaluate every possible position in a game tree, only those that appear at the "bottom" (those which represent game situations far enough into the future.)
 
 In practice, this simulation approach cannot be carried out for all possibles moves in a game. To see why, consider that the average number of legal moves at any point in the game is approximately 30. That means that, the further we want to look into the future, the bigger the number of game positions we need to evaluate, growing at an exponential pace. To get an idea of the magnitude of this growth, consider how a naive approach that looks at every single ending of the game and simulates the game to $N$ number of moves would have to evaluate roughly $30^N$ positions. An average game in chess lasts about $N=80$ moves, so this number would amount to the astronomically large $30^{80} \approx 10^{120}$!
 
@@ -36,13 +37,14 @@ So how does a chess engine manage to play the game without considering such a hu
     </img>
 </figure>
 
-
 ## AlphaGo: Simulation + Learning + Self-Play
-Back to the reason why AI researchers thought it would take much longer for a Go engine to beat a world champion, it basically has to do with the average number of moves that can be played in a given Go position. In chess, this number--known as the *ramification factor* of the game tree--is 30, but in Go it is around 300, making it completely infeasible to use the same approach that chess engines use to play a good game, even with all the tricks known to reduce the simulation space.
 
-Despite its apparent simplicity, Go is actually a more complex game than chess and often requires humans to use their intuition to make the right moves. This posed a very difficult challenge for researchers, who had to turn to other techniques, such as [*Monte Carlo Tree Search*](https://towardsdatascience.com/monte-carlo-tree-search-158a917a8baa) (MTSC)--an approach conceptually similar to minimax, but which relies on randomness and the classical [exploration/exploitation tradeoff](http://tomstafford.staff.shef.ac.uk/?p=48)--to try and overcome the problem, but their success was quite limited using this approach alone (the best Go engines before AlphaGo only managed to beat amateur players.)
+Back to the reason why AI researchers thought it would take much longer for a Go engine to beat a world champion, it basically has to do with the average number of moves that can be played in a given Go position. In chess, this number--known as the _ramification factor_ of the game tree--is 30, but in Go it is around 300, making it completely infeasible to use the same approach that chess engines use to play a good game, even with all the tricks known to reduce the simulation space.
+
+Despite its apparent simplicity, Go is actually a more complex game than chess and often requires humans to use their intuition to make the right moves. This posed a very difficult challenge for researchers, who had to turn to other techniques, such as [_Monte Carlo Tree Search_](https://towardsdatascience.com/monte-carlo-tree-search-158a917a8baa) (MTSC)--an approach conceptually similar to minimax, but which relies on randomness and the classical [exploration/exploitation tradeoff](http://tomstafford.staff.shef.ac.uk/?p=48)--to try and overcome the problem, but their success was quite limited using this approach alone (the best Go engines before AlphaGo only managed to beat amateur players.)
 
 One of the key insights that the team behind AlphaGo had was:
+
 > “What if instead of exploring random moves using MCTS, we explored moves that a strong Go player would play in a given position?”
 
 Fortunately, the existence of thousands of recorded games between master Go players and the rise of sophisticated [supervised machine learning](https://en.wikipedia.org/wiki/Supervised_learning) algorithms made this insight actionable.
@@ -53,9 +55,10 @@ They also added a second neural network that acted as an evaluation function and
 
 It’s worth noting that the first of these models alone was so powerful that it actually defeated all prior Go engines, but it wasn’t good enough to reach the level of professional Go players. To get there, the authors had to figure out a clever combination of those deep learning models and a variation of Monte Carlo tree search that gave AlphaGo the power to defeat one of the best human Go players in a very conclusive manner.
 
-There are other important nitty-gritty details that explain how they managed to make AlphaGo such a good player (*hint: reinforcement learning and self-play*), but that’s probably the topic for another post.
+There are other important nitty-gritty details that explain how they managed to make AlphaGo such a good player (_hint: reinforcement learning and self-play_), but that’s probably the topic for another post.
 
 ## Conclusion
+
 To be fair, the version of AlphaGo that defeated Lee Sedol was a distributed program running on multiple computers using a large amount of resources, but it’s still impressive that the amount of computing power it needed was much lower than that used by IBM’s DeepBlue in the historical 1996 match against chess world champion Gary Kasparov.
 
 This is a very impressive demonstration of how the combination of multiple techniques in AI ([classical search techniques in game trees](https://towardsdatascience.com/ai-search-algorithms-every-data-scientist-should-know-ed0968a43a7a) + supervised machine learning + [reinforcement learning](https://towardsdatascience.com/machine-learning-part-4-reinforcement-learning-43070cbd83ab)) can bring about incredible results that were once thought to be much harder to achieve.
@@ -64,8 +67,8 @@ With its ability to learn from others (the supervised learning part) and even fr
 
 ## Further Reading
 
-+ [AlphaGo](https://en.wikipedia.org/wiki/AlphaGo). Wikipedia provides a more technical high-level description of AlphaGo, and links to many other articles that explain it in even more detail.
+- [AlphaGo](https://en.wikipedia.org/wiki/AlphaGo). Wikipedia provides a more technical high-level description of AlphaGo, and links to many other articles that explain it in even more detail.
 
-+ [AlphaGo Official](https://deepmind.com/research/case-studies/alphago-the-story-so-far). This is the official page of the team behind AlphaGo: [DeepMind](https://deepmind.com/).
+- [AlphaGo Official](https://deepmind.com/research/case-studies/alphago-the-story-so-far). This is the official page of the team behind AlphaGo: [DeepMind](https://deepmind.com/).
 
-+ [AlphaGo: Technical Overview](https://jonathan-hui.medium.com/alphago-how-it-works-technically-26ddcc085319). This is a detailed technical overview of how AlphaGo works. If you're looking to understand the nitty-gritty details, this is a good place to get started.
+- [AlphaGo: Technical Overview](https://jonathan-hui.medium.com/alphago-how-it-works-technically-26ddcc085319). This is a detailed technical overview of how AlphaGo works. If you're looking to understand the nitty-gritty details, this is a good place to get started.

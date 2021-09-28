@@ -21,6 +21,7 @@ Another interesting way to look at Dynamic Programming--as is superbly explained
 To see these concepts more concretely, let's work through an example problem and see how each of these concepts apply.
 
 ## Word Break Problem
+
 > Given a string and a dictionary of words, determine if the string can be segmented into a space-separated sequence of one or more dictionary words.
 
 We can translate this description into the following function definition and some assertions that describe the expected behavior:
@@ -77,7 +78,7 @@ can_segment("thebananagaveusisfair", words)
 
 As you can see, the call to `_can_segment("gaveusisfair")` happens twice, with the cost associated to all its recursive calls. For bigger strings the amount of duplicated computation can lead to exponential runtime. This is akin to what happens in a [naive implementation](https://benalexkeen.com/fibonacci-implementation-in-python/) of the recursive definition of the [Fibonacci numbers](https://en.wikipedia.org/wiki/Fibonacci_number).
 
-One way to fix this problem is to [memoize](https://en.wikipedia.org/wiki/Memoization#:~:text=In%20computing%2C%20memoization%20or%20memoisation,the%20same%20inputs%20occur%20again.) the problematic function in order to avoid recomputation. In Python, we can easily achieve this using the `lru_cache` function from the `functools` module. 
+One way to fix this problem is to [memoize](https://en.wikipedia.org/wiki/Memoization#:~:text=In%20computing%2C%20memoization%20or%20memoisation,the%20same%20inputs%20occur%20again.) the problematic function in order to avoid recomputation. In Python, we can easily achieve this using the `lru_cache` function from the `functools` module.
 
 ```python
 from functools import lru_cache
@@ -93,6 +94,7 @@ def can_segment(string, words):
 Memoization works very well for [pure functions](https://en.wikipedia.org/wiki/Pure_function), but in our case the function is not completely pure because it depends on the dictionary of words. Despite that, we are able to make it work because --for the purposes of an individual call to the outer function `can_segment`-- `words` is immutable, so `_can_segment` can still be memoized properly.
 
 ## Is this really Dynamic Programming?
+
 If you've seen solutions to dynamic programming problems before, you may be wondering why this implementation doesn't resemble the code in those solutions (e.g., there is no table to store intermediate results, and no loops that compute solutions incrementally from previously computed solutions.)
 
 While the solution presented so far is indeed very different, this difference is only superficial since the same fundamental computation is being performed in both cases. What most typical implementations of dynamic programming do is to "unfold" the recursion, creating a bottom-up, iterative implementation.
@@ -144,6 +146,7 @@ Another important thing to notice is that depending on the input, it is possible
 Finally, notice how both solutions implement base or initial conditions (`if offset == len(string) - 1` in the recursive case, and `_can_segment[n] = True` in the iterative case.) In all dynamic programming problems, it is crucial to define these base conditions to avoid stack overflows or incorrect results.
 
 ## Why is it called Dynamic Programming?
+
 Though its name invokes some of air of sophistication, as it is explained in its Wikipedia [page](https://en.wikipedia.org/wiki/Dynamic_programming#:~:text=The%20word%20dynamic%20was%20chosen,schedule%20for%20training%20or%20logistics.), "dynamic programming" was actually a bit of a marketing gimmick in a time when mathematical research was frowned upon by government agencies sponsoring academic projects:
 
 > The word "dynamic" was chosen by Bellman to capture the time-varying aspect of the problems, and because it sounded impressive. The word "programming" referred to the use of the method to find an optimal program, in the sense of a military schedule for training or logistics.
@@ -153,6 +156,7 @@ Though its name invokes some of air of sophistication, as it is explained in its
 > The 1950s were not good years for mathematical research. We had a very interesting gentleman in Washington named Wilson. He was Secretary of Defense, and he actually had a pathological fear and hatred of the word "research". You can imagine how he felt then about the term "mathematical". I thought "dynamic programming" was a good name. It was something not even a Congressman could object to.
 
 ## Conclusion
+
 Despite its reputation for being a difficult technique, dynamic programming can be easily understood if you have a good grasp on recursion.
 
 The recursive implementation of a dynamic programming solution tends to be easier to visualize and implement, but sometimes it can be inefficient, so an iterative solution can be preferred.
@@ -162,6 +166,7 @@ One advantage of iterative solutions is that their time and space complexity are
 For problems where the number of subproblems that are required to compute the solution is much smaller than the total number of potential subproblems, the recursive solution may be more efficient both in space and time since it only does computations that are strictly necessary.
 
 ## Further Reading
-+ [MIT Lectures on Dynamic Programming](https://youtu.be/OQ5jsbhAv_M?list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb). This is a superb resource that I highly recommend. There are four lectures in the series, but the gist of it can be found in the first lecture. The rest of the lectures focus mostly on examples.
 
-+ [Top 50 Dynamic Programming Practice Problems](https://blog.usejournal.com/top-50-dynamic-programming-practice-problems-4208fed71aa3) to practice the theory learned in books and lectures.
+- [MIT Lectures on Dynamic Programming](https://youtu.be/OQ5jsbhAv_M?list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb). This is a superb resource that I highly recommend. There are four lectures in the series, but the gist of it can be found in the first lecture. The rest of the lectures focus mostly on examples.
+
+- [Top 50 Dynamic Programming Practice Problems](https://blog.usejournal.com/top-50-dynamic-programming-practice-problems-4208fed71aa3) to practice the theory learned in books and lectures.
