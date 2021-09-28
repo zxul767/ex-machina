@@ -62,8 +62,8 @@ class Layout extends React.Component {
       >
         <header>{header}</header>
         <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, built with
+        <footer style={{ fontSize: `0.9rem` }}>
+          © {new Date().getFullYear()}. Built using
           {` `}
           <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>

@@ -10,6 +10,7 @@ class BlogPostTemplate extends React.Component {
     const data = this.props.data
     const post = data.markdownRemark
     const siteTitle = data.site.siteMetadata.title
+    const { author, social } = data.site.siteMetadata
     const { previous, next } = this.props.pageContext
     const readingTime = post.fields.readingTime.text
 
@@ -30,7 +31,7 @@ class BlogPostTemplate extends React.Component {
         <h3
           style={{
             marginTop: rhythm(0.5),
-            marginBottom: 0,
+            marginBottom: rhythm(0.5),
           }}
         >
           {post.frontmatter.description}
@@ -38,6 +39,7 @@ class BlogPostTemplate extends React.Component {
         <small>
           {post.frontmatter.date} &mdash; &#x1F550; {readingTime}
         </small>
+
         <hr />
 
         <div
@@ -74,6 +76,17 @@ class BlogPostTemplate extends React.Component {
             )}
           </li>
         </ul>
+        <hr
+          style={{
+            marginBottom: rhythm(1),
+          }}
+        />
+
+        <p style={{ fontSize: `0.90rem` }}>
+          Written by <strong>{author}</strong>. You can usually find him hanging
+          out on
+          <a href={`https://twitter.com/${social.twitter}`}> Twitter</a>.
+        </p>
       </Layout>
     )
   }
@@ -87,6 +100,9 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         author
+        social {
+          twitter
+        }
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
