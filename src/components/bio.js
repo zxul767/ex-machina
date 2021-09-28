@@ -43,8 +43,9 @@ const Bio = () => {
       />
 
       <p style={{ fontSize: `0.90rem` }}>
-        Written by <strong>{author}</strong>, programmer and machine learning enthusiast.
-        You can reach him on <a href={`https://twitter.com/${social.twitter}`}>Twitter</a>.
+        Written by <strong>{author}</strong>, programmer and machine learning
+        enthusiast. You can reach him on{" "}
+        <a href={`https://twitter.com/${social.twitter}`}>Twitter</a>.
       </p>
     </div>
   )

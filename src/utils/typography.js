@@ -1,5 +1,5 @@
 import Typography from "typography"
-import theme from 'typography-theme-moraga'
+import theme from "typography-theme-moraga"
 
 const typography = new Typography(theme)
 

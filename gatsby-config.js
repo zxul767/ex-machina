@@ -1,8 +1,8 @@
 require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`
-});
+  path: `.env.${process.env.NODE_ENV}`,
+})
 
-const path = require('path');
+const path = require("path")
 
 module.exports = {
   siteMetadata: {
@@ -18,11 +18,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [
-          'Fira Code'
-        ],
-        display: 'swap'
-      }
+        fonts: ["Fira Code"],
+        display: "swap",
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
@@ -42,7 +40,8 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
-          'gatsby-remark-numbered-footnotes',
+          `gatsby-remark-reading-time`,
+          `gatsby-remark-numbered-footnotes`,
           {
             resolve: `gatsby-remark-images`,
             options: {
@@ -56,14 +55,14 @@ module.exports = {
             },
           },
           {
-              resolve: `gatsby-remark-vscode`,
-              options: {
-                theme: 'azure-light',
-                extensions: ['rainglow'],
-                inlineCode: {
-                  marker: '•'
-                }
-              }
+            resolve: `gatsby-remark-vscode`,
+            options: {
+              theme: "azure-light",
+              extensions: ["rainglow"],
+              inlineCode: {
+                marker: "•",
+              },
+            },
           },
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
@@ -71,9 +70,9 @@ module.exports = {
             resolve: `gatsby-remark-katex`,
             options: {
               // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
-              strict: `ignore`
-            }
-          }
+              strict: `ignore`,
+            },
+          },
         ],
       },
     },
@@ -83,7 +82,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: process.env.GA_TRACKING_ID || 'secret',
+        trackingId: process.env.GA_TRACKING_ID || "secret",
       },
     },
     {
@@ -113,7 +112,7 @@ module.exports = {
         excludePaths: ["/"],
         height: 4,
         color: `#81bfe6`,
-      }
-    }
+      },
+    },
   ],
 }
