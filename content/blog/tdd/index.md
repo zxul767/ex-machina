@@ -1,7 +1,7 @@
 ---
 title: "Test-Driven Development"
 date: "2021-02-27T00:00:00.000000"
-description: "Why can TDD make you a better programmer"
+description: "Why TDD can make you a better programmer"
 ---
 
 > I'm not a great programmer; I'm just a good programmer with great habits. _Kent Beck_
