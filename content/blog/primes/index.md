@@ -61,7 +61,7 @@ $ generate_primes_upto(31)
 
 In this program, the first step is implicitly implemented by initializing all elements in the `is_prime` array to `True`. The third step is then carried out by the `cross_out_multiples_of` function.
 
-To derive the time complexity of this algorithm, notice that the outer loop in `generate_primes_upto` traverses each odd number $n_i \in \{3, ..., N\}$, but the inner loop is only executed when $n_i$ is prime, crossing out $N/n_i$ multiples. The resulting runtime can be expressed as follows:
+To derive the time complexity of this algorithm, notice that the outer loop in `generate_primes_upto` traverses each odd number $n_i \in \{3, 5, ...\}$, but the inner loop is only executed when $n_i$ is prime, crossing out $N/n_i$ multiples. The resulting runtime can be expressed as follows:
 
 $$
 \begin{aligned}
@@ -71,9 +71,13 @@ T(N) &= \sum_{p_i \le N} \frac{N}{p_j} \\
 \end{aligned}
 $$
 
-This last result comes straight from Euler's proof that [the sum of the reciprocals of the primes](https://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes) diverges, so the overall running time is $O(N \ln \ln N)$, which is pretty fast. Unfortunately, this running time is achieved at the expense of using $O(N)$ space, which can get very costly for large enough $N$[^premature-optimization].
+This last result comes straight from Euler's proof that [the sum of the reciprocals of the primes](https://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes) diverges, so the overall running time is $O(N \ln \ln N)$, which is surprisingly fast! Unfortunately, this running time is achieved at the expense of using $O(N)$ space, which can get very costly for large enough $N$[^premature-optimization].
 
-Using the core ideas in this algorithm, it is possible to derive another one which only uses $O(\sqrt{N} / \ln\sqrt{N})$ space and generates primes incrementally, allowing us to produce a stream of primes on demand. However, as we'll see later in this post, the algorithm has $O(N\sqrt{N} \cdot \ln{\sqrt{N}} \cdot \ln \ln \sqrt{N})$ time complexity, which is significantly slower than $O(N \ln \ln N)$ for the basic sieve of Eratosthenes.
+***
+**Update**: _In a previous version of this post, we claimed that the algorithm described had time complexity_ $O(N \ln{\sqrt{N}} \cdot \ln \ln \sqrt{N})$ _but there was an error in the derivation. The error has since been corrected to show the correct complexity:_ $O(N \ln^2{N})$
+***
+
+Using the core ideas in this algorithm, it is possible to derive another one which only uses $O(\sqrt{N} / \ln\sqrt{N})$ space and generates primes incrementally, allowing us to produce a stream of primes on demand. However, as we'll see later in this post, the algorithm has $O(N \ln^2{N})$ time complexity, which is significantly slower than $O(N \ln \ln N)$ for the basic sieve of Eratosthenes.
 
 Before we get to that, let's see some simple optimizations that we can apply to this algorithm which will also come in handy later on.
 
@@ -82,7 +86,7 @@ Before we get to that, let's see some simple optimizations that we can apply to 
 There are at least two basic optimizations we can apply to speed up the simplest version of the sieve of Eratosthenes:
 
 1. We can skip all even numbers since--apart from $2$--all primes are odd.
-2. We can stop discarding multiples after reaching $\sqrt{N}$, since every multiple $m \ge \sqrt{N}$ of the form $m = \prod_{i}^{k} p_{s_{i}}$ (where $p_{s_{i}}$ are primes less than $\sqrt{N}$) will have already been crossed out by such smaller primes $s_i$ in earlier iterations.
+2. We can stop discarding multiples after reaching $\sqrt{N}$, since every multiple $m \ge \sqrt{N}$ of the form $m = \prod_{i}^{k} p_{s_{i}}$ (where $p_{s_i}$ are primes less than or equal to $\sqrt{N}$) will have already been crossed out by such smaller primes $p_{s_i}$ in earlier iterations.
 
 Applying these optimizations results in updates to the `generate_primes_upto` and `collect_primes` functions:
 
@@ -146,7 +150,7 @@ Notice also that when discarding multiples, we're wasting half of the time consi
 [*30*, 35, *40*, 45, *50*, 55, *60*, ...]
 ```
 
-This sequence is an instance of the general sequence $ m = p*{i}^2 + k \cdot p*{i} $ (with $k=1,2,\ldots$) which includes both even and odd numbers.
+This sequence is an instance of the general sequence $ m = p_{i}^2 + kp_{i} $ (with $k=1,2,\ldots$) which includes both even and odd numbers.
 
 To skip the even numbers, observe that:
 
@@ -173,7 +177,7 @@ $$
 So the sequence needs to change slightly as follows:
 
 $$
-m = p_{i}^2 + 2k \cdot p_{i}
+m = p_{i}^2 + 2kp_{i}
 $$
 
 This changes the `cross_out_multiples_of` function as follows:
@@ -276,8 +280,8 @@ class PrimeDivisors:
         )
 
     def is_divisible_by_nth_prime(self, candidate, n):
-        # candidate % n == 0 is equivalent to implicitly checking that remainder == 0
-        # in prime + prime + ... + remainder == candidate
+        # candidate % n == 0 is equivalent to implicitly checking 
+        # that remainder == 0 in prime + ... + remainder == candidate
         while self.multiples_of_nth_prime[n].head < candidate:
             next(self.multiples_of_nth_prime[n])
         return self.multiples_of_nth_prime[n].head == candidate
@@ -290,7 +294,8 @@ class PrimeDivisors:
 class PrimeMultiples:
     def __init__(self, prime):
         self.prime = prime
-        # NOTE(optimization): multiples below `prime^2` are covered by smaller primes
+        # NOTE(optimization): multiples below `prime^2` are covered 
+        # by smaller primes
         self.head = self.prime**2
 
     def __iter__(self):
@@ -329,7 +334,7 @@ Each prime divisor requires a constant amount of storage (because their underlyi
 
 Analyzing the time complexity is a bit more involved, and a general analysis can quickly get pretty hairy, so we'll try to focus on the worst case only.
 
-Let's define $T(N)$ as the running time of the algorithm when we want to generate primes up to $N$. In `PrimeGenerator._next_prime` we can see that we're traversing the sequence $\{3, 5 \ldots N\}$, and testing the primality of each candidate in turn. If we denote with $E(c_i)$ the running time of each of these tests, then we have:
+Let's define $T(N)$ as the running time of the algorithm when we want to generate primes up to $N$. In `PrimeGenerator._next_prime` we can see that we're traversing the sequence $\{3, 5 \ldots \}$, and testing the primality of each candidate in turn. If we denote with $E(c_i)$ the running time of each of these tests, then we have:
 
 $$
 T(N) = \sum_{c_{i} \le N} E(c_i)
@@ -338,10 +343,10 @@ $$
 $E(c)$ will depend on whether $c$ is prime or composite. When it's composite, the running time will be determined by its prime factorization. For example, if it has small prime factors, this will be detected early on in `PrimeDivisors.has_divisor_for`, short-circuiting the testing by other divisors, resulting in a constant amount of work. The worst case happens when `c` is prime, which forces a test by all prime divisors stored up to that point, resulting in the following runtime:
 
 $$
-E(c) = \sum_{p_i \le \sqrt{c}} \frac{\sqrt{c}}{\ln \sqrt{c}} D(c, p_i)
+E(c) = \sum_{p_i \le \sqrt{c}} D(c, p_i)
 $$
 
-The term $\frac{\sqrt{c}}{\ln \sqrt{c}}$ represents the amount of divisors stored when computing $c$, and $D(c, p_i)$ represents the time it takes to test divisibility of $c$ by $p_i$.
+The term $D(c, p_i)$ represents the time it takes to test divisibility of the candidate prime $c$ by each of the "support" primes $p_i$ stored up to that point (which, by construction, will always be $\le \sqrt{c}$).
 
 Seeing as the computation is done incrementally, the value of $D(c, p_i)$ is really just the marginal work expressed in the following equation:
 
@@ -376,15 +381,15 @@ Plugging all of this back into the inequality for $E(c)$, we get:
 
 $$
 \begin{aligned}
-E(c) &\le \frac{\sqrt{c}}{\ln c} \sum_{p_i \le \sqrt{c}} \frac{\ln^2 c}{2p_i} \\
-    &= \sqrt{c} \cdot \ln{c} \sum_{p_i \le \sqrt{c}} \frac{1}{p_i} \\
+E(c) &\le \sum_{p_i \le \sqrt{c}} \frac{\ln^2 c}{2p_i} \\
+    &= \frac{1}{2} \ln^2{c} \sum_{p_i \le \sqrt{c}} \frac{1}{p_i} \\
 \end{aligned}
 $$
 
 Once again, we run into the sum of the reciprocals of the primes which exhibits "ln-ln" growth, so we can reduce $E(c)$ as follows:
 
 $$
-E(c) \le \sqrt{c} \cdot \ln{c} \cdot \ln \ln \sqrt{c}
+E(c) \le \ln^2{c} \cdot \ln \ln \sqrt{c}
 $$
 
 We can use this information to derive an upper bound for $T(N)$:
@@ -392,14 +397,14 @@ We can use this information to derive an upper bound for $T(N)$:
 $$
 \begin{aligned}
 T(N) &= \sum_{c_{i} \le N} E(c_i) \\
-    &\le \sum_{c_{i} \le N} \sqrt{c_i} \cdot \ln{c_i} \cdot \ln \ln \sqrt{c_i} \\
-    &\le N\sqrt{N} \cdot \ln{\sqrt{N}} \cdot \ln \ln \sqrt{N}
+    &\le \sum_{c_{i} \le N} \ln^2{c_i} \cdot \ln \ln \sqrt{c_i} \\
+    &\le N \ln^2{N} \cdot \ln \ln \sqrt{N}
 \end{aligned}
 $$
 
 Notice this last bound is simply obtained by assuming that every $c_i = N$
 
-Thus, we have found that the time complexity for this algorithm is $O(N \sqrt{N} \ln{N} \cdot \ln \ln \sqrt{N})$.
+Thus, we have found that the time complexity for this algorithm is $O(N \ln^2{N} \cdot \ln \ln \sqrt{N})$. Notice that given how slowly $\ln \ln \sqrt{N}$ grows, for most practical purposes, the effective complexity of the algorithm is $O(N \ln^2{N})$
 
 Beware, however, that this analysis relies on a conjecture which applies only to the average size of the gap between consecutive primes, and that we have made several worst-case simplifying assumptions in various parts, so the resulting complexity is very likely to be a somewhat loose upper bound.
 
@@ -407,16 +412,16 @@ Beware, however, that this analysis relies on a conjecture which applies only to
 
 As with any other algorithm, it is a good idea to run some empirical tests and see whether the results approximately match the predicted runtime.
 
-Keep in mind that big-O notation says nothing about the hidden implementation constants that can make a practical difference between two algorithms in practice. We shouldn't be too surprised if we find an algorithm with $O(N^2)$ complexity running more slowly than one with $O(N)$ for small enough values of $N$. After all, the definition of the big-O notation does mention that $f(N) = O(g(N))$ whenever $f(N) <= c \cdot g(N)$ for all $N >= k$ (with integer constants $c$ and $k$).
+Keep in mind that big-O notation says nothing about the hidden implementation constants that can make a practical difference between two algorithms in practice. We shouldn't be too surprised if we find an algorithm with $O(N^2)$ complexity running more slowly than one with $O(N)$ for small enough values of $N$. After all, the definition of the big-O notation does say that $f(N) = O(g(N))$ whenever $f(N) \le c g(N)$ for all $N \ge k$ (with integer constants $c$ and $k$).
 
-After doing some test runs for $N=10^5, 10^6, 10^7, 10^8$, we can see that the running times increase by factors of approximately $16$, $20$ and $20$, which is in all cases less than the expected increase of about $30$ every time we scale $N$ by $10$, as the following equation shows:
+Empirically testing for $N=10^5, 10^6, 10^7, 10^8$, we observe that the running times increase by a factor that tracks very closely the expected theoretical runtime ratios between successive order of magnitude increases:
 
-$$
-\begin{aligned}
-T(10N) &= 10N \sqrt{10N} \ln \sqrt{10N} \ln \ln \sqrt{10N} \\
-    &\approx 31.62 N \sqrt{N} \cdot \ln{3.16 \sqrt{N}} \cdot \ln \ln{3.16 \sqrt{N}}
-\end{aligned}
-$$
+|$N_i$      | $T(N_i)$         | $T(N_i) / T(N_{i-1})$ | Empirical Increase |
+|-----------|------------------|-----------------------|--------------------|
+|$10^5$     | $23,200,088$     | $18$                  | $17$               |
+|$10^6$     | $368,880,677$    | $16$                  | $16$               |
+|$10^7$     | $5,421,348,564$  | $15$                  | $20$               |
+|$10^8$     | $75,340,457,596$ | $14$                  | $20$               |
 
 ## Conclusion
 
@@ -425,14 +430,6 @@ We discovered that the usual [space/time trade-off](https://en.wikipedia.org/wik
 We also found that sometimes the runtime analysis of an algorithm (particularly one involving mathematical objects) can be quite difficult, and without powerful mathematical tools at our disposal, the best we can hope for is some loose upper bounds. Quite often, however, that's all we need to make a decision, as we're likely to also run empirical tests anyway.
 
 Even though the resulting algorithm had much worse time complexity for generating $N$ primes, it did have the advantage of requiring significantly less memory, and of being suitable for applications where getting the next prime quickly is more important than the overall speed of getting $N$ primes. Under some strong assumptions related to prime gaps, we concluded that the time to get the next prime in this incremental algorithm was $O(\ln^2 p)$ with $p$ being the last prime generated.
-
-### Can we have our cake and eat it too?
-
-After all this analysis, we can't help but wonder if it's possible to make some additional tweaks to this incremental algorithm and make it significantly faster, thus achieving both good space and time complexities.
-
-As it turns out, by looking carefully at the operation of `PrimeDivisors.has_divisor_for`, it is possible to find a way to reduce the number of checks from $\frac{\sqrt{c}}{\ln{c}}$ down to $\lg{\sqrt{c}}$, significantly improving the time complexity.
-
-Can you figure out what the necessary change is?
 
 ## References
 
