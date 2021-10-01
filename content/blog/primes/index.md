@@ -65,8 +65,8 @@ To derive the time complexity of this algorithm, notice that the outer loop in `
 
 $$
 \begin{aligned}
-T(N) &= \sum_{p_i \le N} \frac{N}{p_j} \\
-    &= N \sum_{p_i \le N} \frac{1}{p_j} \\
+T(N) &= \sum_{p_i \le N} \frac{N}{p_i} \\
+    &= N \sum_{p_i \le N} \frac{1}{p_i} \\
     &\approx N \ln \ln N
 \end{aligned}
 $$
