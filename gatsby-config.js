@@ -18,8 +18,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts-with-attributes`,
       options: {
-        fonts: ["Fira Code"],
-        display: "swap",
+        fonts: [
+          `Fira Code`,
+          `Source Sans Pro\:300,400,400i,700`
+        ],
+        display: "block",
         attributes: {
           rel: "stylesheet preload prefetch"
         }
