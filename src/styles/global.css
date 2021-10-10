@@ -1,5 +1,5 @@
 :root {
-    --code-font-size: 0.7rem;
+    --code-font-size: 0.75rem;
     --code-font-family: "Fira Code", sans-serif;
 
     --inline-code-horizontal-padding: 3px;
@@ -23,6 +23,13 @@ pre.grvsc-container {
 }
 code.grvsc-code {
     line-height: 1.1rem;
+    width: 100%;
+}
+span.grvsc-source {
+    padding-left: 0.5rem;
+    padding-left: var(--grvsc-padding-left, var(--grvsc-padding-h, 0.5rem));
+    padding-right: 0.5rem;
+    padding-right: var(--grvsc-padding-right, var(--grvsc-padding-h, 0.5rem));
 }
 
 /* --------------------------------------------------------------------------*/

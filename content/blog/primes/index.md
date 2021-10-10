@@ -414,7 +414,7 @@ As with any other algorithm, it is a good idea to run some empirical tests and s
 
 Keep in mind that big-O notation says nothing about the hidden implementation constants that can make a practical difference between two algorithms in practice. We shouldn't be too surprised if we find an algorithm with $O(N^2)$ complexity running more slowly than one with $O(N)$ for small enough values of $N$. After all, the definition of the big-O notation does say that $f(N) = O(g(N))$ whenever $f(N) \le c g(N)$ for all $N \ge k$ (with integer constants $c$ and $k$).
 
-Empirically testing for $N=10^5, 10^6, 10^7, 10^8$, we observe that the running times increase by a factor that tracks very closely the expected theoretical runtime ratios between successive order of magnitude increases (i.e., $T(N_i) / T(N_{i-1})$):
+Empirically testing for $N=10^5, 10^6, 10^7, 10^8$, we observe that the running times increase by a factor that tracks very closely the expected theoretical runtime ratios between successive order of magnitude increases ($T(N_i) / T(N_{i-1})$):
 
 |$N_i$      | $T(N_i)$         | Theoretical Ratio  | Empirical Ratio |
 |-----------|------------------|--------------------|-----------------|
