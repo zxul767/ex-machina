@@ -29,6 +29,7 @@ const Bio = () => {
     <div
       style={{
         display: `flex`,
+        alignItems: `center`,
         marginBottom: rhythm(1 / 2),
       }}
     >
@@ -42,7 +43,7 @@ const Bio = () => {
         height={64}
       />
 
-      <p style={{ fontSize: `0.90rem` }}>
+      <p>
         Written by <strong>{author}</strong>, programmer and machine learning
         enthusiast. You can usually find him hanging out on{" "}
         <a href={`https://twitter.com/${social.twitter}`}>Twitter</a>.
