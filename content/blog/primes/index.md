@@ -438,6 +438,8 @@ Even though the resulting algorithm had much worse time complexity for generatin
 - [Divergence of the sums of the reciprocals of the primes](https://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes)
 - [Cramer's Conjecture on Prime Gaps](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_conjecture)
 
+## Notes
+
 [^primes]: A [prime number](https://en.wikipedia.org/wiki/Prime_number) is an integer which has no divisors other than one and itself. They're the building blocks of all other integers, and have many interesting properties.
 [^sieve]: Conceptually speaking, the algorithm is capable of producing primes _ad infinitum_, but a direct implementation is infeasible. In this post we'll see how to adapt it to accomplish just that.
 [^test-properly]: In an actual implementation, we would have to add tests to cover corner cases, much larger intervals, as well as tests of the properties of the generated sequences. For the purposes of this post, though, some "smoke" tests will suffice.

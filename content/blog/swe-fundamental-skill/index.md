@@ -143,7 +143,7 @@ The act of active recall is one of the most effective ways to solidify my learni
 
 Oftentimes this will reveal gaps in my knowledge, forcing me to review the topic. That’s perfectly normal, and there’s even a name for it: the [Feynman Technique](https://fs.blog/2021/02/feynman-learning-technique/), after the [famous physicist](https://en.wikipedia.org/wiki/Richard_Feynman) who used to use a very similar technique to learn concepts deeply.
 
-# Conclusion
+## Conclusion
 
 Novice programmers tend to spend a lot of time chasing course after course on specific technologies that are trending at the moment, but often neglect the development of the most fundamental skill in our field: the ability to research and learn new information efficiently. Or, as some people might put it these days: "Learning how to Google!"
 
@@ -151,7 +151,7 @@ While it's definitely not a skill one can acquire overnight, it is one that is l
 
 Happy Hacking!
 
-<!-- Foot Notes -->
+## Notes
 
 [^research-skills]: Notice that this is quite different from academic research, which has higher standards and protocols than is necessary for the kind of informal research that software developers usually need in their daily jobs.
 [^smart-questions]: Some people have seen this as a form of gatekeeping, but in my own experience I always found that, by asking questions the smart way, I would often get an answer more quickly (sometimes even by myself simply by forcing me to put more effort in my own research.)
