@@ -20,22 +20,22 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
         />
-        <h1
+        <h2
           style={{
             marginTop: rhythm(1),
             marginBottom: 0,
           }}
         >
           {post.frontmatter.title}
-        </h1>
-        <h3
+        </h2>
+        <h4
           style={{
             marginTop: rhythm(0.5),
             marginBottom: rhythm(0.5),
           }}
         >
           {post.frontmatter.description}
-        </h3>
+        </h4>
         <small>
           {post.frontmatter.date} &mdash; &#x1F550; {readingTime}
         </small>

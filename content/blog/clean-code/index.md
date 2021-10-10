@@ -152,21 +152,21 @@ def is_ipv4(text):
 
 The resulting code is simpler and easier to read, but did we just make the code "prettier"? Is that all we gained by doing these refactorings? On the surface it may seem so, but let me state a couple of points on why I think this effort goes beyond making things "prettier."
 
-### Readability improves programmer efficiency
+#### Readability improves programmer efficiency
 
 In professional settings, we almost always read code way more than we write code. This is easy to see if you think about the times you've had to add a new feature to an existing codebase, and before you could do so you had to understand how the existing code worked.
 
 The additional upfront cost we pay to make things simpler is dwarfed by the time we would otherwise have to spend making sense of tangled or poorly structured code.
 
-### Bugs are easier to spot in clean code
+#### Bugs are easier to spot in clean code
 
 Whenever a piece of code is easy to grasp, it's easier to spot mistakes in its logic. It's also easier to see a mismatch between implementation and intent (e.g., when the function name says something but the implementation contradicts it.) In code that doesn't adhere to clean code principles, this is much harder to do.
 
-### Programmer frustration decreases with clean code
+#### Programmer frustration decreases with clean code
 
 Our motivation and ability to remain productive in a project are strongly correlated with the amount of frustration we face on a daily basis with the codebase (which is often not intrinsically difficult, it just happens to have been poorly structured.) Clean code practices can reduce this daily frustration, thus increasing our productivity and our happiness in the job.
 
-### Did we miss something?
+#### Did we miss something?
 
 Yes, there is one thing we didn't mention throughout this exercise: as is explained in any good book on refactoring, having tests is a very important pre-condition to do refactorings with confidence.
 

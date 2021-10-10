@@ -126,7 +126,7 @@ $$
 
 As you can see, the partial derivative highlighted in red in the two previous equations is the same. This is what I meant when I said earlier that we'd eventually find redundancy in the computations. But this is good news because it means that if we compute the partial derivatives in a backward fashion, we'll be able to save a lot of computation by reusing previous results.
 
-## Finding Further Redundancy
+### Finding Further Redundancy
 
 You may think that things will get way more complicated once we consider a more general neural network, but that's not really the case. To see why, let's consider the following more general network:
 
