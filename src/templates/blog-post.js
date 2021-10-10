@@ -63,10 +63,15 @@ class BlogPostTemplate extends React.Component {
         >
           <li>
             {previous && (
-              <Link to={previous.fields.slug} rel="prev">
+              <Link to={previous.fields.slug} rel="previous">
                 ← {previous.frontmatter.title}
               </Link>
             )}
+          </li>
+          <li style={{ marginLeft: `2rem`, marginRight: `2rem` }}>
+            <Link to="/" rel="home">
+              Home
+            </Link>
           </li>
           <li>
             {next && (
@@ -76,6 +81,7 @@ class BlogPostTemplate extends React.Component {
             )}
           </li>
         </ul>
+
         <hr
           style={{
             marginBottom: rhythm(1),

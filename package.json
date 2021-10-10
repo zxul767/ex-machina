@@ -15,6 +15,7 @@
     "gatsby-plugin-image": "^1.14.0",
     "gatsby-plugin-manifest": "^3.14.0",
     "gatsby-plugin-page-progress": "^2.2.1",
+    "gatsby-plugin-preact": "^5.14.0",
     "gatsby-plugin-react-helmet": "^4.14.0",
     "gatsby-plugin-remove-serviceworker": "^1.0.0",
     "gatsby-plugin-sharp": "^3.14.0",
@@ -31,17 +32,16 @@
     "gatsby-transformer-remark": "^4.11.0",
     "gatsby-transformer-sharp": "^3.14.0",
     "katex": "^0.13.18",
-    "nord-visual-studio-code": "github:arcticicestudio/nord-visual-studio-code",
+    "preact": "^10.5.14",
+    "preact-render-to-string": "^5.1.19",
     "prop-types": "^15.7.2",
     "rainglow": "github:webrgp/vscode#patch-1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
     "react-typography": "^0.16.20",
-    "typeface-merriweather": "^1.1.13",
-    "typeface-montserrat": "^1.1.13",
     "typography": "^0.16.21",
-    "typography-theme-moraga": "^0.16.19"
+    "typography-breakpoint-constants": "^0.16.19"
   },
   "devDependencies": {
     "prettier": "2.2.1"

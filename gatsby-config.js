@@ -20,12 +20,14 @@ module.exports = {
       options: {
         fonts: [
           `Fira Code`,
-          `Source Sans Pro\:300,400,400i,700`
+          `Merriweather`,
+          `Source Sans Pro\:200,400,400i,700`,
         ],
-        display: "block",
+        display: "swap",
         attributes: {
-          rel: "stylesheet preload prefetch"
-        }
+          rel: "stylesheet preload prefetch",
+          as: "style",
+        },
       },
     },
     {
@@ -120,5 +122,6 @@ module.exports = {
         color: `#81bfe6`,
       },
     },
+    `gatsby-plugin-preact`,
   ],
 }
