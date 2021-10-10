@@ -2,6 +2,7 @@ import React from "react"
 import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
+import AuthorBanner from "../components/author"
 import Seo from "../components/seo"
 import { rhythm } from "../utils/typography"
 
@@ -82,17 +83,9 @@ class BlogPostTemplate extends React.Component {
           </li>
         </ul>
 
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
-
-        <p style={{ fontSize: `0.90rem` }}>
-          Written by <strong>{author}</strong>. You can usually find him hanging
-          out on
-          <a href={`https://twitter.com/${social.twitter}`}> Twitter</a>.
-        </p>
+        <hr />
+        <AuthorBanner author={author} social={social} />
+        <hr />
       </Layout>
     )
   }
@@ -108,6 +101,8 @@ export const pageQuery = graphql`
         author
         social {
           twitter
+          github
+          linkedin
         }
       }
     }

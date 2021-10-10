@@ -93,7 +93,22 @@ figcaption {
     padding: 0 2rem;
 }
 
-.bio-avatar {
-    margin-right: 5px;
-    min-width: 64px;
+/* --------------------------------------------------------------------------*/
+/* Author Banner                                                             */
+/* --------------------------------------------------------------------------*/
+.author {
+    display: block;
+    margin-bottom: 10px;
+    font-style: oblique;
+    font-size: 0.9rem;
+}
+.social-networks {
+    margin-top: 0.5rem;
+    margin-right: 1rem;
+    display: flex;
+}
+.social-mini-icon {
+    height: 32px !important;
+    width: 32px !important;
+    margin: 3px;
 }

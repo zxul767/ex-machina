@@ -12,6 +12,8 @@ module.exports = {
     siteUrl: `https://zxul767.dev`,
     social: {
       twitter: `zxul767`,
+      github: `zxul767`,
+      linkedin: `wgomezj`,
     },
   },
   plugins: [
