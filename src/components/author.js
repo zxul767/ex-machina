@@ -3,7 +3,7 @@ import { SocialIcon } from "react-social-icons"
 
 const AuthorBanner = ({ author, social }) => {
   return (
-    <p className="author">
+    <div className="author">
       Written by {author}, software engineer and machine learning enthusiast.
       <div className="social-networks">
         <SocialIcon
@@ -19,7 +19,7 @@ const AuthorBanner = ({ author, social }) => {
           url={`https://linkedin.com/in/${social.linkedin}`}
         />
       </div>
-    </p>
+    </div>
   )
 }
 

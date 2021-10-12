@@ -97,18 +97,16 @@ figcaption {
 /* Author Banner                                                             */
 /* --------------------------------------------------------------------------*/
 .author {
-    display: block;
-    margin-bottom: 10px;
-    font-style: oblique;
-    font-size: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 }
 .social-networks {
-    margin-top: 0.5rem;
-    margin-right: 1rem;
     display: flex;
 }
 .social-mini-icon {
     height: 32px !important;
     width: 32px !important;
-    margin: 3px;
+    margin: 5px;
 }
