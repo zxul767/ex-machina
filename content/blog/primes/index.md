@@ -433,10 +433,10 @@ Even though the resulting algorithm had much worse time complexity for generatin
 
 ## References
 
-- [The sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
-- [How many primes are there?](https://primes.utm.edu/howmany.html)
-- [Divergence of the sums of the reciprocals of the primes](https://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes)
-- [Cramer's Conjecture on Prime Gaps](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_conjecture)
+- 📝 [The sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+- 📝 [How many primes are there?](https://primes.utm.edu/howmany.html)
+- 📝 [Divergence of the sums of the reciprocals of the primes](https://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes)
+- 📝 [Cramer's Conjecture on Prime Gaps](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_conjecture)
 
 ## Notes
 

@@ -72,7 +72,8 @@ blockquote:before {
 }
 blockquote p {
     display: inline;
-    font-size: 1.1rem;
+    font-family: Merriweather, serif;
+    font-size: 0.9rem;
     font-style: italic;
 }
 

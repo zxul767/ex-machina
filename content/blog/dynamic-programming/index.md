@@ -167,6 +167,6 @@ For problems where the number of subproblems that are required to compute the so
 
 ## Further Reading
 
-- [MIT Lectures on Dynamic Programming](https://youtu.be/OQ5jsbhAv_M?list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb). This is a superb resource that I highly recommend. There are four lectures in the series, but the gist of it can be found in the first lecture. The rest of the lectures focus mostly on examples.
+- 🎥 [MIT Lectures on Dynamic Programming](https://youtu.be/OQ5jsbhAv_M?list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb). This is a superb resource that I highly recommend. There are four lectures in the series, but the gist of it can be found in the first lecture. The rest of the lectures focus mostly on examples.
 
-- [Top 50 Dynamic Programming Practice Problems](https://blog.usejournal.com/top-50-dynamic-programming-practice-problems-4208fed71aa3) to practice the theory learned in books and lectures.
+- 🎥 [Dynamic Programming - FreeCodeCamp](https://www.youtube.com/watch?v=oBt53YbR9Kk). Is a 5-hour long practical crash-course on solving dynamic programming problems. It's very useful to see in practice the theory learned in the previous resource.

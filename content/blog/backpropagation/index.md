@@ -147,10 +147,10 @@ Once these fundamental ideas are clear, reading articles like [this](https://bri
 
 ## Further Reading
 
-- [Neural Networks](https://www.youtube.com/watch?v=uXt8qF2Zzfo) by [Patrick Winston](https://en.wikipedia.org/wiki/Patrick_Winston). His lecture was a great inspiration for this post, and was also the first material that truly shed light on backprogation for me.
+- 🎥 [Neural Networks](https://www.youtube.com/watch?v=uXt8qF2Zzfo) by [Patrick Winston](https://en.wikipedia.org/wiki/Patrick_Winston). His lecture was a great inspiration for this post, and was also the first material that truly shed light on backprogation for me.
 
-- [What is backprogation really doing?](https://www.youtube.com/watch?v=Ilg3gGewQ5U) The third video in the series by Grant Sanderson. A very good complement to what was presented in this post.
+- 🎥 [What is backprogation really doing?](https://www.youtube.com/watch?v=Ilg3gGewQ5U) The third video in the series by Grant Sanderson. A very good complement to what was presented in this post.
 
-- [Neural Networks](https://www.youtube.com/watch?v=Ih5Mr93E-2c) by [Yasser Abu Mostafa](https://work.caltech.edu/) is another great resource that explains, as part of a larger introductory course on machine learning, the derivation of the backprogation algorithm.
+- 🎥 [Neural Networks](https://www.youtube.com/watch?v=Ih5Mr93E-2c) by [Yasser Abu Mostafa](https://work.caltech.edu/) is another great resource that explains, as part of a larger introductory course on machine learning, the derivation of the backprogation algorithm.
 
-- [Backpropagation](https://brilliant.org/wiki/backpropagation/) by [Brilliant](https://brilliant.org/). After having gotten the gist of backpropagation, this is a great post to read, as it goes into full detail about the mathematical derivations, and even provides a simple implementation in Python in the end.
+- 📝 [Backpropagation](https://brilliant.org/wiki/backpropagation/) by [Brilliant](https://brilliant.org/). After having gotten the gist of backpropagation, this is a great post to read, as it goes into full detail about the mathematical derivations, and even provides a simple implementation in Python in the end.

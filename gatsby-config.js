@@ -7,7 +7,7 @@ const path = require("path")
 module.exports = {
   siteMetadata: {
     title: `Ex Machina`,
-    author: `Willy Gómez`,
+    author: `W. Gómez`,
     description: `A blog on machine learning, artificial intelligence and other topics.`,
     siteUrl: `https://zxul767.dev`,
     social: {

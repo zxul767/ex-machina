@@ -45,7 +45,7 @@ Despite its apparent simplicity, Go is actually a more complex game than chess a
 
 One of the key insights that the team behind AlphaGo had was:
 
-> “What if instead of exploring random moves using MCTS, we explored moves that a strong Go player would play in a given position?”
+> What if instead of exploring random moves using MCTS, we explored moves that a strong Go player would play in a given position?
 
 Fortunately, the existence of thousands of recorded games between master Go players and the rise of sophisticated [supervised machine learning](https://en.wikipedia.org/wiki/Supervised_learning) algorithms made this insight actionable.
 
@@ -67,8 +67,8 @@ With its ability to learn from others (the supervised learning part) and even fr
 
 ## Further Reading
 
-- [AlphaGo](https://en.wikipedia.org/wiki/AlphaGo). Wikipedia provides a more technical high-level description of AlphaGo, and links to many other articles that explain it in even more detail.
+- 📝 [AlphaGo](https://en.wikipedia.org/wiki/AlphaGo). Wikipedia provides a more technical high-level description of AlphaGo, and links to many other articles that explain it in even more detail.
 
-- [AlphaGo Official](https://deepmind.com/research/case-studies/alphago-the-story-so-far). This is the official page of the team behind AlphaGo: [DeepMind](https://deepmind.com/).
+- 🌐 [AlphaGo Official](https://deepmind.com/research/case-studies/alphago-the-story-so-far). This is the official page of the team behind AlphaGo: [DeepMind](https://deepmind.com/).
 
-- [AlphaGo: Technical Overview](https://jonathan-hui.medium.com/alphago-how-it-works-technically-26ddcc085319). This is a detailed technical overview of how AlphaGo works. If you're looking to understand the nitty-gritty details, this is a good place to get started.
+- 📝 [AlphaGo: Technical Overview](https://jonathan-hui.medium.com/alphago-how-it-works-technically-26ddcc085319). This is a detailed technical overview of how AlphaGo works. If you're looking to understand the nitty-gritty details, this is a good place to get started.

@@ -42,7 +42,7 @@ For this example, all definitions I found describe `goroutines` as an abstractio
 
 If a definition seems hard to grasp because of unknown terms, I take some time to do a lighter search for those terms as well. If at some point I feel like I’m starting to go down a rabbit hole, I try to look for layman explanations instead of more formal definitions (e.g., using the keyword `eli5`[^eli5], which stands for “explain it like I’m five”)
 
-> One way to search for layman explanations is using the keyword **"eli5"** which stands for “explain it like I’m five”
+> One way to search for layman explanations is using the keyword «eli5» which stands for «explain it like I’m five»
 
 ### Find Good Code Examples
 

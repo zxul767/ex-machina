@@ -173,5 +173,6 @@ We saw one such example in this post, but there are several others, such as the 
 
 For more examples of natural uses of recursion, check out:
 
-- [Real-world examples of recursion](https://stackoverflow.com/questions/105838/real-world-examples-of-recursion)
-- [Good examples that actually motivate the study of recursion](https://cseducators.stackexchange.com/questions/4143/what-are-good-examples-that-actually-motivate-the-study-of-recursion)
+- 📝 [Real-world examples of recursion](https://stackoverflow.com/questions/105838/real-world-examples-of-recursion)
+
+- 📝 [Good examples that actually motivate the study of recursion](https://cseducators.stackexchange.com/questions/4143/what-are-good-examples-that-actually-motivate-the-study-of-recursion)

@@ -56,9 +56,9 @@ This, among other things, means recognizing our limitations in tackling more tha
 
 ## Further Reading
 
-- [Test Driven Development by Example](https://www.goodreads.com/book/show/387190.Test_Driven_Development), is the original book written by Kent Beck to explain TDD. A highly recommended read to learn about and experience TDD from the man who invented it.
+- 📖 [Test Driven Development by Example](https://www.goodreads.com/book/show/387190.Test_Driven_Development), is the original book written by Kent Beck to explain TDD. A highly recommended read to learn about and experience TDD from the man who invented it.
 
-- [TCR](https://www.youtube.com/watch?v=FFzHOyFeovE) (Test && Commit || Revert) is one of Kent Beck's latest experimental techniques to develop code. If you have found TDD interesting, you might find TCR at least intriguing.
+- 🎥 [TCR](https://www.youtube.com/watch?v=FFzHOyFeovE) (Test && Commit || Revert) is one of Kent Beck's latest experimental techniques to develop code. If you have found TDD interesting, you might find TCR at least intriguing.
 
 ## Notes
 
