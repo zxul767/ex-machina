@@ -4,6 +4,8 @@ date: "2020-08-18T00:00:00.000"
 description: "Does writing maintainable code matter?"
 ---
 
+![Don Knuth on clean code](./images/knuth-quote.jpg)
+
 Sooner or later, every programmer encounters the term "clean code" in their career. And although most initially imagine it's just "code aesthetics" that can be achieved with a formatter, in reality there is much more to it than that.
 
 In this post we'll examine what exactly it is, why it matters, and some of the fundamental ideas that can help us write clean code.
@@ -176,10 +178,10 @@ In the example we considered, the transformations were more or less straightforw
 
 This post just scratched the surface of the many ideas involved in writing clean code. I highly recommend exploring the following materials for a more in-depth look:
 
-- [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) by [Robert C. Martin](https://twitter.com/unclebobmartin?lang=en).
+- 📖 [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) by [Robert C. Martin](https://twitter.com/unclebobmartin?lang=en).
 
-- [Clean Code Slides](https://docs.google.com/presentation/d/1sZe0yQkoeR1S8IvyQst94hoFKk_Kcu2Gxzf8rHL4ZWM/edit?usp=sharing). I put together this slide deck a couple of years ago while working at [Wizeline](https://www.wizeline.com/).
+- 📝 [Clean Code Slides](https://docs.google.com/presentation/d/1sZe0yQkoeR1S8IvyQst94hoFKk_Kcu2Gxzf8rHL4ZWM/edit?usp=sharing). I put together this slide deck a couple of years ago while working at [Wizeline](https://www.wizeline.com/).
 
-- [The Art of Readable Code](https://www.amazon.com/dp/B0064CZ1XE/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1) by [Dustin Boswell](https://twitter.com/dustinboswell?lang=en). Similar in spirit to "Clean Code", but worth reading for the additional insights and angles it presents.
+- 📖 [The Art of Readable Code](https://www.amazon.com/dp/B0064CZ1XE/ref=dp-kindle-redirect?_encoding=UTF8&btkr=1) by [Dustin Boswell](https://twitter.com/dustinboswell?lang=en). Similar in spirit to "Clean Code", but worth reading for the additional insights and angles it presents.
 
-- [The Clean Code Talks](https://www.youtube.com/playlist?list=PLR5laMT-DcloGDcMKo07sEPZ7HvvD2Job). This is a series of talks by [Miško Hevery](https://twitter.com/mhevery), [Joshua Bloch](https://twitter.com/joshbloch) and other (present and former) Googlers on clean code practices. While it doesn't cover many topics found in the books recommended above, it explores some other topics in great detail, providing very interesting insights.
+- 🎥 [The Clean Code Talks](https://www.youtube.com/playlist?list=PLR5laMT-DcloGDcMKo07sEPZ7HvvD2Job). This is a series of talks by [Miško Hevery](https://twitter.com/mhevery), [Joshua Bloch](https://twitter.com/joshbloch) and other (present and former) Googlers on clean code practices. While it doesn't cover many topics found in the books recommended above, it explores some other topics in great detail, providing very interesting insights.
