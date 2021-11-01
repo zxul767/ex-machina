@@ -8,6 +8,7 @@
     "url": "https://github.com/zxul767/ex-machina"
   },
   "dependencies": {
+    "common-lisp": "github:qingpeng9802/vscode-common-lisp",
     "dotenv": "^8.2.0",
     "gatsby": "^3.13.1",
     "gatsby-plugin-google-analytics": "^3.14.0",

@@ -68,12 +68,12 @@ module.exports = {
             resolve: `gatsby-remark-vscode`,
             options: {
               theme: "azure-light",
-              extensions: ["rainglow"],
+              extensions: ["common-lisp", "rainglow"],
               inlineCode: {
                 marker: "•",
-              },
+              }
             },
-          },
+         },
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
           {
