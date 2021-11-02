@@ -5,12 +5,11 @@
   "version": "0.1.0",
   "author": "Willebaldo Gómez <willebaldo.gomez@gmail.com>",
   "bugs": {
-    "url": "https://github.com/zxul767/ex-machina"
+    "url": "https://github.com/zxul767/ex-machina/issues"
   },
   "dependencies": {
     "common-lisp": "github:qingpeng9802/vscode-common-lisp",
-    "dotenv": "^8.2.0",
-    "gatsby": "^3.13.1",
+   "gatsby": "^3.13.1",
     "gatsby-plugin-google-analytics": "^3.14.0",
     "gatsby-plugin-google-fonts-with-attributes": "^1.0.8",
     "gatsby-plugin-image": "^1.14.0",
@@ -46,7 +45,7 @@
     "typography-breakpoint-constants": "^0.16.19"
   },
   "devDependencies": {
-    "prettier": "2.2.1"
+    "prettier": "^2.2.1"
   },
   "homepage": "https://zxul767.dev",
   "keywords": [
