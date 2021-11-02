@@ -74,7 +74,7 @@ $$
 This last result comes straight from Euler's proof that [the sum of the reciprocals of the primes](https://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes) diverges, so the overall running time is $O(N \ln \ln N)$, which is surprisingly fast! Unfortunately, this running time is achieved at the expense of using $O(N)$ space, which can get very costly for large enough $N$[^premature-optimization].
 
 ***
-**Update**: _In a previous version of this post, we claimed that the algorithm described had time complexity_ $O(N \ln{\sqrt{N}} \cdot \ln \ln \sqrt{N})$ _but there was an error in the derivation. The error has since been corrected to show the correct complexity:_ $O(N \ln^2{N})$
+**Update**: _In a previous version of this post, we claimed that the algorithm we're about to describe had time complexity_ $O(N \ln{\sqrt{N}} \cdot \ln \ln \sqrt{N})$ _but there was an error in the derivation. The error has since been corrected to show the correct complexity:_ $O(N \ln^2{N})$
 ***
 
 Using the core ideas in this algorithm, it is possible to derive another one which only uses $O(\sqrt{N} / \ln\sqrt{N})$ space and generates primes incrementally, allowing us to produce a stream of primes on demand. However, as we'll see later in this post, the algorithm has $O(N \ln^2{N})$ time complexity, which is significantly slower than $O(N \ln \ln N)$ for the basic sieve of Eratosthenes.
@@ -214,9 +214,9 @@ To generate the next prime, we need to test whether $X_i$ is divisible by smalle
 The "subset of prime divisors" mentioned earlier would, in reality, be a set of streams of prime multiples. For example, if the current (conceptual) subset were $\{3, 5, 7\}$, the corresponding data structure would be the set of (infinite) streams:
 
 $$
-(3^2, 3^2 + 2 \cdot 3, \ldots) \\
-(5^2, 5^2 + 2 \cdot 5, \ldots) \\
-(7^2, 7^2 + 2 \cdot 7, \ldots)
+(3^2, 3^2 + 2 \cdot 3, 3^2 + 4 \cdot 3, \ldots) \\
+(5^2, 5^2 + 2 \cdot 5, 5^2 + 4 \cdot 5, \ldots) \\
+(7^2, 7^2 + 2 \cdot 7, 7^2 + 4 \cdot 7, \ldots)
 $$
 
 Testing whether $X_i$ is a prime amounts to verifying that none of the sequences contain $X_i$. Since we will always be testing increasingly larger numbers $X_i$, we don’t ever need to "rewind" in any of the streams. Also, since they are ordered sequences, the amount of numbers to check is always finite in each (i.e., there is no point in checking further elements once we find $M_j > X_i$ where $M$ represents one of the streams.)
@@ -436,7 +436,7 @@ Even though the resulting algorithm had much worse time complexity for generatin
 - 📝 [The sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
 - 📝 [How many primes are there?](https://primes.utm.edu/howmany.html)
 - 📝 [Divergence of the sums of the reciprocals of the primes](https://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes)
-- 📝 [Cramer's Conjecture on Prime Gaps](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_conjecture)
+- 📝 [Cramer's conjecture on prime gaps](https://en.wikipedia.org/wiki/Cram%C3%A9r%27s_conjecture)
 
 ## Notes
 
