@@ -19,24 +19,24 @@ Wouldn't it be great if the language allowed you to create simpler syntax for th
 Map<String, String> myMap = { ("a", "b"), ("c", "d") };
 ```
 
-If you're using Java, Python, or any other mainstream language, you may have to request the feature, perhaps submit a proposal yourself if you want to expedite the process, and wait several months (or years!) before it gets reviewed, and accepted by some committee. 
+If you're using Java, Python, or any other mainstream language, you may have to request the feature, perhaps submit a proposal yourself if you want to expedite the process, and wait several months (or years!) before it gets reviewed and accepted by some committee. 
 
-Don't you wish there was an easier way to get this feature? Well, if you're using [Common Lisp](https://gigamonkeys.com/book/introduction-why-lisp.html), it turns out there is an easier way to accomplish this by using macros.
+Don't you wish there was an easier way to get this feature? Well, it turns out there is an easier way and [Common Lisp](https://gigamonkeys.com/book/introduction-why-lisp.html) has the answer!
 
 If you're curious to see how macros in Common Lisp can solve your problem in minutes or hours instead of months or years, keep reading! 
 
 ## Every Language has a Superpower
-Every programming language is supposed to have a "superpower". For example, C can help you write "portable assembly"; and C++ gives you a way to write efficient abstractions. Some others are initially created just to scratch their creator's itch, but eventually take off for unexpected reasons (e.g., Larry Wall developed Perl to solve a personal problem, but his creation caught on and eventually became "the duct tape of the Internet", well-known for its text-processing capabilities.)
+Every programming language is supposed to have a "superpower". For example, C can help you write "portable assembly", and C++ gives you a way to write efficient abstractions. Some others are initially created just to scratch their creator's itch, but eventually take off for unexpected reasons (e.g., Larry Wall developed Perl to solve a personal problem, but his creation caught on and eventually became "the duct tape of the Internet", well-known for its text-processing capabilities.)
 
 If you've ever heard about Lisp--of which Common Lisp is a modern descendant--you may know that it's a language that was originally invented to support research in Artificial Intelligence back in the 1950s. Along with FORTRAN, it's one of the oldest languages still in use with a small but active community.
 
 Lisp is also known for having pioneered many features we take for granted in modern languages (e.g., automatic storage management, dynamic typing, higher-order functions, etc.), but one of its lesser known but very powerful features is macros. In a nutshell, macros are code generators that run during the compilation process, allowing the creation of syntactic abstractions[^syntactic-abstractions] and Domain-Specific Languages (DSLs[^dsl].) 
 
-> Macros are code generators that run during the compilation process, allowing you to create syntactic abstractions and Domain-Specific Languages (DSLs)
+> Macros are code generators that run during the compilation process, allowing the creation of syntactic abstractions and Domain-Specific Languages (DSLs)
 
 Macros look very similar to regular functions--though they do have some important differences[^macros-vs-funcs]--but they are automatically called by the compiler and their results inserted into the surrounding code. Unlike text macros in C/C++ that perform plain and dumb text substitution, macros in Common Lisp are the real deal, giving you access to the internal representation of the program. 
 
-With full access to the language's machinery, the transformations that they perform on source code can be as simple as interpolation, and as complex as full-blown programming language transpilation. What makes macros in Common Lisp so seamless is the fact that source code is represented as lists (the most pervasive data structure in the language), so its manipulation is quite natural.
+With full access to the language's machinery, the transformations that they perform on source code can be as simple as interpolation, and as complex as full-blown programming language [transpilation](https://en.wikipedia.org/wiki/Source-to-source_compiler). What makes macros in Common Lisp so seamless is the fact that source code is represented as lists (the most pervasive data structure in the language), so its manipulation is quite natural.
 
 To make this more concrete, let's take a look at an example where macros could provide a neat solution.
 
@@ -48,7 +48,7 @@ meters(meters(1) + feet(2))  # => meters(1.6096)
 meters(feet(5) + inches(5))  # => meters(1.65)
 ```
 
-Though this solution is not bad, it would be great if we could write the above more succintly like this:
+Though this solution is not bad, it would be great if we could write the above more succinctly like this:
 
 ```bash
 1m + 2ft in m
@@ -63,7 +63,7 @@ length = eval(parse("1m + 2ft in m"))
 # length = e("1m + 2ft in m")
 ```
 
-This works, but it has the disadvantage that we'll need to write our own parser, and strings are not checked by the compiler for syntax errors, so we'll need some other way to compensate for this (e.g., more extensive unit tests.)
+This works, but it has the disadvantage that we'll need to maintain our own parser, and strings are not checked by the compiler for syntax errors, so we'll need some other way to compensate for this (e.g., more extensive unit tests.)
 
 If our mini language were to grow (e.g., by adding more operators or syntax), we'd need to extend our `parse` and `eval` functions accordingly. And the more complex our language becomes, the more difficult it will be to maintain them. 
 
@@ -127,7 +127,7 @@ _You can see that despite the differences, once you get used to visually ignorin
 
 ### Implementing the Macro
 
-Depending on how robust we'd want our macro to be, we could also ensure that it raises errors whenever something in the DSL is not as expected. For example, the expression: `(u% (+ 1m 1h))` should probably raise an error saying that `1h` is an invalid unit of length.
+Depending on how robust we want our macro to be, we could also ensure that it raises errors whenever something in the DSL is not as expected. For example, the expression: `(u% (+ 1m 1h))` should probably raise an error saying that `1h` is an invalid unit of length.
 
 Notice also that, in this particular instance, the translation from our DSL to the implementation API is quite direct (`1m` maps to `(meters 1)`, `(+ 1m ...)` maps to `(sum-lengths (meters 1) ...)`), but within a macro we can manipulate the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) that we are given in arbitrary ways (yes, what a macro receives is technically a bare-bones AST[^barebones-ast]), so we have quite a lot of freedom and power!
 
@@ -189,7 +189,7 @@ This is what the definition of the macro and a couple of its helper functions lo
 ;; ...
 ```
 
-I've ommited all other helper functions for brevity, but you can find the whole implementation in this [gist](https://gist.github.com/zxul767/85d79f7bdf993753f9e01c986ab13f2a) if you're curious. 
+I've omitted all other helper functions for brevity, but you can find the whole implementation in this [gist](https://gist.github.com/zxul767/85d79f7bdf993753f9e01c986ab13f2a) if you're curious. 
 
 Notice that because macros have access to the whole machinery of the language, we are able to fold constants (i.e., to reduce expressions which only contain constant quantities) and do any other complex transformations as part of the macro expansion. Notice also that, just like regular functions, the main macro `u%` can delegate part of its work to other functions (and macros), to keep the code generator readable for humans.
 
@@ -217,7 +217,7 @@ Or you could do it in a one-liner using a list comprehension:
 sum(k**2 for k in range(1, N+1))
 ```
 
-Does Common Lisp have a similar feature? Not as part of the language itself, but with macros you can always design your own DSL and implement something similar. In fact, looping is such a common operation that Lisp hackers[^lisp-hackers] created the `loop` macro which can do everything list comprehensions can and more. This is what the equivalent version looks like:
+Does Common Lisp have a similar feature? Not as part of the language itself, but with macros you can always design your own DSL and implement something similar. In fact, looping is such a common operation that Lisp hackers[^lisp-hackers] created the `loop` macro which can do everything list comprehensions can do and more. This is what the equivalent version looks like:
 
 ```lisp
 (loop for k from 1 to 10 summing (expt k 2))
@@ -260,6 +260,8 @@ The `loop` macro goes beyond list-comprehension behavior and implements a pretty
         finally (return a)))
 ```
 
+Notice how it seamlessly combines regular Common Lisp with `loop`'s specific syntax (e.g., `i = 0 then (+1 i)` is not valid syntax, but the `loop` macro will rewrite it into equivalent valid Common Lisp code.)
+
 ```lisp
 ;; https://en.wikipedia.org/wiki/Collatz_conjecture
 (defun collatz (n)
@@ -281,7 +283,7 @@ The `loop` macro goes beyond list-comprehension behavior and implements a pretty
 ## Conclusion
 Macros is the one feature that distinguishes Common Lisp (and other Lisp dialects, such as [Scheme](https://en.wikipedia.org/wiki/Scheme_(programming_language)) and [Clojure](https://clojure.org/)), from most other languages. It's a powerful feature that gives us a hook into the compilation process, allowing us to implement syntactic abstractions, which can be as simple as removing simple boilerplate code, and as powerful as writing full embedded DSLs (using the principles of Domain-Drive Design[^ddd]) or creating new control-flow constructs.
 
-This post was meant to give you only a high-level view of what macros have to offer. I've purposefully limited the discussion to a glance of what macros look like and what they can do for you, with enough detail to hopefully whet your appetite. However, if your curiosity has been sparked and you want to take a deeper dive, the **Further Reading** section will point you in the right direction.
+This post was meant to give you only a high-level view of what macros have to offer. I've purposefully limited the discussion to a glance of what macros look like and what they can do for you. However, if your curiosity has been sparked and you want to take a deeper dive, the **Further Reading** section will point you in the right direction.
 
 ### Do other languages have macros?
 Yes! Just as many languages took inspiration from Lisp and implemented garbage collection and other features it pioneered, macros have been added--in ways which may not always match their Common Lisp counterparts--in quite a few languages, including [Scala](https://docs.scala-lang.org/overviews/macros/overview.html), [Haskell](https://downloads.haskell.org/~ghc/7.0.3/docs/html/users_guide/template-haskell.html), [Ruby](https://codeburst.io/ruby-macros-18bb67e051c7), and [several others](https://softwareengineering.stackexchange.com/questions/164665/programming-languages-with-a-lisp-like-syntax-extension-mechanism). 
