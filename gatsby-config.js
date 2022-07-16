@@ -65,9 +65,9 @@ module.exports = {
               extensions: ["common-lisp", "rainglow"],
               inlineCode: {
                 marker: "•",
-              }
+              },
             },
-         },
+          },
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
           {
