@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "common-lisp": "github:qingpeng9802/vscode-common-lisp",
-    "gatsby": "^4.25.7",
+    "gatsby": "^5.10.0",
     "gatsby-plugin-google-analytics": "^5.3.0",
     "gatsby-plugin-google-fonts-with-attributes": "^1.0.8",
     "gatsby-plugin-image": "^2.0.0",
