@@ -31,7 +31,7 @@
     "gatsby-source-filesystem": "^4.0.0",
     "gatsby-transformer-remark": "^5.25.1",
     "gatsby-transformer-sharp": "^4.0.0",
-    "katex": "^0.16.0",
+    "katex": "^0.16.10",
     "preact": "^10.5.14",
     "preact-render-to-string": "^5.1.19",
     "prop-types": "^15.7.2",
