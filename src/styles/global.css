@@ -1,113 +1,118 @@
 :root {
-    --code-font-size: 0.75rem;
-    --code-font-family: "Fira Code", sans-serif;
+  --code-font-size: 0.75rem;
+  --code-font-family: "Fira Code", sans-serif;
 
-    --inline-code-horizontal-padding: 3px;
-    --inline-code-vertical-padding: 2px;
+  --inline-code-horizontal-padding: 3px;
+  --inline-code-vertical-padding: 2px;
 }
 
 /* --------------------------------------------------------------------------*/
 /* VSCode Block Highlighting Customizations                                  */
 /* --------------------------------------------------------------------------*/
 .grvsc-line {
-    font-size: var(--code-font-size);
+  font-size: var(--code-font-size);
 }
-code, kbd, pre, samp {
-    font-family: var(--code-font-family);
-    font-size: var(--code-font-size);
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--code-font-family);
+  font-size: var(--code-font-size);
 }
 pre.grvsc-container {
-    background-color: whitesmoke;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-                rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  background-color: whitesmoke;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 code.grvsc-code {
-    line-height: 1.1rem;
-    width: 100%;
+  line-height: 1.1rem;
+  width: 100%;
 }
 span.grvsc-source {
-    padding-left: 0.5rem;
-    padding-left: var(--grvsc-padding-left, var(--grvsc-padding-h, 0.5rem));
-    padding-right: 0.5rem;
-    padding-right: var(--grvsc-padding-right, var(--grvsc-padding-h, 0.5rem));
+  padding-left: 0.5rem;
+  padding-left: var(--grvsc-padding-left, var(--grvsc-padding-h, 0.5rem));
+  padding-right: 0.5rem;
+  padding-right: var(--grvsc-padding-right, var(--grvsc-padding-h, 0.5rem));
 }
 
 /* --------------------------------------------------------------------------*/
 /* Inline Code Highlighting Customizations                                   */
 /* --------------------------------------------------------------------------*/
-p code, li code {
-    background-color: whitesmoke;
-    border-radius: 3px;
-    padding-top: var(--inline-code-vertical-padding);
-    padding-left: var(--inline-code-horizontal-padding);
-    padding-right: var(--inline-code-horizontal-padding);
-    padding-bottom: var(--inline-code-vertical-padding);
-    font-size: var(--code-font-size);
+p code,
+li code {
+  background-color: whitesmoke;
+  border-radius: 3px;
+  padding-top: var(--inline-code-vertical-padding);
+  padding-left: var(--inline-code-horizontal-padding);
+  padding-right: var(--inline-code-horizontal-padding);
+  padding-bottom: var(--inline-code-vertical-padding);
+  font-size: var(--code-font-size);
 }
 
 .post-body > p {
-    padding-left: 3%;
-    padding-right: 3%;
+  padding-left: 1%;
+  padding-right: 1%;
 }
 
-.post-body ul, .post-body ol {
-    padding-left: 3%;
+.post-body ul,
+.post-body ol {
+  padding-left: 3%;
 }
 
 /* --------------------------------------------------------------------------*/
 /* Fancy Quotes                                                              */
 /* --------------------------------------------------------------------------*/
 blockquote {
-    background: #f9f9f9;
-    border-left: 10px solid #ccc;
-    margin: 1.5em 10px;
-    padding: 0.5em 10px;
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
 }
 blockquote:before {
-    color: #ccc;
-    content: "\201C";
-    font-size: 3rem;
-    line-height: 0.1em;
-    vertical-align: -0.4em;
+  color: #ccc;
+  content: "\201C";
+  font-size: 3rem;
+  line-height: 0.1em;
+  vertical-align: -0.4em;
 }
 blockquote p {
-    display: inline;
-    font-family: Merriweather, serif;
-    font-size: 0.9rem;
-    font-style: italic;
+  display: inline;
+  font-family: Merriweather, serif;
+  font-size: 0.9rem;
+  font-style: italic;
 }
 
 /* --------------------------------------------------------------------------*/
 /* Footnotes                                                                 */
 /* --------------------------------------------------------------------------*/
 .footnotes {
-    font-size: 0.9rem;
+  font-size: 0.9rem;
 }
 
 /* --------------------------------------------------------------------------*/
 /* Figure Captions                                                           */
 /* --------------------------------------------------------------------------*/
 figcaption {
-    color: #585858;
-    font-size: 0.9rem;
-    text-align: center;
-    padding: 0 2rem;
+  color: #585858;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 0 2rem;
 }
 
 /* --------------------------------------------------------------------------*/
 /* Author Banner                                                             */
 /* --------------------------------------------------------------------------*/
 .author {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 .social-networks {
-    display: flex;
+  display: flex;
 }
 .social-mini-icon {
-    height: 32px !important;
-    width: 32px !important;
-    margin: 5px;
+  height: 32px !important;
+  width: 32px !important;
+  margin: 5px;
 }
