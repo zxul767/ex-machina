@@ -56,7 +56,7 @@ A run of this algorithm with $N=31$ shows us that everything seems to be working
 
 ```bash
 $ generate_primes_upto(31)
->> [2, 3, 5, 7, 11, 13, 17, 19, 23, 25, 29, 31]
+>> [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
 ```
 
 In this program, the first step is implicitly implemented by initializing all elements in the `is_prime` array to `True`. The third step is then carried out by the `cross_out_multiples_of` function.
@@ -74,7 +74,7 @@ $$
 This last result comes straight from Euler's proof that [the sum of the reciprocals of the primes](https://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes) diverges, so the overall running time is $O(N \ln \ln N)$, which is surprisingly fast! Unfortunately, this running time is achieved at the expense of using $O(N)$ space, which can get very costly for large enough $N$[^premature-optimization].
 
 ***
-**Update**: _In a previous version of this post, we claimed that the algorithm we're about to describe had time complexity_ $O(N \ln{\sqrt{N}} \cdot \ln \ln \sqrt{N})$ _but there was an error in the derivation. The error has since been corrected to show the correct complexity:_ $O(N \ln^2{N})$
+**Update**: _In a previous version of this post, we claimed that the algorithm we're about to describe had time complexity_ $O(N \ln{\sqrt{N}} \cdot \ln \ln \sqrt{N})$ _but there was an error in the derivation. The error has since been corrected to show the correct complexity:_ $O(N \ln^2{N} \cdot \ln{\ln{N}})$
 ***
 
 Using the core ideas in this algorithm, it is possible to derive another one which only uses $O(\sqrt{N} / \ln\sqrt{N})$ space and generates primes incrementally, allowing us to produce a stream of primes on demand. However, as we'll see later in this post, the algorithm has $O(N \ln^2{N})$ time complexity, which is significantly slower than $O(N \ln \ln N)$ for the basic sieve of Eratosthenes.
@@ -97,7 +97,7 @@ def generate_primes_upto(n):
     for candidate in range(3, limit + 1, 2): # highlight-line
         if is_prime[candidate]:
             cross_out_multiples_of(candidate, is_prime)
-    return collect_primes(primes)
+    return collect_primes(is_prime)
 
 def collect_primes(is_prime):
     primes = [2] # highlight-line
@@ -111,10 +111,10 @@ We can run a quick ["smoke" test](<https://en.wikipedia.org/wiki/Smoke_testing_(
 
 ```bash
 $ generate_primes_upto(31)
->> [2, 3, 5, 7, 11, 13, 17, 19, 23, 25, 29, 31]
+>> [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
 ```
 
-Notice that despite these optimizations, the time complexity hasn't improved dramatically and remains linear--as opposed to $O(\sqrt{N} \ln \ln \sqrt{N})$ as we might naively imagine--due to the final sweep we do in `collect_primes`, but we've removed a lot of redundant computation. This is not reflected in the asymptotic notation, but can be significant in the time taken to run in a real computer. In fact, if you run this modified version, you should notice a measurable performance gain of about 50%, which can be an important difference for many applications.
+Notice that despite these optimizations, the time complexity hasn't improved dramatically and remains almost linear--as opposed to $O(\sqrt{N} \ln \ln \sqrt{N})$ as we might naively imagine--due to the final sweep we do in `collect_primes`, but we've removed a lot of redundant computation. This is not reflected in the asymptotic notation, but can be significant in the time taken to run in a real computer. In fact, if you run this modified version, you should notice a measurable performance gain of about 50%, which can be an important difference for many applications.
 
 We can make a few more optimizations by carefully observing how the algorithm works, looking for further redundant computation. Let's work through an example to see this:
 
@@ -321,7 +321,7 @@ We can then verify that it produces the same result as the original sieve:
 
 ```bash
 $ generate_primes_upto_incremental(31)
->> [2, 3, 5, 7, 11, 13, 17, 19, 23, 25, 29, 31]
+>> [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
 ```
 
 ### Space Complexity
@@ -404,7 +404,7 @@ $$
 
 Notice this last bound is simply obtained by assuming that every $c_i = N$
 
-Thus, we have found that the time complexity for this algorithm is $O(N \ln^2{N} \cdot \ln \ln \sqrt{N})$. Notice that given how slowly $\ln \ln \sqrt{N}$ grows, for most practical purposes, the effective complexity of the algorithm is $O(N \ln^2{N})$
+Thus, we have found that the time complexity for this algorithm is $O(N \ln^2{N} \cdot \ln \ln \sqrt{N})$. Notice that given how slowly $\ln \ln \sqrt{N}$ grows, for many practical purposes, the practical behavior of the algorithm is $O(N \ln^2{N})$
 
 Beware, however, that this analysis relies on a conjecture which applies only to the average size of the gap between consecutive primes, and that we have made several worst-case simplifying assumptions in various parts, so the resulting complexity is very likely to be a somewhat loose upper bound.
 
