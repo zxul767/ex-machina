@@ -7,30 +7,38 @@ import Seo from "../components/seo"
 
 class BlogIndex extends React.Component {
   render() {
-    const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
-    const posts = data.allMarkdownRemark.edges
+    const {
+      data: {
+        site: {
+          siteMetadata: { title: siteTitle },
+        },
+        allMarkdownRemark: { edges: posts },
+      },
+    } = this.props
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <Seo title="Blog" />
         <Bio />
-        {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
+        {posts.map(({ node: post }) => {
+          const title = post.frontmatter.title || post.fields.slug
+          const timeToRead = `${post.timeToRead} minute${
+            post.timeToRead === 1 ? "" : "s"
+          }`
+
           return (
-            <div key={node.fields.slug}>
+            <div key={post.fields.slug}>
               <h4 style={{ marginBottom: `5px` }}>
-                <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
+                <Link style={{ boxShadow: `none` }} to={post.fields.slug}>
                   {title}
                 </Link>
               </h4>
               <small>
-                {node.frontmatter.date} &mdash; &#x1F550;{" "}
-                {node.fields.readingTime.text}
+                {post.frontmatter.date} &mdash; &#x1F550; {timeToRead}
               </small>
               <p
                 dangerouslySetInnerHTML={{
-                  __html: node.frontmatter.description || node.excerpt,
+                  __html: post.frontmatter.description || post.excerpt,
                 }}
               />
             </div>
@@ -54,11 +62,9 @@ export const pageQuery = graphql`
       edges {
         node {
           excerpt
+          timeToRead
           fields {
             slug
-            readingTime {
-              text
-            }
           }
           frontmatter {
             date(formatString: "MMMM DD, YYYY")

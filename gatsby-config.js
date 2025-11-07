@@ -44,7 +44,6 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
-          `gatsby-remark-reading-time`,
           `gatsby-remark-numbered-footnotes`,
           {
             resolve: `gatsby-remark-images`,
@@ -83,12 +82,6 @@ module.exports = {
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: process.env.GA_TRACKING_ID || "secret",
-      },
-    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

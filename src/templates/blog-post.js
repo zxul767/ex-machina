@@ -8,12 +8,19 @@ import { rhythm } from "../utils/typography"
 
 class BlogPostTemplate extends React.Component {
   render() {
-    const data = this.props.data
-    const post = data.markdownRemark
-    const siteTitle = data.site.siteMetadata.title
-    const { author, social } = data.site.siteMetadata
-    const { previous, next } = this.props.pageContext
-    const readingTime = post.fields.readingTime.text
+    const {
+      data: {
+        markdownRemark: post,
+        site: {
+          siteMetadata: { title: siteTitle, author, social },
+        },
+      },
+      pageContext: { previous, next },
+    } = this.props
+
+    const timeToRead = `${post.timeToRead} minute${
+      post.timeToRead === 1 ? "" : "s"
+    }`
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -38,7 +45,7 @@ class BlogPostTemplate extends React.Component {
           {post.frontmatter.description}
         </h4>
         <small>
-          {post.frontmatter.date} &mdash; &#x1F550; {readingTime}
+          {post.frontmatter.date} &mdash; &#x1F550; {timeToRead}
         </small>
 
         <hr />
@@ -110,6 +117,7 @@ export const pageQuery = graphql`
       id
       excerpt(pruneLength: 160)
       html
+      timeToRead
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
@@ -117,9 +125,6 @@ export const pageQuery = graphql`
       }
       fields {
         slug
-        readingTime {
-          text
-        }
       }
     }
   }
