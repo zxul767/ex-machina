@@ -5,7 +5,6 @@ module.exports = {
     description: `A blog on AI, ML, algorithmics and programming.`,
     siteUrl: `https://zxul767.dev`,
     social: {
-      twitter: `zxul767`,
       github: `zxul767`,
       linkedin: `wgomezj`,
     },

@@ -107,7 +107,6 @@ export const pageQuery = graphql`
         title
         author
         social {
-          twitter
           github
           linkedin
         }

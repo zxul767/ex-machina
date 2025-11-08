@@ -16,7 +16,6 @@ const Bio = () => {
         siteMetadata {
           author
           social {
-            twitter
             github
             linkedin
           }

@@ -8,10 +8,6 @@ const AuthorBanner = ({ author, social }) => {
       <div className="social-networks">
         <SocialIcon
           className="social-mini-icon"
-          url={`https://twitter.com/${social.twitter}`}
-        />
-        <SocialIcon
-          className="social-mini-icon"
           url={`https://github.com/${social.github}`}
         />
         <SocialIcon
