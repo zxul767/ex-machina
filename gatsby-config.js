@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Ex Machina`,
     author: `W. Gómez`,
-    description: `A blog on machine learning, artificial intelligence and other topics.`,
+    description: `A blog on AI, ML, algorithmics and programming.`,
     siteUrl: `https://zxul767.dev`,
     social: {
       twitter: `zxul767`,
