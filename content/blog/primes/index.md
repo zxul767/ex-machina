@@ -74,10 +74,10 @@ $$
 This last result comes straight from Euler's proof that [the sum of the reciprocals of the primes](https://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes) diverges, so the overall running time is $O(N \ln \ln N)$, which is surprisingly fast! Unfortunately, this running time is achieved at the expense of using $O(N)$ space, which can get very costly for large enough $N$[^premature-optimization].
 
 ***
-**Update**: _In a previous version of this post, we claimed that the algorithm we're about to describe had time complexity_ $O(N \ln{\sqrt{N}} \cdot \ln \ln \sqrt{N})$ _but there was an error in the derivation. The error has since been corrected to show the correct complexity:_ $O(N \ln^2{N} \cdot \ln{\ln{N}})$
+**Update**: _In a previous version of this post, we claimed that the algorithm we're about to describe had time complexity_ $O(N \ln{\sqrt{N}} \cdot \ln \ln \sqrt{N})$ _but there was an error in the derivation. The error has since been corrected to show the correct complexity:_ $O(N \ln^2{N} \cdot \ln{\ln{\sqrt{N}}})$
 ***
 
-Using the core ideas in this algorithm, it is possible to derive another one which only uses $O(\sqrt{N} / \ln\sqrt{N})$ space and generates primes incrementally, allowing us to produce a stream of primes on demand. However, as we'll see later in this post, the algorithm has $O(N \ln^2{N})$ time complexity, which is significantly slower than $O(N \ln \ln N)$ for the basic sieve of Eratosthenes.
+Using the core ideas in this algorithm, it is possible to derive another one which only uses $O(\sqrt{N} / \ln\sqrt{N})$ space and generates primes incrementally, allowing us to produce a stream of primes on demand. However, as we'll see later in this post, the algorithm has $O(N \ln^2{N} \cdot \ln{\ln{\sqrt{N}}})$ time complexity, which is significantly slower than $O(N \ln \ln N)$ for the basic sieve of Eratosthenes.
 
 Before we get to that, let's see some simple optimizations that we can apply to this algorithm which will also come in handy later on.
 
