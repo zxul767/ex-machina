@@ -110,6 +110,5 @@ module.exports = {
         color: `#81bfe6`,
       },
     },
-    `gatsby-plugin-preact`,
   ],
 }
