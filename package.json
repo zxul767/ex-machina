@@ -44,6 +44,7 @@
     "typography-breakpoint-constants": "^0.16.19"
   },
   "devDependencies": {
+    "gatsby-cli": "^4.25.0",
     "prettier": "^2.2.1"
   },
   "homepage": "https://zxul767.dev",
@@ -57,10 +58,14 @@
     "url": "git+https://github.com/zxul767/ex-machina.git"
   },
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
+    "build": "npx gatsby-cli@4 build",
+    "develop": "npx gatsby-cli@4 develop",
     "format": "prettier --write \"**/*.{js,jsx,json}\"",
     "start": "npm run develop",
-    "serve": "gatsby serve"
-  }
+    "serve": "npx gatsby-cli@4 serve"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "engineStrict": true
 }
