@@ -2,16 +2,13 @@
   --code-font-size: 0.75rem;
   --code-font-family: "JetBrains Mono", sans-serif;
 
-  --inline-code-horizontal-padding: 3px;
+  --inline-code-horizontal-padding: 2px;
   --inline-code-vertical-padding: 2px;
 }
 
 /* --------------------------------------------------------------------------*/
 /* VSCode Block Highlighting Customizations                                  */
 /* --------------------------------------------------------------------------*/
-.grvsc-line {
-  font-size: var(--code-font-size);
-}
 code,
 kbd,
 pre,
@@ -21,6 +18,7 @@ samp {
 }
 pre.grvsc-container {
   border: 1px dashed;
+  border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
@@ -29,9 +27,7 @@ code.grvsc-code {
   width: 100%;
 }
 span.grvsc-source {
-  padding-left: 0.5rem;
   padding-left: var(--grvsc-padding-left, var(--grvsc-padding-h, 0.5rem));
-  padding-right: 0.5rem;
   padding-right: var(--grvsc-padding-right, var(--grvsc-padding-h, 0.5rem));
 }
 
@@ -41,19 +37,16 @@ span.grvsc-source {
 p code,
 li code {
   background-color: whitesmoke;
-  border-radius: 3px;
+  border-radius: 1px;
   padding-top: var(--inline-code-vertical-padding);
   padding-left: var(--inline-code-horizontal-padding);
   padding-right: var(--inline-code-horizontal-padding);
   padding-bottom: var(--inline-code-vertical-padding);
-  font-size: var(--code-font-size);
 }
-
 .post-body > p {
   padding-left: 1%;
   padding-right: 1%;
 }
-
 .post-body ul,
 .post-body ol {
   padding-left: 3%;
@@ -78,7 +71,7 @@ blockquote:before {
 blockquote p {
   display: inline;
   font-family: Merriweather, serif;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-style: italic;
 }
 
@@ -107,6 +100,7 @@ figcaption {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  font-style: italic;
 }
 .social-networks {
   display: flex;

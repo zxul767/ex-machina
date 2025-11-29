@@ -14,7 +14,6 @@ module.exports = {
       resolve: `gatsby-plugin-google-fonts-with-attributes`,
       options: {
         fonts: [
-          `Fira Code`,
           `JetBrains Mono`,
           `Merriweather`,
           `Source Sans Pro\:200,400,400i,700`,

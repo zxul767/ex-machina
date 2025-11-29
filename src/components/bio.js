@@ -27,7 +27,6 @@ const Bio = () => {
   const { author, social } = data.site.siteMetadata
   return (
     <div>
-      <hr />
       <AuthorBanner author={author} social={social} />
       <hr />
     </div>
