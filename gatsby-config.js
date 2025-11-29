@@ -15,6 +15,7 @@ module.exports = {
       options: {
         fonts: [
           `Fira Code`,
+          `JetBrains Mono`,
           `Merriweather`,
           `Source Sans Pro\:200,400,400i,700`,
         ],

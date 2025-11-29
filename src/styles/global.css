@@ -1,6 +1,6 @@
 :root {
   --code-font-size: 0.75rem;
-  --code-font-family: "Fira Code", sans-serif;
+  --code-font-family: "JetBrains Mono", sans-serif;
 
   --inline-code-horizontal-padding: 3px;
   --inline-code-vertical-padding: 2px;
@@ -20,12 +20,12 @@ samp {
   font-size: var(--code-font-size);
 }
 pre.grvsc-container {
-  background-color: whitesmoke;
+  border: 1px dashed;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
 code.grvsc-code {
-  line-height: 1.1rem;
+  line-height: 1.15rem;
   width: 100%;
 }
 span.grvsc-source {
