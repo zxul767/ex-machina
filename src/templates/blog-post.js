@@ -92,7 +92,6 @@ class BlogPostTemplate extends React.Component {
 
         <hr />
         <AuthorBanner author={author} social={social} />
-        <hr />
       </Layout>
     )
   }
