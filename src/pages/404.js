@@ -11,15 +11,12 @@ class NotFoundPage extends React.Component {
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <Seo title="404: Not Found" />
         <h1>Not Found</h1>
-        <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
+        <p>You just hit a route that doesn't exist... the sadness.</p>
       </Layout>
     )
   }
 }
-
-export default NotFoundPage
 
 export const pageQuery = graphql`
   query {
@@ -30,3 +27,6 @@ export const pageQuery = graphql`
     }
   }
 `
+
+export default NotFoundPage
+export const Head = (props) => <Seo title="404: Not Found" />

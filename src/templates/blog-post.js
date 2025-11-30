@@ -24,10 +24,6 @@ class BlogPostTemplate extends React.Component {
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <Seo
-          title={post.frontmatter.title}
-          description={post.frontmatter.description || post.excerpt}
-        />
         <h2
           style={{
             marginTop: rhythm(1),
@@ -127,3 +123,13 @@ export const pageQuery = graphql`
     }
   }
 `
+
+export const Head = ({ data }) => {
+  const post = data.markdownRemark
+  return (
+    <Seo
+      title={post.frontmatter.title}
+      description={post.frontmatter.description || post.excerpt}
+    />
+  )
+}
