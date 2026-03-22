@@ -27,7 +27,7 @@
     "gatsby-source-filesystem": "^4.25.0",
     "gatsby-transformer-remark": "^5.25.1",
     "gatsby-transformer-sharp": "^4.25.0",
-    "katex": "^0.13.10",
+    "katex": "^0.16.21",
     "prop-types": "^15.7.2",
     "rainglow": "github:webrgp/vscode#patch-1",
     "react": "^17.0.0",
