@@ -95,12 +95,6 @@ module.exports = {
     },
     `gatsby-plugin-remove-serviceworker`,
     {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography`,
-      },
-    },
-    {
       resolve: `gatsby-plugin-page-progress`,
       options: {
         includePaths: [],

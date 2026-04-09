@@ -14,7 +14,6 @@
     "gatsby-plugin-page-progress": "^2.2.1",
     "gatsby-plugin-remove-serviceworker": "^1.0.0",
     "gatsby-plugin-sharp": "^5.16.0",
-    "gatsby-plugin-typography": "^5.16.0",
     "gatsby-remark-copy-linked-files": "^6.16.0",
     "gatsby-remark-images": "^7.16.0",
     "gatsby-remark-katex": "^7.16.0",

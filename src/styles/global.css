@@ -1,9 +1,70 @@
 :root {
+  --page-max-width: 47.375rem;
+  --page-padding-y: 2.625rem;
+  --page-padding-x: 1.3125rem;
+  --body-font-family: "Source Sans Pro", sans-serif;
+  --heading-font-family: "Merriweather", sans-serif;
+  --body-text-color: hsla(0, 0%, 0%, 0.7);
+  --heading-text-color: hsla(0, 0%, 0%, 0.85);
+  --link-color: #419eda;
+  --link-hover-color: #2a6496;
   --code-font-size: 0.75rem;
   --code-font-family: "JetBrains Mono", sans-serif;
-
   --inline-code-horizontal-padding: 2px;
   --inline-code-vertical-padding: 2px;
+}
+
+html {
+  font-size: 18px;
+}
+
+body {
+  color: var(--body-text-color);
+  font-family: var(--body-font-family);
+  font-weight: 400;
+  line-height: 1.56;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--heading-text-color);
+  font-family: var(--heading-font-family);
+  font-weight: 200;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+  font-weight: 200;
+}
+
+a {
+  color: var(--link-color);
+  font-weight: 400;
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+table {
+  font-size: 0.9rem;
+}
+
+.page-shell {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--page-max-width);
+  padding: var(--page-padding-y) var(--page-padding-x);
 }
 
 /* --------------------------------------------------------------------------*/
@@ -57,9 +118,11 @@ li code {
 /* --------------------------------------------------------------------------*/
 blockquote {
   background: #f9f9f9;
-  border-left: 10px solid #ccc;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
+  border-left: 0.4375rem solid #dedede;
+  color: #666;
+  font-size: 1.2rem;
+  margin: 1.5rem 0;
+  padding: 0.75rem 1.3125rem;
 }
 blockquote:before {
   color: #ccc;
@@ -73,6 +136,22 @@ blockquote p {
   font-family: Merriweather, serif;
   font-size: 0.85rem;
   font-style: italic;
+}
+
+@media (max-width: 800px) {
+  html {
+    font-size: 16px;
+  }
+
+  .page-shell {
+    padding: 1.5rem 0.75rem;
+  }
+
+  blockquote {
+    margin-left: -0.75rem;
+    margin-right: 0;
+    padding-left: 0.5rem;
+  }
 }
 
 /* --------------------------------------------------------------------------*/

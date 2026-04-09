@@ -4,7 +4,6 @@ import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import AuthorBanner from "../components/author"
 import Seo from "../components/seo"
-import { rhythm } from "../utils/typography"
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -26,7 +25,7 @@ class BlogPostTemplate extends React.Component {
       <Layout location={this.props.location} title={siteTitle}>
         <h2
           style={{
-            marginTop: rhythm(1),
+            marginTop: `1.75rem`,
             marginBottom: 0,
           }}
         >
@@ -34,8 +33,8 @@ class BlogPostTemplate extends React.Component {
         </h2>
         <h4
           style={{
-            marginTop: rhythm(0.5),
-            marginBottom: rhythm(0.5),
+            marginTop: `0.875rem`,
+            marginBottom: `0.875rem`,
           }}
         >
           {post.frontmatter.description}
@@ -52,7 +51,7 @@ class BlogPostTemplate extends React.Component {
         />
         <hr
           style={{
-            marginBottom: rhythm(1),
+            marginBottom: `1.75rem`,
           }}
         />
 
