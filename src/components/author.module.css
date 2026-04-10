@@ -1,0 +1,17 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  font-style: italic;
+}
+
+.socialLinks {
+  display: flex;
+}
+
+.icon {
+  height: 32px !important;
+  width: 32px !important;
+  margin: 5px;
+}

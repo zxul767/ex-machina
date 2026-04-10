@@ -4,6 +4,7 @@ import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import AuthorBanner from "../components/author"
 import Seo from "../components/seo"
+import * as styles from "./blog-post.module.css"
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -23,47 +24,21 @@ class BlogPostTemplate extends React.Component {
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <h2
-          style={{
-            marginTop: `1.75rem`,
-            marginBottom: 0,
-          }}
-        >
-          {post.frontmatter.title}
-        </h2>
-        <h4
-          style={{
-            marginTop: `0.875rem`,
-            marginBottom: `0.875rem`,
-          }}
-        >
-          {post.frontmatter.description}
-        </h4>
-        <small>
+        <h1 className={styles.title}>{post.frontmatter.title}</h1>
+        <h4 className={styles.description}>{post.frontmatter.description}</h4>
+        <p className={styles.meta}>
           {post.frontmatter.date} &mdash; &#x1F550; {timeToRead}
-        </small>
+        </p>
 
         <hr />
 
         <div
-          className="post-body"
+          className={styles.body}
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
-        <hr
-          style={{
-            marginBottom: `1.75rem`,
-          }}
-        />
+        <hr className={styles.divider} />
 
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-          }}
-        >
+        <ul className={styles.navigation}>
           <li>
             {previous && (
               <Link to={previous.fields.slug} rel="previous">
@@ -71,7 +46,7 @@ class BlogPostTemplate extends React.Component {
               </Link>
             )}
           </li>
-          <li style={{ marginLeft: `2rem`, marginRight: `2rem` }}>
+          <li>
             <Link to="/" rel="home">
               Home
             </Link>

@@ -1,0 +1,73 @@
+.title {
+  margin-bottom: var(--spacing-small);
+}
+
+.description {
+  margin-bottom: var(--spacing-small);
+}
+
+.meta {
+  margin-bottom: var(--spacing-small);
+}
+
+.body img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.body figcaption {
+  font-size: var(--figcaption-font-size);
+  padding: var(--spacing-tiny) var(--spacing-large);
+}
+
+.body blockquote {
+  background: #f9f9f9;
+  color: #666;
+  border-left: 0.5rem solid #c4c4c4;
+  margin: var(--spacing-large) 0;
+  padding: var(--spacing-compact) var(--spacing-tiny);
+}
+
+.body blockquote::before {
+  color: #ccc;
+  content: "\201C";
+  font-size: 4.5rem;
+  line-height: 0.1em;
+  vertical-align: -0.45em;
+}
+
+.body blockquote p {
+  display: inline;
+  font-size: var(--blockquote-font-size);
+  font-style: italic;
+}
+
+.divider {
+  margin-bottom: var(--spacing-section);
+}
+
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.body :global(.footnotes) {
+  font-size: var(--footnote-font-size);
+}
+
+.body :global(.footnote-backref) {
+  margin-left: var(--spacing-tiny);
+}
+
+/* FIXME: `gatsby develop` emits duplicate footnote backrefs in page-data.
+ * Production HTML is correct, so this hides the extra dev-only duplicate.
+ * Remove this if the upstream markdown/remark pipeline bug is fixed.
+ */
+.body :global(.footnote-backref + .footnote-backref) {
+  display: none;
+}

@@ -11,18 +11,9 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: `gatsby-plugin-google-fonts-with-attributes`,
+      resolve: `gatsby-plugin-typography`,
       options: {
-        fonts: [
-          `JetBrains Mono`,
-          `Merriweather`,
-          `Source Sans Pro\:200,400,400i,700`,
-        ],
-        display: "swap",
-        attributes: {
-          rel: "stylesheet preload prefetch",
-          as: "style",
-        },
+        pathToConfigModule: `src/utils/typography`,
       },
     },
     {
@@ -51,12 +42,6 @@ module.exports = {
             },
           },
           {
-            resolve: `gatsby-remark-responsive-iframe`,
-            options: {
-              wrapperStyle: `margin-bottom: 1.0725rem`,
-            },
-          },
-          {
             resolve: `gatsby-remark-vscode`,
             options: {
               theme: "azure-light",
@@ -78,7 +63,6 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     {

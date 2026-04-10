@@ -4,6 +4,7 @@ import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import Bio from "../components/bio"
 import Seo from "../components/seo"
+import * as styles from "./index.module.css"
 
 class BlogIndex extends React.Component {
   render() {
@@ -26,21 +27,20 @@ class BlogIndex extends React.Component {
           }`
 
           return (
-            <div key={post.fields.slug}>
-              <h4 style={{ marginBottom: `5px` }}>
-                <Link style={{ boxShadow: `none` }} to={post.fields.slug}>
-                  {title}
-                </Link>
+            <article className={styles.postPreview} key={post.fields.slug}>
+              <h4 className={styles.postTitle}>
+                <Link to={post.fields.slug}>{title}</Link>
               </h4>
-              <small>
+              <small className={styles.postMeta}>
                 {post.frontmatter.date} &mdash; &#x1F550; {timeToRead}
               </small>
               <p
+                className={styles.postDescription}
                 dangerouslySetInnerHTML={{
                   __html: post.frontmatter.description || post.excerpt,
                 }}
               />
-            </div>
+            </article>
           )
         })}
       </Layout>

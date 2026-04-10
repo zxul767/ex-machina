@@ -1,0 +1,19 @@
+.postPreview {
+  margin-bottom: var(--spacing-large);
+}
+
+.postTitle {
+  margin-bottom: var(--spacing-small);
+}
+
+.postMeta {
+  display: block;
+  line-height: 1.2;
+  margin-bottom: var(--spacing-tiny);
+}
+
+.postDescription {
+  line-height: 1.4;
+  margin-bottom: 0;
+  margin-top: 0;
+}

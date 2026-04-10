@@ -14,6 +14,7 @@
     "gatsby-plugin-page-progress": "^2.2.1",
     "gatsby-plugin-remove-serviceworker": "^1.0.0",
     "gatsby-plugin-sharp": "^5.16.0",
+    "gatsby-plugin-typography": "^5.16.0",
     "gatsby-remark-copy-linked-files": "^6.16.0",
     "gatsby-remark-images": "^7.16.0",
     "gatsby-remark-katex": "^7.16.0",
@@ -49,13 +50,11 @@
   },
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby develop",
-    "develop:lan": "gatsby develop -H 0.0.0.0",
     "format": "prettier --write \"**/*.{js,jsx,json}\"",
-    "start": "npm run develop",
-    "start:lan": "npm run develop:lan",
-    "serve": "gatsby serve",
-    "serve:lan": "gatsby serve -H 0.0.0.0"
+    "dev": "gatsby develop",
+    "dev:lan": "gatsby develop -H 0.0.0.0",
+    "prod": "gatsby serve",
+    "prod:lan": "gatsby serve -H 0.0.0.0"
   },
   "engines": {
     "node": ">=18"
