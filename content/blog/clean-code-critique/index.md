@@ -31,57 +31,57 @@ The code in question is a program to generate a list of prime numbers (it is wri
 
 ```java
 public class PrintPrimes {
-    public static void main(String[] args) {
-        final int M = 1000;
-        final int RR = 50;
-        final int CC = 4;
-        final int WW = 10;
-        final int ORDMAX = 30;
-        int P[] = new int[M + 1];
-        int PAGENUMBER, PAGEOFFSET, ROWOFFSET;
-        int C, J, K;
-        boolean JPRIME;
-        int ORD, SQUARE, N;
-        int MULT[] = new int[ORDMAX + 1];
-        J = 1;
-        K = 1; P[1] = 2; ORD = 2; SQUARE = 9;
-        while (K < M) {
-            do {
-                J = J + 2;
-                if (J == SQUARE) {
-                    ORD = ORD + 1;
-                    SQUARE = P[ORD] * P[ORD];
-                    MULT[ORD - 1] = J;
-                }
-                N = 2;
-                JPRIME = true;
-                while (N < ORD && JPRIME) {
-                    while (MULT[N] < J)
-                        MULT[N] = MULT[N] + P[N] + P[N];
-                    if (MULT[N] == J)
-                        JPRIME = false;
-                    N = N + 1;
-                }
-            } while (!JPRIME);
-            K = K + 1;
-            P[K] = J;
+  public static void main(String[] args) {
+    final int M = 1000;
+    final int RR = 50;
+    final int CC = 4;
+    final int WW = 10;
+    final int ORDMAX = 30;
+    int P[] = new int[M + 1];
+    int PAGENUMBER, PAGEOFFSET, ROWOFFSET;
+    int C, J, K;
+    boolean JPRIME;
+    int ORD, SQUARE, N;
+    int MULT[] = new int[ORDMAX + 1];
+    J = 1;
+    K = 1; P[1] = 2; ORD = 2; SQUARE = 9;
+    while (K < M) {
+      do {
+        J = J + 2;
+        if (J == SQUARE) {
+          ORD = ORD + 1;
+          SQUARE = P[ORD] * P[ORD];
+          MULT[ORD - 1] = J;
         }
-        PAGENUMBER = 1;
-        PAGEOFFSET = 1;
-        while (PAGEOFFSET <= M) {
-            System.out.println("The Prime Numbers --- Page " + PAGENUMBER);
-            System.out.println("");
-            for (ROWOFFSET = PAGEOFFSET; ROWOFFSET < PAGEOFFSET + RR; ROWOFFSET++) {
-                for (C = 0; C < CC;C++)
-                    if (ROWOFFSET + C * RR <= M)
-                        System.out.format("%10d", P[ROWOFFSET + C * RR]);
-                        System.out.println("");
-            }
-            System.out.println("\f");
-            PAGENUMBER = PAGENUMBER + 1;
-            PAGEOFFSET = PAGEOFFSET + RR * CC;
+        N = 2;
+        JPRIME = true;
+        while (N < ORD && JPRIME) {
+          while (MULT[N] < J)
+            MULT[N] = MULT[N] + P[N] + P[N];
+          if (MULT[N] == J)
+            JPRIME = false;
+          N = N + 1;
         }
+      } while (!JPRIME);
+      K = K + 1;
+      P[K] = J;
     }
+    PAGENUMBER = 1;
+    PAGEOFFSET = 1;
+    while (PAGEOFFSET <= M) {
+      System.out.println("The Prime Numbers --- Page " + PAGENUMBER);
+      System.out.println("");
+      for (ROWOFFSET = PAGEOFFSET; ROWOFFSET < PAGEOFFSET + RR; ROWOFFSET++) {
+        for (C = 0; C < CC;C++)
+          if (ROWOFFSET + C * RR <= M)
+            System.out.format("%10d", P[ROWOFFSET + C * RR]);
+            System.out.println("");
+      }
+      System.out.println("\f");
+      PAGENUMBER = PAGENUMBER + 1;
+      PAGEOFFSET = PAGEOFFSET + RR * CC;
+    }
+  }
 
 ```
 
@@ -89,18 +89,18 @@ And here's the proposed refactoring in the book:
 
 ```java
 public class PrimePrinter {
-    public static void main(String[] args) {
-        final int NUMBER_OF_PRIMES = 1000;
-        int[] primes = PrimeGenerator.generate(NUMBER_OF_PRIMES);
+  public static void main(String[] args) {
+    final int NUMBER_OF_PRIMES = 1000;
+    int[] primes = PrimeGenerator.generate(NUMBER_OF_PRIMES);
 
-        final int ROWS_PER_PAGE = 50;
-        final int COLUMNS_PER_PAGE = 4;
-        RowColumnPagePrinter tablePrinter =
-            new RowColumnPagePrinter(
-                ROWS_PER_PAGE, COLUMNS_PER_PAGE,
-                "The First " + NUMBER_OF_PRIMES + " Prime Numbers");
-        tablePrinter.print(primes);
-    }
+    final int ROWS_PER_PAGE = 50;
+    final int COLUMNS_PER_PAGE = 4;
+    RowColumnPagePrinter tablePrinter =
+      new RowColumnPagePrinter(
+        ROWS_PER_PAGE, COLUMNS_PER_PAGE,
+        "The First " + NUMBER_OF_PRIMES + " Prime Numbers");
+    tablePrinter.print(primes);
+  }
 }
 ```
 
@@ -110,50 +110,50 @@ Let's have a look at the `RowColumnPagePrinter` class:
 
 ```java
 public class RowColumnPagePrinter {
-    private int rowsPerPage;
-    private int columnsPerPage;
-    private int numbersPerPage;
-    private String pageHeader;
-    private PrintStream printStream;
+  private int rowsPerPage;
+  private int columnsPerPage;
+  private int numbersPerPage;
+  private String pageHeader;
+  private PrintStream printStream;
 
-    public RowColumnPagePrinter(int rowsPerPage, int columnsPerPage, String pageHeader) {
-        this.rowsPerPage = rowsPerPage;
-        this.columnsPerPage = columnsPerPage;
-        this.pageHeader = pageHeader;
-        this.numbersPerPage = rowsPerPage * columnsPerPage;
-        this.printStream = System.out;
+  public RowColumnPagePrinter(int rowsPerPage, int columnsPerPage, String pageHeader) {
+    this.rowsPerPage = rowsPerPage;
+    this.columnsPerPage = columnsPerPage;
+    this.pageHeader = pageHeader;
+    this.numbersPerPage = rowsPerPage * columnsPerPage;
+    this.printStream = System.out;
+  }
+  public void print(int data[]) {
+    int pageNumber = 1;
+    for (int firstIndexOnPage = 0; // highlight-line
+       firstIndexOnPage < data.length; // highlight-line
+       firstIndexOnPage += numbersPerPage) { // highlight-line
+      int lastIndexOnPage = Math.min(firstIndexOnPage + numbersPerPage - 1, data.length - 1);
+      printPageHeader(pageHeader, pageNumber);
+      printPage(firstIndexOnPage, lastIndexOnPage, data);
+      printStream.println("\f");
+      pageNumber++;
     }
-    public void print(int data[]) {
-        int pageNumber = 1;
-        for (int firstIndexOnPage = 0; // highlight-line
-             firstIndexOnPage < data.length; // highlight-line
-             firstIndexOnPage += numbersPerPage) { // highlight-line
-            int lastIndexOnPage = Math.min(firstIndexOnPage + numbersPerPage - 1, data.length - 1);
-            printPageHeader(pageHeader, pageNumber);
-            printPage(firstIndexOnPage, lastIndexOnPage, data);
-            printStream.println("\f");
-            pageNumber++;
-        }
+  }
+  private void printPage(int firstIndexOnPage, int lastIndexOnPage, int[] data) {
+    int firstIndexOfLastRowOnPage = firstIndexOnPage + rowsPerPage - 1;
+    for (int firstIndexInRow = firstIndexOnPage; // highlight-line
+       firstIndexInRow <= firstIndexOfLastRowOnPage; // highlight-line
+       firstIndexInRow++) { // highlight-line
+      printRow(firstIndexInRow, lastIndexOnPage, data);
+      printStream.println("");
     }
-    private void printPage(int firstIndexOnPage, int lastIndexOnPage, int[] data) {
-        int firstIndexOfLastRowOnPage = firstIndexOnPage + rowsPerPage - 1;
-        for (int firstIndexInRow = firstIndexOnPage; // highlight-line
-             firstIndexInRow <= firstIndexOfLastRowOnPage; // highlight-line
-             firstIndexInRow++) { // highlight-line
-            printRow(firstIndexInRow, lastIndexOnPage, data);
-            printStream.println("");
-        }
-    }
-    private void printRow(int firstIndexInRow, int lastIndexOnPage, int[] data) {
-        for (int column = 0; column < columnsPerPage; column++) {
-            int index = firstIndexInRow + column * rowsPerPage;
-            if (index <= lastIndexOnPage)
-                printStream.format("%10d", data[index]); }
-    }
-    private void printPageHeader(String pageHeader, int pageNumber) {
-        printStream.println(pageHeader + " --- Page " + pageNumber);
-        printStream.println("");
-    }
+  }
+  private void printRow(int firstIndexInRow, int lastIndexOnPage, int[] data) {
+    for (int column = 0; column < columnsPerPage; column++) {
+      int index = firstIndexInRow + column * rowsPerPage;
+      if (index <= lastIndexOnPage)
+        printStream.format("%10d", data[index]); }
+  }
+  private void printPageHeader(String pageHeader, int pageNumber) {
+    printStream.println(pageHeader + " --- Page " + pageNumber);
+    printStream.println("");
+  }
 }
 ```
 
@@ -169,56 +169,56 @@ Go ahead and spend some minutes trying to understand it before reading on.
 
 ```java
 public class PrimeGenerator {
-    private static int[] primes;
-    private static ArrayList<Integer> multiplesOfPrimeFactors;
+  private static int[] primes;
+  private static ArrayList<Integer> multiplesOfPrimeFactors;
 
-    public static int[] generate(int n) {
-        primes = new int[n];
-        multiplesOfPrimeFactors = new ArrayList<Integer>();
-        set2AsFirstPrime();
-        checkOddNumbersForSubsequentPrimes();
-        return primes;
+  public static int[] generate(int n) {
+    primes = new int[n];
+    multiplesOfPrimeFactors = new ArrayList<Integer>();
+    set2AsFirstPrime();
+    checkOddNumbersForSubsequentPrimes();
+    return primes;
+  }
+  static void set2AsFirstPrime() {
+    primes[0] = 2;
+    multiplesOfPrimeFactors.add(2);
+  }
+  static void checkOddNumbersForSubsequentPrimes() {
+    int primeIndex = 1;
+    for (int candidate = 3; primeIndex < primes.length; candidate += 2) {
+      if (isPrime(candidate))
+        primes[primeIndex++] = candidate;
     }
-    static void set2AsFirstPrime() {
-        primes[0] = 2;
-        multiplesOfPrimeFactors.add(2);
+  }
+  static boolean isPrime(int candidate) {
+    if (isLeastRelevantMultipleOfNextLargerPrimeFactor(candidate)) {
+      multiplesOfPrimeFactors.add(candidate);
+      return false;
     }
-    static void checkOddNumbersForSubsequentPrimes() {
-        int primeIndex = 1;
-        for (int candidate = 3; primeIndex < primes.length; candidate += 2) {
-            if (isPrime(candidate))
-                primes[primeIndex++] = candidate;
-        }
+    return isNotMultipleOfAnyPreviousPrimeFactor(candidate);
+  }
+  static boolean isLeastRelevantMultipleOfNextLargerPrimeFactor(int candidate) {
+    int nextLargerPrimeFactor = primes[multiplesOfPrimeFactors.size()];
+    int leastRelevantMultiple = nextLargerPrimeFactor * nextLargerPrimeFactor;
+    return candidate == leastRelevantMultiple;
+  }
+  static boolean isNotMultipleOfAnyPreviousPrimeFactor(int candidate) {
+    for (int n = 1; n < multiplesOfPrimeFactors.size(); n++) {
+      if (isMultipleOfNthPrimeFactor(candidate, n))
+        return false;
     }
-    static boolean isPrime(int candidate) {
-        if (isLeastRelevantMultipleOfNextLargerPrimeFactor(candidate)) {
-            multiplesOfPrimeFactors.add(candidate);
-            return false;
-        }
-        return isNotMultipleOfAnyPreviousPrimeFactor(candidate);
-    }
-    static boolean isLeastRelevantMultipleOfNextLargerPrimeFactor(int candidate) {
-        int nextLargerPrimeFactor = primes[multiplesOfPrimeFactors.size()];
-        int leastRelevantMultiple = nextLargerPrimeFactor * nextLargerPrimeFactor;
-        return candidate == leastRelevantMultiple;
-    }
-    static boolean isNotMultipleOfAnyPreviousPrimeFactor(int candidate) {
-        for (int n = 1; n < multiplesOfPrimeFactors.size(); n++) {
-            if (isMultipleOfNthPrimeFactor(candidate, n))
-                return false;
-        }
-        return true;
-    }
-    static boolean isMultipleOfNthPrimeFactor(int candidate, int n) {
-        return candidate == smallestOddNthMultipleNotLessThanCandidate(candidate, n);
-    }
-    static int smallestOddNthMultipleNotLessThanCandidate(int candidate, int n) {
-        int multiple = multiplesOfPrimeFactors.get(n);
-        while (multiple < candidate)
-            multiple += 2 * primes[n];
-        multiplesOfPrimeFactors.set(n, multiple);
-        return multiple;
-    }
+    return true;
+  }
+  static boolean isMultipleOfNthPrimeFactor(int candidate, int n) {
+    return candidate == smallestOddNthMultipleNotLessThanCandidate(candidate, n);
+  }
+  static int smallestOddNthMultipleNotLessThanCandidate(int candidate, int n) {
+    int multiple = multiplesOfPrimeFactors.get(n);
+    while (multiple < candidate)
+      multiple += 2 * primes[n];
+    multiplesOfPrimeFactors.set(n, multiple);
+    return multiple;
+  }
 }
 ```
 
@@ -228,28 +228,28 @@ If we take the idea of "writing short functions that do one thing" quite literal
 
 ```java
 public class PrimeGenerator {
-    private static int[] primes;
-    private static ArrayList<Integer> multiplesOfPrimeFactors;
+  private static int[] primes;
+  private static ArrayList<Integer> multiplesOfPrimeFactors;
 
-    static int[] generate(int n) {
-        primes = new int[n];
-        multiplesOfPrimeFactors = new ArrayList<Integer>();
-        set2AsFirstPrime();
-        checkOddNumbersForSubsequentPrimes();
-        return primes;
+  static int[] generate(int n) {
+    primes = new int[n];
+    multiplesOfPrimeFactors = new ArrayList<Integer>();
+    set2AsFirstPrime();
+    checkOddNumbersForSubsequentPrimes();
+    return primes;
+  }
+  static void set2AsFirstPrime() {
+    primes[0] = 2;
+    multiplesOfPrimeFactors.add(2);
+  }
+  static void checkOddNumbersForSubsequentPrimes() {
+    int primeIndex = 1;
+    for (int candidate = 3; primeIndex < primes.length; candidate += 2) {
+      if (isPrime(candidate))
+        primes[primeIndex++] = candidate;
     }
-    static void set2AsFirstPrime() {
-        primes[0] = 2;
-        multiplesOfPrimeFactors.add(2);
-    }
-    static void checkOddNumbersForSubsequentPrimes() {
-        int primeIndex = 1;
-        for (int candidate = 3; primeIndex < primes.length; candidate += 2) {
-            if (isPrime(candidate))
-                primes[primeIndex++] = candidate;
-        }
-    }
-    // ...
+  }
+  // ...
  }
 ```
 
@@ -257,15 +257,15 @@ These first few methods contain simple logic, but it's not obvious _why_ they're
 
 ```java
 public class PrimeGenerator {
-    // ...
-    static boolean isPrime(int candidate) {
-        if (isLeastRelevantMultipleOfNextLargerPrimeFactor(candidate)) { // highlight-line
-            multiplesOfPrimeFactors.add(candidate); // highlight-line
-            return false; // highlight-line
-        }
-        return isNotMultipleOfAnyPreviousPrimeFactor(candidate);
+  // ...
+  static boolean isPrime(int candidate) {
+    if (isLeastRelevantMultipleOfNextLargerPrimeFactor(candidate)) { // highlight-line
+      multiplesOfPrimeFactors.add(candidate); // highlight-line
+      return false; // highlight-line
     }
-    // ...
+    return isNotMultipleOfAnyPreviousPrimeFactor(candidate);
+  }
+  // ...
 }
 ```
 
@@ -278,13 +278,13 @@ It seems like the author is hoping that the code will explain itself, but unfort
 
 ```java
 public class PrimeGenerator {
-    // ...
-    static boolean isLeastRelevantMultipleOfNextLargerPrimeFactor(int candidate) {
-        int nextLargerPrimeFactor = primes[multiplesOfPrimeFactors.size()];
-        int leastRelevantMultiple = nextLargerPrimeFactor * nextLargerPrimeFactor;
-        return candidate == leastRelevantMultiple;
-    }
-    // ...
+  // ...
+  static boolean isLeastRelevantMultipleOfNextLargerPrimeFactor(int candidate) {
+    int nextLargerPrimeFactor = primes[multiplesOfPrimeFactors.size()];
+    int leastRelevantMultiple = nextLargerPrimeFactor * nextLargerPrimeFactor;
+    return candidate == leastRelevantMultiple;
+  }
+  // ...
 }
 ```
 
@@ -294,15 +294,15 @@ The next method is straightforward and follows the [principle of least astonishm
 
 ```java
 public class PrimeGenerator {
-    // ...
-    static boolean isNotMultipleOfAnyPreviousPrimeFactor(int candidate) {
-        for (int n = 1; n < multiplesOfPrimeFactors.size(); n++) {
-            if (isMultipleOfNthPrimeFactor(candidate, n))
-                return false;
-        }
-        return true;
+  // ...
+  static boolean isNotMultipleOfAnyPreviousPrimeFactor(int candidate) {
+    for (int n = 1; n < multiplesOfPrimeFactors.size(); n++) {
+      if (isMultipleOfNthPrimeFactor(candidate, n))
+        return false;
     }
-    // ...
+    return true;
+  }
+  // ...
 }
 ```
 
@@ -310,18 +310,18 @@ Unfortunately, the last two methods seem like they could have been just one, and
 
 ```java
 public class PrimeGenerator {
-    // ...
-    static boolean isMultipleOfNthPrimeFactor(int candidate, int n) {
-        return candidate == smallestOddNthMultipleNotLessThanCandidate(candidate, n);
-    }
-    static int smallestOddNthMultipleNotLessThanCandidate(int candidate, int n) {
-        int multiple = multiplesOfPrimeFactors.get(n);
-        while (multiple < candidate)
-            multiple += 2 * primes[n];
-        multiplesOfPrimeFactors.set(n, multiple);
-        return multiple;
-    }
-    // ...
+  // ...
+  static boolean isMultipleOfNthPrimeFactor(int candidate, int n) {
+    return candidate == smallestOddNthMultipleNotLessThanCandidate(candidate, n);
+  }
+  static int smallestOddNthMultipleNotLessThanCandidate(int candidate, int n) {
+    int multiple = multiplesOfPrimeFactors.get(n);
+    while (multiple < candidate)
+      multiple += 2 * primes[n];
+    multiplesOfPrimeFactors.set(n, multiple);
+    return multiple;
+  }
+  // ...
 }
 ```
 
@@ -350,66 +350,66 @@ After studying the code, the underlying algorithm (the [sieve of Eratosthenes](h
 ```python
 # TODO: review whether the optimizations are truly worth the additional complexity
 class PrimeGenerator:
-    """
-    Generates a list of the first `n` primes using the "sieve of Eratosthenes"
-    algorithm (https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) with some
-    optimizations:
+  """
+  Generates a list of the first `n` primes using the "sieve of Eratosthenes"
+  algorithm (https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) with some
+  optimizations:
 
-    1. Instead of testing `candidate % prime == 0`, we use repeated sums:
-       `prime + ... + remainder == candidate` (where `remainder` is zero if
-       `candidate % prime == 0` is true).
-       Hence `prime_multiples[i] == k*prime[i]` always holds for some `k`
+  1. Instead of testing `candidate % prime == 0`, we use repeated sums:
+     `prime + ... + remainder == candidate` (where `remainder` is zero if
+     `candidate % prime == 0` is true).
+     Hence `prime_multiples[i] == k*prime[i]` always holds for some `k`
 
-    2. We start testing divisibility by `prime` at `prime^2` because
-       smaller multiples will have already been considered by tests with
-       smaller primes. Hence the phrase "relevant multiple" in the method
-       `add_next_relevant_prime_multiple_if_needed`
-    """
-    def generate(self, n):
-        self.primes = [2, 3]
-        self.prime_multiples = [2**2, 3**2]
+  2. We start testing divisibility by `prime` at `prime^2` because
+     smaller multiples will have already been considered by tests with
+     smaller primes. Hence the phrase "relevant multiple" in the method
+     `add_next_relevant_prime_multiple_if_needed`
+  """
+  def generate(self, n):
+    self.primes = [2, 3]
+    self.prime_multiples = [2**2, 3**2]
 
-        prime = 3
-        for _ in range(n):
-            prime = self._find_next_prime(prime)
-            self.primes.append(prime)
-        return self.primes
+    prime = 3
+    for _ in range(n):
+      prime = self._find_next_prime(prime)
+      self.primes.append(prime)
+    return self.primes
 
-    def _find_next_prime(self, previous_prime):
-        prime_candidate = previous_prime
-        while True:
-            prime_candidate += 2 # skip even numbers which cannot be primes
-            self._add_next_relevant_prime_multiple_if_needed(prime_candidate)
-            if not self._has_any_prime_divisor(prime_candidate):
-                return prime_candidate
+  def _find_next_prime(self, previous_prime):
+    prime_candidate = previous_prime
+    while True:
+      prime_candidate += 2 # skip even numbers which cannot be primes
+      self._add_next_relevant_prime_multiple_if_needed(prime_candidate)
+      if not self._has_any_prime_divisor(prime_candidate):
+        return prime_candidate
 
-    def _add_next_relevant_prime_multiple_if_needed(self, prime_candidate):
-        # If we're testing primality of N, we only need to test divisibility
-        # with primes up to sqrt(N)
-        m = len(self.prime_multiples)
-        prime = self.primes[m] if m < len(self.primes) else 0
-        if prime_candidate == prime**2:
-            self.prime_multiples.append(prime**2)
+  def _add_next_relevant_prime_multiple_if_needed(self, prime_candidate):
+    # If we're testing primality of N, we only need to test divisibility
+    # with primes up to sqrt(N)
+    m = len(self.prime_multiples)
+    prime = self.primes[m] if m < len(self.primes) else 0
+    if prime_candidate == prime**2:
+      self.prime_multiples.append(prime**2)
 
-    def _has_any_prime_divisor(self, odd_number):
-        return any(
-            self._is_divisible_by_nth_prime(odd_number, n)
-            # self.prime_multiples[0] (=2) is even, so we can skip its multiples
-            for n in range(1, len(self.prime_multiples))
-        )
+  def _has_any_prime_divisor(self, odd_number):
+    return any(
+      self._is_divisible_by_nth_prime(odd_number, n)
+      # self.prime_multiples[0] (=2) is even, so we can skip its multiples
+      for n in range(1, len(self.prime_multiples))
+    )
 
-    def _is_divisible_by_nth_prime(self, odd_number, n):
-        # This is the implementation of the first optimization described above.
-        # Notice that we don't ever need to reset `self.prime_multiples[n]`
-        # because during prime generation we test only increasingly larger numbers.
-        while self.prime_multiples[n] < odd_number:
-            # `self.prime_multiples[n] + self.prime[n]` is even so we can safely
-            # skip to the next multiple
-            self.prime_multiples[n] += self.primes[n] + self.primes[n]
-        return self.prime_multiples[n] == odd_number
+  def _is_divisible_by_nth_prime(self, odd_number, n):
+    # This is the implementation of the first optimization described above.
+    # Notice that we don't ever need to reset `self.prime_multiples[n]`
+    # because during prime generation we test only increasingly larger numbers.
+    while self.prime_multiples[n] < odd_number:
+      # `self.prime_multiples[n] + self.prime[n]` is even so we can safely
+      # skip to the next multiple
+      self.prime_multiples[n] += self.primes[n] + self.primes[n]
+    return self.prime_multiples[n] == odd_number
 
 def compute_primes(n):
-    return PrimeGenerator().generate(n)
+  return PrimeGenerator().generate(n)
 ```
 
 While I don't claim this version is "perfect"--the `_is_divisible_by_nth_prime` method still has a side-effect, and the explanation of the optimizations is not detailed enough--I do hope you can agree that this version is much easier to understand for a future reader.

@@ -8,30 +8,30 @@ Courses introducing the topic of "recursion" for the first time have fallen into
 
 ```python
 def factorial(n):
-    if n == 0:
-        return 1
-    return n * factorial(n-1)
+  if n == 0:
+    return 1
+  return n * factorial(n-1)
 
 def fibonacci(n):
-    if n == 0 or n == 1:
-        return n
-    return fibonacci(n-1) * fibonacci(n-2)
+  if n == 0 or n == 1:
+    return n
+  return fibonacci(n-1) * fibonacci(n-2)
 ```
 
 The reason why these are silly examples is that they are totally impractical to be used in the real world, as both of them are unnecessarily inefficient (exponentially inefficient in the case of `fibonacci`!), while their iterative versions are easier to grasp and much more efficient:
 
 ```python
 def factorial(n):
-    product = 1
-    for i in range(1, n+1):
-        product *= i
-    return product
+  product = 1
+  for i in range(1, n+1):
+    product *= i
+  return product
 
 def fibonacci(n):
-    a, b = 0, 1
-    for _ in range(n):
-        a, b = b, a + b
-    return a
+  a, b = 0, 1
+  for _ in range(n):
+    a, b = b, a + b
+  return a
 ```
 
 Though I know this is done for pedagogical reasons (i.e., to avoid cognitive overload), I believe that students often leave such courses feeling like recursion is just another one of those confusing and complicated techniques that they'll never use in the real world, which is a sad thing because recursion can be a very powerful programming technique when it's properly explained and contextualized.
@@ -76,27 +76,27 @@ And so, if we assume some representation for simple algebraic expressions, we ca
 
 ```python
 def differentiate(expression, variable):
-    e = expression # highlight-line
-    if e.is_number: # highlight-line
-        return Number(0) # highlight-line
+  e = expression # highlight-line
+  if e.is_number: # highlight-line
+    return Number(0) # highlight-line
 
-    if e.is_variable: # highlight-line
-        if e == variable: # highlight-line
-            return Number(1) # highlight-line
-        return Number(0) # highlight-line
+  if e.is_variable: # highlight-line
+    if e == variable: # highlight-line
+      return Number(1) # highlight-line
+    return Number(0) # highlight-line
 
-    if e.is_sum:
-        return (
-            differentiate(e.augend, variable)
-            + differentiate(e.addend, variable)
-        )
+  if e.is_sum:
+    return (
+      differentiate(e.augend, variable)
+      + differentiate(e.addend, variable)
+    )
 
-    if e.is_product:
-        return (
-            differentiate(e.multiplicand, var) * e.multiplier
-            + differentiate(e.multiplier, var) * e.multiplicand
-        )
-    raise ValueError(f"{e} is not a supported expression!")
+  if e.is_product:
+    return (
+      differentiate(e.multiplicand, var) * e.multiplier
+      + differentiate(e.multiplier, var) * e.multiplicand
+    )
+  raise ValueError(f"{e} is not a supported expression!")
 ```
 
 As long as the input expression `expression` is built out of simpler expressions (eventually reaching constants or single variables), the above function will behave correctly since the base cases are handled properly in the highlighted lines, and the recursive cases always solve a smaller instance of the original problem.
@@ -111,37 +111,37 @@ For the above code to work, it is necessary to define some classes that implemen
 
 ```python
 class Expression:
-    @property
-    def is_number(self):
-        return False
+  @property
+  def is_number(self):
+    return False
 
-    @property
-    def is_variable(self):
-        return False
-    ...
+  @property
+  def is_variable(self):
+    return False
+  ...
 
 class Number(Expression):
-    def __init__(self, value):
-        self.value = value
+  def __init__(self, value):
+    self.value = value
 
-    @property
-    def is_number(self):
-        return True
+  @property
+  def is_number(self):
+    return True
 
-    def __eq__(self, rhs):
-        rhs = implicit_cast(rhs)
-        if not rhs.is_number:
-            return False
-        return self.value == rhs.value
+  def __eq__(self, rhs):
+    rhs = implicit_cast(rhs)
+    if not rhs.is_number:
+      return False
+    return self.value == rhs.value
 
-    def __add__(self, rhs):
-        if self.value == 0:
-            return rhs
-        rhs = implicit_cast(rhs)
-        if rhs.is_number:
-            return Number(self.value + rhs.value)
-        return Sum(self, rhs)
-    ...
+  def __add__(self, rhs):
+    if self.value == 0:
+      return rhs
+    rhs = implicit_cast(rhs)
+    if rhs.is_number:
+      return Number(self.value + rhs.value)
+    return Sum(self, rhs)
+  ...
 ```
 
 If you're interested in seeing this in action and studying the whole code in detail, you can clone [this repository](https://github.com/zxul767/pyexpr/) and play with the implementation (e.g., check out and run the code in `tests`).
@@ -154,13 +154,13 @@ from src.expression import Variable
 
 @pytest.fixture
 def x():
-    return Variable("x")
+  return Variable("x")
 
 def test__can_differentiate_sums_and_products_recursively(x):
-    result = differentiate((2 * x * x) + x * (x + 1), x)
+  result = differentiate((2 * x * x) + x * (x + 1), x)
 
-    # TODO: implement simplification of expressions
-    assert result == (2 * x + 2 * x) + (1 + x + x)
+  # TODO: implement simplification of expressions
+  assert result == (2 * x + 2 * x) + (1 + x + x)
 ```
 
 ## Conclusion

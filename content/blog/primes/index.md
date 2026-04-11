@@ -31,25 +31,25 @@ Here is a very simple (i.e., unoptimized) implementation of this algorithm in Py
 
 ```python
 def generate_primes_upto(n):
-    is_prime = [True] * (n + 1)
-    for candidate in range(2, n + 1):
-        if is_prime[candidate]:
-            cross_out_multiples_of(candidate, is_prime)
-    return collect_primes(is_prime)
+  is_prime = [True] * (n + 1)
+  for candidate in range(2, n + 1):
+    if is_prime[candidate]:
+      cross_out_multiples_of(candidate, is_prime)
+  return collect_primes(is_prime)
 
 def cross_out_multiples_of(prime, is_prime):
-    n = len(is_prime)
-    multiple = prime + prime
-    while multiple < n:
-        is_prime[multiple] = False
-        multiple += prime
+  n = len(is_prime)
+  multiple = prime + prime
+  while multiple < n:
+    is_prime[multiple] = False
+    multiple += prime
 
 def collect_primes(is_prime):
-    primes = []
-    for number in range(2, len(is_prime)):
-        if is_prime[number]:
-            primes.append(number)
-    return primes
+  primes = []
+  for number in range(2, len(is_prime)):
+    if is_prime[number]:
+      primes.append(number)
+  return primes
 ```
 
 A run of this algorithm with $N=31$ shows us that everything seems to be working as expected:[^test-properly]
@@ -92,19 +92,19 @@ Applying these optimizations results in updates to the `generate_primes_upto` an
 
 ```python
 def generate_primes_upto(n):
-    is_prime = [True] * (n + 1)
-    limit = math.floor(math.sqrt(n)) # highlight-line
-    for candidate in range(3, limit + 1, 2): # highlight-line
-        if is_prime[candidate]:
-            cross_out_multiples_of(candidate, is_prime)
-    return collect_primes(is_prime)
+  is_prime = [True] * (n + 1)
+  limit = math.floor(math.sqrt(n)) # highlight-line
+  for candidate in range(3, limit + 1, 2): # highlight-line
+    if is_prime[candidate]:
+      cross_out_multiples_of(candidate, is_prime)
+  return collect_primes(is_prime)
 
 def collect_primes(is_prime):
-    primes = [2] # highlight-line
-    for number in range(3, len(is_prime), 2): # highlight-line
-        if is_prime[number]:
-            primes.append(number)
-    return primes
+  primes = [2] # highlight-line
+  for number in range(3, len(is_prime), 2): # highlight-line
+    if is_prime[number]:
+      primes.append(number)
+  return primes
 ```
 
 We can run a quick ["smoke" test](<https://en.wikipedia.org/wiki/Smoke_testing_(software)>) to ensure we didn't totally break the algorithm:
@@ -184,11 +184,11 @@ This changes the `cross_out_multiples_of` function as follows:
 
 ```python
 def cross_out_multiples_of(prime, is_prime):
-    n = len(is_prime)
-    multiple = prime**2 # highlight-line
-    while multiple < n:
-        is_prime[multiple] = False
-        multiple += 2*prime # highlight-line
+  n = len(is_prime)
+  multiple = prime**2 # highlight-line
+  while multiple < n:
+    is_prime[multiple] = False
+    multiple += 2*prime # highlight-line
 ```
 
 ## Primes Ad Infinitum
@@ -237,84 +237,84 @@ With a strong grasp of these ideas, we can finally present an implementation tha
 from itertools import count
 
 class PrimeGenerator:
-    def generate(self):
-        self.primes = [2, 3]
-        self.prime_divisors = PrimeDivisors(self.primes)
+  def generate(self):
+    self.primes = [2, 3]
+    self.prime_divisors = PrimeDivisors(self.primes)
 
-        yield from self.primes
-        while True:
-            self.primes.append(self._next_prime())
-            yield self.primes[-1]
+    yield from self.primes
+    while True:
+      self.primes.append(self._next_prime())
+      yield self.primes[-1]
 
-    def _next_prime(self):
-        # step=2 to avoid redundant tests of even numbers
-        for candidate in count(self.primes[-1] + 2, step=2):
-            self._add_new_prime_divisor_if_needed(candidate)
-            if not self.prime_divisors.has_divisor_for(candidate):
-                return candidate
+  def _next_prime(self):
+    # step=2 to avoid redundant tests of even numbers
+    for candidate in count(self.primes[-1] + 2, step=2):
+      self._add_new_prime_divisor_if_needed(candidate)
+      if not self.prime_divisors.has_divisor_for(candidate):
+        return candidate
 
-    def _add_new_prime_divisor_if_needed(self, candidate):
-        m = len(self.prime_divisors) - 1
-        prime = self.primes[m]
-        if candidate == prime**2:
-            self.prime_divisors.add(prime)
+  def _add_new_prime_divisor_if_needed(self, candidate):
+    m = len(self.prime_divisors) - 1
+    prime = self.primes[m]
+    if candidate == prime**2:
+      self.prime_divisors.add(prime)
 ```
 
 ```python
 class PrimeDivisors:
-    def __init__(self, first_primes):
-        # 2 => 4, 6, 8, 10, 12, 14, 16, ...
-        # 3 => 9, 15, 21, 27, 33, ...
-        # ...
-        self.multiples_of_nth_prime = [
-            PrimeMultiples(prime) for prime in first_primes
-        ]
+  def __init__(self, first_primes):
+    # 2 => 4, 6, 8, 10, 12, 14, 16, ...
+    # 3 => 9, 15, 21, 27, 33, ...
+    # ...
+    self.multiples_of_nth_prime = [
+      PrimeMultiples(prime) for prime in first_primes
+    ]
 
-    def add(self, prime):
-        self.multiples_of_nth_prime.append(PrimeMultiples(prime))
+  def add(self, prime):
+    self.multiples_of_nth_prime.append(PrimeMultiples(prime))
 
-    def has_divisor_for(self, prime_candidate):
-        return any(
-            self.is_divisible_by_nth_prime(prime_candidate, n)
-            for n in range(len(self.multiples_of_nth_prime))
-        )
+  def has_divisor_for(self, prime_candidate):
+    return any(
+      self.is_divisible_by_nth_prime(prime_candidate, n)
+      for n in range(len(self.multiples_of_nth_prime))
+    )
 
-    def is_divisible_by_nth_prime(self, candidate, n):
-        # candidate % n == 0 is equivalent to implicitly checking 
-        # that remainder == 0 in prime + ... + remainder == candidate
-        while self.multiples_of_nth_prime[n].head < candidate:
-            next(self.multiples_of_nth_prime[n])
-        return self.multiples_of_nth_prime[n].head == candidate
+  def is_divisible_by_nth_prime(self, candidate, n):
+    # candidate % n == 0 is equivalent to implicitly checking 
+    # that remainder == 0 in prime + ... + remainder == candidate
+    while self.multiples_of_nth_prime[n].head < candidate:
+      next(self.multiples_of_nth_prime[n])
+    return self.multiples_of_nth_prime[n].head == candidate
 
-    def __len__(self):
-        return len(self.multiples_of_nth_prime)
+  def __len__(self):
+    return len(self.multiples_of_nth_prime)
 ```
 
 ```python
 class PrimeMultiples:
-    def __init__(self, prime):
-        self.prime = prime
-        # NOTE(optimization): multiples below `prime^2` are covered 
-        # by smaller primes
-        self.head = self.prime**2
+  def __init__(self, prime):
+    self.prime = prime
+    # NOTE(optimization): multiples below `prime^2` are covered 
+    # by smaller primes
+    self.head = self.prime**2
 
-    def __iter__(self):
-        return PrimeMultiples(self.prime)
+  def __iter__(self):
+    return PrimeMultiples(self.prime)
 
-    def __next__(self):
-        result = self.head
-        self.head += 2*self.prime
-        return result
+  def __next__(self):
+    result = self.head
+    self.head += 2*self.prime
+    return result
 ```
 
 To test this implementation, we will need a couple of helper functions:
 
 ```python
 def take_upto(limit, iterable):
-    return list(takewhile(lambda x: x <= limit, iterable))
+  return list(takewhile(lambda x: x <= limit, iterable))
 
 def generate_primes_upto_incremental(limit):
-    return take_upto(limit, PrimeGenerator().generate())
+  return take_upto(limit, PrimeGenerator().generate())
 ```
 
 We can then verify that it produces the same result as the original sieve:

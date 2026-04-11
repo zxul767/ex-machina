@@ -8,8 +8,8 @@ Have you ever wished your language supported some feature to avoid writing so mu
 
 ```java
 Map<String, String> myMap = new HashMap<String, String>() {{
-    put("a", "b");
-    put("c", "d");
+  put("a", "b");
+  put("c", "d");
 }};
 ```
 
@@ -108,9 +108,9 @@ _To give you a taste for how this changes the way we write programs, consider th
 
 ```python
 def fibonacci(n):
-   if n == 0 or n == 1:
-      return n
-   return fibonacci(n-1) + fibonacci(n-2)
+  if n == 0 or n == 1:
+    return n
+  return fibonacci(n-1) + fibonacci(n-2)
 ```
 
 ```lisp
@@ -208,7 +208,7 @@ You could do it in Python quite simply as:
 ```python
 result = 0.0
 for k in range(1, N+1):
-   result += k**2
+  result += k**2
 ```
 
 Or you could do it in a one-liner using a list comprehension:

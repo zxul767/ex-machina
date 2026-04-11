@@ -28,7 +28,7 @@ We can translate this description into the following function definition and som
 
 ```python
 def can_segment(text: str, words: Set[str]) -> bool:
-    ...
+  ...
 
 assert can_segment("helloworld", {"hello", "world"}) == True
 assert can_segment("howareyou", {"are", "you", "how"}) == True
@@ -39,25 +39,27 @@ To solve this problem, think what happens if we take any word from the set and m
 
 ```python
 def can_segment(string, words):
-    def _find_word_prefixes(suffix):
-        for word in words:
-            if suffix.startswith(word):
-                yield word
-    def _can_segment(suffix):
-        if len(suffix) == 0:
-            return True
-        for match in _find_word_prefixes(suffix):
-            if _can_segment(suffix[len(match):]):
-                return True
-        return False
-    return _can_segment(string)
+  def _find_word_prefixes(suffix):
+    for word in words:
+      if suffix.startswith(word):
+        yield word
+
+  def _can_segment(suffix):
+    if len(suffix) == 0:
+      return True
+    for match in _find_word_prefixes(suffix):
+      if _can_segment(suffix[len(match):]):
+        return True
+    return False
+
+  return _can_segment(string)
 ```
 
 One problem with this solution is that it can end up calling `_can_segment` multiple times for the same argument. Let's see a concrete example to visualize how this could happen:
 
 ```python
 words = {
-    "the", "ban", "banana", "ana", "gave", "us", "is", "right"
+  "the", "ban", "banana", "ana", "gave", "us", "is", "right"
 }
 can_segment("thebananagaveusisfair", words)
 # one possible sequence of calls could be:
@@ -84,11 +86,11 @@ One way to fix this problem is to [memoize](https://en.wikipedia.org/wiki/Memoiz
 from functools import lru_cache
 
 def can_segment(string, words):
-    def _find_word_prefixes(text):
-        ...
-    @lru_cache(maxsize=len(string))
-    def _can_segment(suffix):
-        ...
+  def _find_word_prefixes(text):
+    ...
+  @lru_cache(maxsize=len(string))
+  def _can_segment(suffix):
+    ...
 ```
 
 Memoization works very well for [pure functions](https://en.wikipedia.org/wiki/Pure_function), but in our case the function is not completely pure because it depends on the dictionary of words. Despite that, we are able to make it work because --for the purposes of an individual call to the outer function `can_segment`-- `words` is immutable, so `_can_segment` can still be memoized properly.
@@ -107,36 +109,38 @@ First, we can avoid passing a string to the `_can_segment` function simply by pa
 
 ```python
 def can_segment(string, words):
-    def _find_word_prefixes(offset):
-        for word in words:
-            if string.startswith(word, offset):
-                yield word
-    @lru_cache(maxsize=len(string))
-    def _can_segment(offset):
-        if offset == len(string) - 1:
-            return True
-        for match in _find_word_prefixes(offset):
-            if _can_segment(offset + len(match)):
-                return True
-        return False
-    return _can_segment(0)
+  def _find_word_prefixes(offset):
+    for word in words:
+      if string.startswith(word, offset):
+        yield word
+
+  @lru_cache(maxsize=len(string))
+  def _can_segment(offset):
+    if offset == len(string) - 1:
+      return True
+    for match in _find_word_prefixes(offset):
+      if _can_segment(offset + len(match)):
+        return True
+    return False
+    
+  return _can_segment(0)
 ```
 
 Now that the function takes a single integer as input, it's easier to see a transformation to an iterative solution that indexes a table of intermediate results. This transformation will require an array of booleans that tells us, for each possible `offset`, whether there is a way to segment the corresponding suffix into words:
 
 ```python
 def can_segment_iterative(string, words):
-    n = len(string)
-    _can_segment = [False for _ in range(n + 1)]
-    _can_segment[n] = True
-    for offset in reversed(range(n)):
-        for word in words:
-            if not string.startswith(word, offset):
-                continue
-            _can_segment[offset] = _can_segment[offset + len(word)]
-            if _can_segment[offset]:
-                break
-    return _can_segment[0]
+  n = len(string)
+  _can_segment = [False for _ in range(n + 1)]
+  _can_segment[n] = True
+  for offset in reversed(range(n)):
+    for word in words:
+      if not string.startswith(word, offset):
+        continue
+      _can_segment[offset] = _can_segment[offset + len(word)]
+      if _can_segment[offset]:
+        break
+  return _can_segment[0]
 ```
 
 Notice how the fundamental computations are the same, but we had to restructure a few things to fit into the iterative style. One interesting thing to notice--which was harder to see in the recursive implementation--is that this procedure has time complexity $O(nw)$ where $n$ is the size of the string and $w$ is the number of words in the dictionary (assuming, of course, that most words are much smaller than the string we're trying to segment.)

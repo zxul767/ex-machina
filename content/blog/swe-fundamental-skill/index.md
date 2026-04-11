@@ -58,20 +58,20 @@ The [first link](https://tour.golang.org/concurrency/1) is a better example whic
 package main
 
 import (
-	"fmt"
-	"time"
+  "fmt"
+  "time"
 )
 
 func say(s string) {
-	for i := 0; i < 5; i++ {
-		time.Sleep(100 * time.Millisecond)
-		fmt.Println(s)
-	}
+  for i := 0; i < 5; i++ {
+    time.Sleep(100 * time.Millisecond)
+    fmt.Println(s)
+  }
 }
 
 func main() {
-	go say("world")
-	say("hello")
+  go say("world")
+  say("hello")
 }
 ```
 
@@ -87,23 +87,23 @@ In the `goroutines` sample code above, I might be curious to understand how mult
 package main
 
 import (
-	"fmt"
-	"time"
+  "fmt"
+  "time"
 )
 
 func fn(from string) {
-	for i := 0; i < 3; i++ {
-		fmt.Println(from, ":", i)
-	}
+  for i := 0; i < 3; i++ {
+    fmt.Println(from, ":", i)
+  }
 }
 
 func main() {
-	for i := 0; i < 5; i++ {
-		go fn(fmt.Sprintf("iteration: %d, goroutine 1", i))
-		go fn(fmt.Sprintf("iteration: %d, goroutine 2", i))
-		time.Sleep(time.Millisecond * 50)
-	}
-	fmt.Println("done")
+  for i := 0; i < 5; i++ {
+    go fn(fmt.Sprintf("iteration: %d, goroutine 1", i))
+    go fn(fmt.Sprintf("iteration: %d, goroutine 2", i))
+    time.Sleep(time.Millisecond * 50)
+  }
+  fmt.Println("done")
 }
 ```
 

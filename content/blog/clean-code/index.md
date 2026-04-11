@@ -30,19 +30,19 @@ The following function determines if its argument is a valid IP address. Do you 
 
 ```python
 def isIPV4(txt):
-    ints = txt.split('.')
-    cnt = 0
-    for i in range(0, len(ints)):
-        try:
-            v = int(ints[i])
-            if v < 0 or v > 255:
-                return False
-        except Exception:
-            return False
-        cnt += 1
-    if cnt == 4:
-        return True
-    return False
+  ints = txt.split('.')
+  cnt = 0
+  for i in range(0, len(ints)):
+    try:
+      v = int(ints[i])
+      if v < 0 or v > 255:
+        return False
+    except Exception:
+      return False
+    cnt += 1
+  if cnt == 4:
+    return True
+  return False
 ```
 
 ### Idiomatic Code
@@ -53,19 +53,19 @@ Another issue is the use of non-standard abbreviations (e.g., `cnt`, `txt`), whi
 
 ```python
 def is_ipv4(text):
-    parts = text.split('.')
-    count = 0
-    for part in parts:
-        try:
-            v = int(part)
-            if v < 0 or v > 255:
-                return False
-        except Exception:
-            return False
-        count += 1
-    if count == 4:
-        return True
-    return False
+  parts = text.split('.')
+  count = 0
+  for part in parts:
+    try:
+      v = int(part)
+      if v < 0 or v > 255:
+        return False
+    except Exception:
+      return False
+    count += 1
+  if count == 4:
+    return True
+  return False
 ```
 
 Perhaps not much of a difference, but bear with me: the secret behind improving code in a reliable way (as Martin Fowler has described in his book [Refactoring](https://martinfowler.com/books/refactoring.html)) lies in making many small, almost trivial transformations.
@@ -78,20 +78,20 @@ In our example, we can see that happening inside the `for` loop: it's trying to 
 
 ```python
 def is_ipv4(text):
-    # split into octets and verify that there are exactly four
-    parts = text.split('.')
-    if len(parts) != 4:
-        return False
-
-    # verify that each octet is valid
-    for part in parts:
-        try:
-            v = int(part)
-            if v < 0 or v > 255:
-                return False
-        except Exception:
-            return False
+  # split into octets and verify that there are exactly four
+  parts = text.split('.')
+  if len(parts) != 4:
     return False
+
+  # verify that each octet is valid
+  for part in parts:
+    try:
+      v = int(part)
+      if v < 0 or v > 255:
+        return False
+    except Exception:
+      return False
+  return False
 ```
 
 We added some comments to organize our thoughts, but we should be able to get rid of them by writing code that is completely self-explanatory. In most cases, comments should be reserved to explain _why_ we implemented something in a certain way, not _what_ we did (redundant if we've picked good names) or _how_ we did it (redundant if our logic is simple and straightforward.)
@@ -112,29 +112,29 @@ If we try to restructure our code to follow this principle, we get the following
 
 ```python
 def is_ipv4(text):
-    parts = text.split('.')
-    if len(parts) != 4:
-        return False
-    return all(is_octet(part) for part in parts)
+  parts = text.split('.')
+  if len(parts) != 4:
+    return False
+  return all(is_octet(part) for part in parts)
 ```
 
 This code tells a shorter story and minimizes the details so we can focus on the big picture. This definitely is easier to grasp at a glance. We can even go one step further and simplify the code as follows:
 
 ```python
 def is_ipv4(text):
-    parts = text.split('.')
-    return len(parts) == 4 and all(is_octet(part) for part in parts)
+  parts = text.split('.')
+  return len(parts) == 4 and all(is_octet(part) for part in parts)
 ```
 
 This version reads almost like English prose and is quite easy to eyeball for logical errors. At this point, the implementation of `is_octet` should not really be that important (as long as it's correct), but let's add it for the sake of completeness:
 
 ```python
 def is_octet(part):
-    return part.isdigit() and 0 <= int(part) <= 255
+  return part.isdigit() and 0 <= int(part) <= 255
 
 def is_ipv4(text):
-    parts = text.split('.')
-    return len(parts) == 4 and all(is_octet(part) for part in parts)
+  parts = text.split('.')
+  return len(parts) == 4 and all(is_octet(part) for part in parts)
 ```
 
 Notice how we avoided using a `try/except` block and used a more idiomatic way to test if a value lies in a range, thus simplifying the definition of `is_octet` substantially.
@@ -143,11 +143,11 @@ Some programmers might complain that this practice can pollute the namespace wit
 
 ```python
 def is_ipv4(text):
-    def is_octet(part):
-        return part.isdigit() and 0 <= int(part) <= 255
+  def is_octet(part):
+    return part.isdigit() and 0 <= int(part) <= 255
 
-    parts = text.split('.')
-    return len(parts) == 4 and all(is_octet(part) for part in parts)
+  parts = text.split('.')
+  return len(parts) == 4 and all(is_octet(part) for part in parts)
 ```
 
 ## Conclusion
