@@ -42,13 +42,9 @@ module.exports = {
             },
           },
           {
-            resolve: `gatsby-remark-vscode`,
+            resolve: `${__dirname}/plugins/remark-shiki`,
             options: {
-              theme: "azure-light",
-              extensions: ["common-lisp", "rainglow"],
-              inlineCode: {
-                marker: "•",
-              },
+              theme: "rose-pine-dawn",
             },
           },
           `gatsby-remark-copy-linked-files`,

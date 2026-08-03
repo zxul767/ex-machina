@@ -8,7 +8,7 @@ moragaTheme.googleFonts = [
     styles: ["200", "400"],
   },
   {
-    name: "JetBrains Mono",
+    name: "Inconsolata",
     styles: ["400"],
   },
 ]

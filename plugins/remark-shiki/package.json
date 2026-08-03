@@ -1,0 +1,5 @@
+{
+  "name": "remark-shiki-local",
+  "private": true,
+  "main": "index.js"
+}
