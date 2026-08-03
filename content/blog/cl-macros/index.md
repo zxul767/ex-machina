@@ -240,12 +240,12 @@ It is slightly more verbose, but arguably more readable. To convince you that th
                                 :data nil)
       (tagbody
        sb-loop::next-loop
-         (when (> k '10) (go sb-loop::end-loop))
-         (setq #:loop-sum-641 (+ #:loop-sum-641 (expt k 2)))
-         (sb-loop::loop-desetq k (1+ k))
-         (go sb-loop::next-loop)
+        (when (> k '10) (go sb-loop::end-loop))
+        (setq #:loop-sum-641 (+ #:loop-sum-641 (expt k 2)))
+        (sb-loop::loop-desetq k (1+ k))
+        (go sb-loop::next-loop)
        sb-loop::end-loop
-         (return-from nil #:loop-sum-641)))))
+        (return-from nil #:loop-sum-641)))))
 ```
 
 `loop` is designed to generate fast code at the expense of human readability, hence the somewhat messy code above. This is usually not a problem since `loop` has been extensively tested and debugged, and its expansion is never directly seen in source code (remember that the compiler transparently performs macro expansion for you). The only time you may need to look at a macro's expansion after it's first written, is when you need to debug it.
@@ -265,12 +265,14 @@ Notice how it seamlessly combines regular Common Lisp with `loop`'s specific syn
 ```lisp
 ;; https://en.wikipedia.org/wiki/Collatz_conjecture
 (defun collatz (n)
-  (loop for i = 0 then (1+ i)
-        while (not (= 1 n))
-        do (if (evenp n)
-               (setf n (/ n 2))
-               (setf n (1+ (* 3 n))))
-        finally (return i)))
+  (loop
+    for i = 0 then (1+ i)
+    while (not (= 1 n))
+    do
+       (if (evenp n)
+           (setf n (/ n 2))
+           (setf n (1+ (* 3 n))))
+    finally (return i)))
 ```
 
 ```lisp
