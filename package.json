@@ -8,7 +8,6 @@
     "url": "https://github.com/zxul767/ex-machina/issues"
   },
   "dependencies": {
-    "common-lisp": "github:qingpeng9802/vscode-common-lisp",
     "gatsby": "^5.16.1",
     "gatsby-plugin-manifest": "^5.16.0",
     "gatsby-plugin-page-progress": "^2.2.1",
@@ -20,17 +19,16 @@
     "gatsby-remark-katex": "^7.16.0",
     "gatsby-remark-numbered-footnotes": "^1.0.1",
     "gatsby-remark-smartypants": "^6.16.0",
-    "gatsby-remark-vscode": "^3.3.1",
     "gatsby-source-filesystem": "^5.16.0",
     "gatsby-transformer-remark": "^6.16.0",
     "gatsby-transformer-sharp": "^5.16.0",
     "katex": "^0.13.10",
     "prop-types": "^15.7.2",
-    "rainglow": "github:webrgp/vscode#patch-1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-social-icons": "^5.6.1",
     "react-typography": "^0.16.23",
+    "shiki": "^4.4.1",
     "typography": "^0.16.24",
     "typography-theme-moraga": "^0.16.19"
   },
@@ -57,7 +55,7 @@
     "prod:lan": "gatsby serve -H 0.0.0.0"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "engineStrict": true
 }

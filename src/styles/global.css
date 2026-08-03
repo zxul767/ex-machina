@@ -19,12 +19,15 @@
   --figcaption-font-size: 0.9rem;
   --footer-font-size: 0.9rem;
 
-  --code-font-size: 0.85rem;
-  --code-font-family: "JetBrains Mono", Consolas, Liberation Mono, monospace;
+  --code-font-size: 0.9rem;
+  --code-font-family: "Inconsolata", Consolas, Liberation Mono, monospace;
+  --code-block-background: #faf4ed;
+  --code-block-foreground: #575279;
+  --code-highlighted-background: rgba(255, 128, 0, 0.1);
 }
 
 /* --------------------------------------------------------------------------*/
-/* VSCode Block Highlighting Customizations                                  */
+/* Shiki code block customizations                                            */
 /* --------------------------------------------------------------------------*/
 code,
 kbd,
@@ -33,18 +36,29 @@ samp {
   font-family: var(--code-font-family);
   font-size: var(--code-font-size);
 }
-pre.grvsc-container {
+code {
+  color: var(--code-block-foreground);
+  background-color: var(--code-block-background);
+  font-size: var(--code-font-size);
+  border-radius: 0.2rem;
+  padding: 0.1em 0.3em;
+}
+pre.shiki {
   border: 1px dashed;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
 }
-code.grvsc-code {
-  /* the default line spacing is too tall */
+pre.shiki code {
+  background-color: transparent;
+  border-radius: 0;
   line-height: 1.15rem;
-  /* ensure that highlighted lines cover the whole code block horizontally */
   width: 100%;
+  display: block;
+  overflow-x: auto;
+  padding: var(--spacing-small);
 }
-span.grvsc-source {
-  /* the default padding steals too much valuable display space for code */
-  padding-left: var(--spacing-compact);
+pre.shiki .line.highlighted {
+  display: inline-block;
+  width: 100%;
+  background-color: var(--code-highlighted-background);
 }
